@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — Beyond Circumstances</title>
+<meta name="description" content="Apply to the Beyond Circumstances founding cohort — a free venture program for teen founders in Delhi & Gurgaon.">
+<link rel="icon" type="image/png" href="FinalLogoBCSmall.png">
+<meta property="og:image" content="FinalLogoBCBig.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-950:#131E17;
+    --bg-900:#183528;
+    --bg-850:#1B3E2E;
+    --bg-800:#1F4233;
+    --line-hair: rgba(201,162,39,0.16);
+    --line-hair-strong: rgba(201,162,39,0.32);
+    --gold-500:#C9A227;
+    --gold-400:#D9B646;
+    --gold-300:#E3C567;
+    --cream-100:#F4EFE1;
+    --cream-70: rgba(244,239,225,0.72);
+    --sage-300:#B7CDBD;
+    --sage-400:#9FB8A6;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Work Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-900);
+    color:var(--cream-100);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background-image:repeating-linear-gradient(
+      to bottom,
+      rgba(201,162,39,0.05) 0px,
+      rgba(201,162,39,0.05) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+    opacity:0.5;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,162,39,0.07), transparent 60%),
+               radial-gradient(ellipse 80% 50% at 100% 100%, rgba(19,30,23,0.6), transparent 60%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  main{position:relative; z-index:1; flex:1;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-300);
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:1.4em; height:1px;
+    background:var(--gold-500);
+    display:inline-block;
+  }
+
+  h1,h2{font-family:var(--font-display); font-weight:600; line-height:1.08; letter-spacing:-0.01em; color:var(--cream-100);}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.55rem;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:0.95rem;
+    padding:0.85rem 1.6rem;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold-300); outline-offset:3px;}
+  .btn-gold{background:var(--gold-500); color:var(--bg-950);}
+  .btn-gold:hover{background:var(--gold-300); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
+  .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(19,30,23,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-hair);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto;
+    padding:1rem clamp(1.25rem,4vw,3rem);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:0.7rem;}
+  .brand-mark{
+    width:46px; height:46px;
+    object-fit:contain;
+    flex-shrink:0;
+    display:block;
+  }
+  .brand-name{font-family:var(--font-display); font-size:1.02rem; letter-spacing:0.02em; font-weight:500;}
+  .nav-links{display:flex; gap:2rem; align-items:center;}
+  .nav-links a{font-size:0.88rem; color:var(--sage-300); transition:color 0.15s ease;}
+  .nav-links a:hover{color:var(--gold-300);}
+  @media (max-width:600px){ .nav-links a.hide-mobile{display:none;} }
+
+  /* ---------- Apply hero ---------- */
+  .apply-hero{padding:clamp(3.5rem,8vw,5.5rem) 0 clamp(2rem,5vw,3rem);}
+  .apply-hero .eyebrow{margin-bottom:1.2rem;}
+  .apply-hero h1{font-size:clamp(2.2rem, 5vw, 3.4rem); margin-bottom:1.1rem; max-width:700px;}
+  .apply-hero p{color:var(--cream-70); font-weight:300; font-size:1.05rem; max-width:560px;}
+
+  /* ---------- Form section ---------- */
+  .apply-section{padding:0 0 clamp(4rem,8vw,6rem);}
+  .apply-form{
+    background:var(--bg-850);
+    border:1px solid var(--line-hair-strong);
+    padding:clamp(1.8rem,4vw,2.8rem);
+    max-width:640px;
+    position:relative;
+  }
+  .apply-form::before{
+    content:""; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, var(--gold-500), transparent);
+  }
+  .form-row{margin-bottom:1.4rem; display:flex; flex-direction:column; gap:0.5rem;}
+  .form-row label{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage-300);}
+  .form-row input{
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.95rem; padding:0.8rem 0.95rem; border-radius:2px;
+    transition:border-color 0.15s ease;
+  }
+  .form-row input:focus{outline:none; border-color:var(--gold-500);}
+  .form-two{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+  .form-note{font-size:0.8rem; color:var(--sage-400); margin-top:0.6rem; font-style:italic;}
+  .form-success{
+    display:none; align-items:center; gap:0.7rem; margin-top:1.2rem;
+    padding:0.9rem 1.1rem; border:1px solid var(--line-hair-strong); background:var(--bg-900);
+    font-size:0.88rem; color:var(--gold-300); font-family:var(--font-mono);
+  }
+  .form-success.is-visible{display:flex;}
+  @media (max-width:560px){.form-two{grid-template-columns:1fr;}}
+
+  /* ---------- Footer ---------- */
+  footer{padding:clamp(2rem,4vw,3rem) 0; border-top:1px solid var(--line-hair); position:relative; z-index:1;}
+  .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="beyond-circumstances.html" class="brand">
+      <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+      <div class="brand-name">Beyond Circumstances</div>
+    </a>
+    <div class="nav-links">
+      <a href="discover.html" class="hide-mobile">Discover</a>
+      <a href="about.html" class="hide-mobile">About us</a>
+      <a href="beyond-circumstances.html">← Back to site</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="apply-hero">
+    <div class="wrap">
+      <p class="eyebrow">Founding cohort application</p>
+      <h1>Tell us who you are and what you want to build.</h1>
+      <p>It takes two minutes. No essays, no fees — just the basics so we can get you into Module I.</p>
+    </div>
+  </section>
+
+  <section class="apply-section">
+    <div class="wrap">
+      <form class="apply-form" id="applyForm">
+        <div class="form-row">
+          <label for="fname">Full name</label>
+          <input id="fname" name="name" type="text" placeholder="Ananya Sharma" autocomplete="name" required>
+        </div>
+        <div class="form-two">
+          <div class="form-row">
+            <label for="fage">Age</label>
+            <input id="fage" name="age" type="number" min="13" max="18" placeholder="16" required>
+          </div>
+          <div class="form-row">
+            <label for="fschool">School</label>
+            <input id="fschool" name="school" type="text" placeholder="Your school's name" autocomplete="organization" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="faddress">Address</label>
+          <input id="faddress" name="address" type="text" placeholder="Street, area, city" autocomplete="street-address" required>
+        </div>
+        <div class="form-row">
+          <label for="femail">Email</label>
+          <input id="femail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; margin-top:0.4rem;">Submit application</button>
+        <p class="form-note">This is a sample form on a demo site — it isn't wired to send anywhere yet.</p>
+        <div class="form-success" id="formSuccess">✓ Thanks — your application was received.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Beyond Circumstances</span>
+    <span>Independent youth venture initiative · Delhi NCR</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('applyForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formSuccess').classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

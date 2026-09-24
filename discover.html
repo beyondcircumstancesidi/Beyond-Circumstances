@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  try{
+    if(!localStorage.getItem('bc_account_created')){
+      location.replace('signup.html?next=discover.html');
+    }
+  }catch(e){}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover & Prepare — Beyond Circumstances</title>
+<meta name="description" content="Move from a spark of curiosity to a small, testable idea — the guided starting point for the Beyond Circumstances venture program.">
+<link rel="icon" type="image/png" href="FinalLogoBCSmall.png">
+<meta property="og:image" content="FinalLogoBCBig.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-950:#131E17;
+    --bg-900:#183528;
+    --bg-850:#1B3E2E;
+    --bg-800:#1F4233;
+    --line-hair: rgba(201,162,39,0.16);
+    --line-hair-strong: rgba(201,162,39,0.32);
+    --gold-500:#C9A227;
+    --gold-400:#D9B646;
+    --gold-300:#E3C567;
+    --cream-100:#F4EFE1;
+    --cream-70: rgba(244,239,225,0.72);
+    --sage-300:#B7CDBD;
+    --sage-400:#9FB8A6;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Work Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-900);
+    color:var(--cream-100);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background-image:repeating-linear-gradient(
+      to bottom,
+      rgba(201,162,39,0.05) 0px,
+      rgba(201,162,39,0.05) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+    opacity:0.5;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,162,39,0.07), transparent 60%),
+               radial-gradient(ellipse 80% 50% at 100% 100%, rgba(19,30,23,0.6), transparent 60%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{position:relative; z-index:1;}
+  main{position:relative; z-index:1; flex:1;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-300);
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:1.4em; height:1px;
+    background:var(--gold-500);
+    display:inline-block;
+  }
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; line-height:1.08; letter-spacing:-0.01em; color:var(--cream-100);}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.55rem;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:0.95rem;
+    padding:0.85rem 1.6rem;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold-300); outline-offset:3px;}
+  .btn-gold{background:var(--gold-500); color:var(--bg-950);}
+  .btn-gold:hover{background:var(--gold-300); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
+  .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
+  .btn-small{padding:0.5rem 1rem; font-size:0.82rem;}
+  .btn[disabled]{opacity:0.4; cursor:not-allowed; transform:none !important;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(19,30,23,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-hair);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto;
+    padding:1rem clamp(1.25rem,4vw,3rem);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:0.7rem;}
+  .brand-mark{width:46px; height:46px; object-fit:contain; flex-shrink:0; display:block;}
+  .brand-name{font-family:var(--font-display); font-size:1.02rem; letter-spacing:0.02em; font-weight:500;}
+  .nav-links{display:flex; gap:2rem; align-items:center;}
+  .nav-links a{font-size:0.88rem; color:var(--sage-300); transition:color 0.15s ease;}
+  .nav-links a:hover{color:var(--gold-300);}
+  .nav-links a.is-current{color:var(--gold-300);}
+  .account-badge{font-family:var(--font-mono); font-size:0.76rem; color:var(--sage-400); display:flex; align-items:center; gap:0.5rem;}
+  .account-badge button{font-family:var(--font-mono); font-size:0.76rem; color:var(--sage-400); background:none; border:none; cursor:pointer; text-decoration:underline; padding:0;}
+  .account-badge button:hover{color:var(--gold-300);}
+  @media (max-width:780px){ .nav-links a.hide-mobile{display:none;} }
+
+  /* ---------- Card accent (shared motif) ---------- */
+  .card-accent{position:relative;}
+  .card-accent::before{
+    content:""; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, var(--gold-500), transparent);
+    z-index:1;
+  }
+
+  /* ---------- Discover hero ---------- */
+  .discover-hero{padding:clamp(3.5rem,8vw,6rem) 0 clamp(2.5rem,5vw,3.5rem);}
+  .discover-hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(2rem,5vw,3.5rem); align-items:center;}
+  .discover-hero h1{font-size:clamp(2.4rem, 5.5vw, 3.8rem); margin:1.2rem 0 1.2rem; max-width:640px;}
+  .discover-hero p.lede{color:var(--cream-70); font-weight:300; font-size:1.05rem; max-width:560px; margin-bottom:1.8rem;}
+  .phase-panel{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.6rem,3vw,2.1rem);}
+  .phase-panel-top{display:flex; align-items:center; gap:0.6rem; margin-bottom:1.1rem;}
+  .phase-panel-dot{width:7px; height:7px; border-radius:50%; background:var(--gold-500); display:inline-block;}
+  .phase-panel-top span{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300);}
+  .phase-panel h3{font-size:1.3rem; margin-bottom:0.8rem;}
+  .phase-panel p{color:var(--cream-70); font-size:0.92rem; font-weight:300; line-height:1.7;}
+  @media (max-width:860px){.discover-hero-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Section shell ---------- */
+  .section{padding:clamp(3rem,6vw,5rem) 0;}
+  .section-head{max-width:680px; margin-bottom:clamp(2rem,4vw,3rem);}
+  .section-head h2{font-size:clamp(1.7rem, 3vw, 2.4rem); margin-top:0.9rem;}
+  .section-head p{color:var(--cream-70); font-weight:300; font-size:1rem; margin-top:0.9rem; line-height:1.7;}
+  .divider{height:1px; background:var(--line-hair); border:none;}
+
+  /* ---------- Journey tracker ---------- */
+  .journey{display:flex; align-items:flex-start; justify-content:space-between; position:relative; margin-top:2rem;}
+  .journey::before{
+    content:""; position:absolute; top:13px; left:4%; right:4%; height:1px; background:var(--line-hair-strong); z-index:0;
+  }
+  .journey-step{display:flex; flex-direction:column; align-items:center; gap:0.7rem; text-align:center; flex:1; position:relative; z-index:1; padding:0 0.3rem;}
+  .journey-dot{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line-hair-strong); background:var(--bg-900); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.68rem; color:var(--sage-400); transition:all 0.25s ease;}
+  .journey-label{font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--sage-400); max-width:110px;}
+  .journey-step.is-complete .journey-dot{background:var(--gold-500); border-color:var(--gold-500); color:var(--bg-950);}
+  .journey-step.is-active .journey-dot{border-color:var(--gold-400); color:var(--gold-300); box-shadow:0 0 0 3px rgba(201,162,39,0.15);}
+  .journey-step.is-active .journey-label{color:var(--gold-300);}
+  @media (max-width:720px){ .journey-label{display:none;} }
+
+  /* ---------- Interest grid ---------- */
+  .interest-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:0.85rem; margin-top:2rem;}
+  .interest-card{
+    border:1px solid var(--line-hair-strong); background:var(--bg-850); padding:1rem 1.1rem;
+    font-family:var(--font-body); font-size:0.92rem; color:var(--cream-100); text-align:left;
+    cursor:pointer; transition:border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .interest-card:hover{border-color:var(--gold-400);}
+  .interest-card.is-selected{background:var(--gold-500); border-color:var(--gold-500); color:var(--bg-950); font-weight:600;}
+  .selection-box{
+    margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:0.6rem 0.8rem; align-items:baseline;
+    font-family:var(--font-mono); font-size:0.8rem; color:var(--sage-300); padding-top:1.2rem; border-top:1px solid var(--line-hair);
+  }
+  .selection-box strong{color:var(--gold-300); font-weight:500;}
+
+  /* ---------- Guided question card ---------- */
+  .question-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.6rem); margin-top:2rem;}
+  .context-panel{background:var(--bg-900); border:1px solid var(--line-hair); padding:1.1rem 1.3rem; margin-bottom:1.6rem;}
+  .context-tag{font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); margin-bottom:0.5rem;}
+  .context-panel p{color:var(--cream-70); font-size:0.92rem; line-height:1.7; font-weight:300;}
+  .context-panel strong{color:var(--cream-100); font-weight:600;}
+  .step-indicator{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--sage-400); margin-bottom:0.9rem;}
+  .question-card h3{font-size:1.5rem; margin-bottom:0.7rem;}
+  .question-helper{color:var(--cream-70); font-size:0.92rem; font-weight:300; margin-bottom:1.2rem; line-height:1.6;}
+  .question-card textarea{
+    width:100%; min-height:110px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.95rem; padding:0.9rem 1rem; border-radius:2px; line-height:1.6;
+  }
+  .question-card textarea:focus{outline:none; border-color:var(--gold-500);}
+  .form-hint.error{color:#E4A45C; font-size:0.82rem; margin-top:0.6rem; font-family:var(--font-mono);}
+  .step-actions{display:flex; justify-content:space-between; gap:1rem; margin-top:1.5rem;}
+
+  /* ---------- Summary card ---------- */
+  .summary-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.6rem); margin-top:2rem;}
+  .summary-header span{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:var(--gold-300);}
+  .summary-intro{color:var(--cream-70); font-size:0.92rem; font-weight:300; margin:0.8rem 0 1.6rem; line-height:1.7;}
+  .summary-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-hair); border:1px solid var(--line-hair);}
+  .summary-item{background:var(--bg-900); padding:1.2rem 1.4rem;}
+  .summary-item span{display:block; font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-400); margin-bottom:0.4rem;}
+  .summary-item strong{font-family:var(--font-display); font-size:1.05rem; font-weight:500; color:var(--cream-100);}
+  .summary-actions{display:flex; gap:1rem; margin-top:1.8rem; flex-wrap:wrap;}
+  @media (max-width:600px){.summary-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Idea builder ---------- */
+  .idea-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.6rem); margin-top:2rem;}
+  .idea-header{margin-bottom:1.6rem; padding-bottom:1.4rem; border-bottom:1px solid var(--line-hair);}
+  .idea-header span{display:block; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-400); margin-bottom:0.4rem;}
+  .idea-header strong{font-family:var(--font-display); font-size:1.7rem; font-weight:600; color:var(--gold-300);}
+  .idea-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-hair); border:1px solid var(--line-hair);}
+  .idea-block{background:var(--bg-900); padding:1.3rem 1.5rem;}
+  .idea-block.wide{grid-column:1 / -1;}
+  .idea-block span{display:block; font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-400); margin-bottom:0.5rem;}
+  .idea-block strong{font-weight:400; color:var(--cream-100); line-height:1.6; font-size:0.96rem;}
+  .idea-block ul{margin:0; padding-left:1.1rem; color:var(--cream-100); font-size:0.94rem; line-height:1.8;}
+  @media (max-width:640px){.idea-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Toolkit ---------- */
+  .toolkit-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:1px; background:var(--line-hair); border:1px solid var(--line-hair); margin-top:2rem;}
+  .toolkit-card{background:var(--bg-900); padding:clamp(1.5rem,3vw,1.9rem); display:flex; flex-direction:column;}
+  .toolkit-icon{
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.06em; color:var(--gold-300);
+    border:1px solid var(--gold-700, var(--gold-500)); width:fit-content; padding:0.3rem 0.55rem; margin-bottom:1rem;
+  }
+  .toolkit-card h3{font-size:1.1rem; margin-bottom:0.6rem; font-weight:600;}
+  .toolkit-card p{color:var(--cream-70); font-size:0.9rem; font-weight:300; line-height:1.65; margin-bottom:1.1rem; flex:1;}
+  .toolkit-details{margin-top:1rem; padding-top:1rem; border-top:1px solid var(--line-hair);}
+  .toolkit-details-summary{color:var(--cream-70); font-size:0.86rem; font-style:italic; margin-bottom:0.8rem; line-height:1.6;}
+  .toolkit-details-list{margin:0 0 0.8rem; padding-left:1.1rem; color:var(--sage-300); font-size:0.85rem; line-height:1.8;}
+
+  /* ---------- Final CTA ---------- */
+  .final-cta-band{background:var(--bg-950); border-top:1px solid var(--line-hair); border-bottom:1px solid var(--line-hair); padding:clamp(2.4rem,5vw,3.4rem) 0;}
+  .final-cta-row{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.4rem;}
+  .final-cta-row h2{font-size:clamp(1.3rem, 2.4vw, 1.7rem); max-width:520px;}
+
+  /* ---------- Phase switcher ---------- */
+  .phase-switch{display:flex; gap:0.7rem; flex-wrap:wrap; padding:2rem 0 0;}
+  .phase-switch button{font-size:0.85rem; padding:0.65rem 1.2rem;}
+
+  /* ---------- Build workspace ---------- */
+  .build-section{padding-top:1rem;}
+  .build-grid{display:grid; grid-template-columns:1fr; gap:1.2rem; margin-top:1.8rem; max-width:760px;}
+  .build-row label{display:block; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-300); margin-bottom:0.5rem;}
+  .build-row input, .build-row textarea{
+    width:100%; background:var(--bg-850); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
+  }
+  .build-row textarea{min-height:90px; resize:vertical;}
+  .build-row input:focus, .build-row textarea:focus{outline:none; border-color:var(--gold-500);}
+  .build-save-row{display:flex; align-items:center; gap:1rem; margin-top:0.4rem;}
+  .build-save-note{font-family:var(--font-mono); font-size:0.76rem; color:var(--gold-300); opacity:0; transition:opacity 0.3s ease;}
+  .build-save-note.is-visible{opacity:1;}
+
+  /* ---------- AI Mentor ---------- */
+  .mentor-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.6rem,3vw,2.2rem); margin-top:2.4rem; max-width:760px;}
+  .mentor-head{display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; margin-bottom:0.7rem;}
+  .mentor-tag{font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); border:1px solid var(--gold-700, var(--gold-500)); padding:0.28rem 0.55rem;}
+  .mentor-head h3{font-size:1.2rem; font-weight:600;}
+  .mentor-copy{color:var(--cream-70); font-size:0.9rem; font-weight:300; line-height:1.6; margin-bottom:1.1rem;}
+  #mentorQuestion{
+    width:100%; min-height:70px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
+    margin-bottom:1rem;
+  }
+  #mentorQuestion:focus{outline:none; border-color:var(--gold-500);}
+  .mentor-actions{display:flex; align-items:center; gap:1rem; flex-wrap:wrap;}
+  .mentor-status{font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
+  .mentor-response{
+    margin-top:1.4rem; padding-top:1.3rem; border-top:1px solid var(--line-hair);
+    color:var(--cream-100); font-size:0.96rem; line-height:1.75; white-space:pre-line;
+  }
+
+  /* ---------- Submission placeholder ---------- */
+  .submit-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(2.2rem,5vw,3.2rem); margin-top:1.8rem; max-width:640px; text-align:left;}
+  .submit-card h3{font-size:1.5rem; margin-bottom:0.9rem;}
+  .submit-card p{color:var(--cream-70); font-size:0.96rem; font-weight:300; line-height:1.75; margin-bottom:1rem;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:clamp(3rem,6vw,4rem) 0 2rem; border-top:1px solid var(--line-hair); position:relative; z-index:1;}
+  .foot-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:2.5rem; padding-bottom:2.4rem; margin-bottom:1.6rem; border-bottom:1px solid var(--line-hair);}
+  .foot-tagline{max-width:320px; color:var(--sage-300); font-size:0.9rem; margin-top:0.9rem; font-weight:300;}
+  .foot-col h5{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); margin-bottom:0.9rem;}
+  .foot-col p, .foot-col a{display:block; font-size:0.88rem; color:var(--sage-300); margin-bottom:0.5rem;}
+  .foot-col a:hover{color:var(--gold-300);}
+  .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="beyond-circumstances.html" class="brand">
+      <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+      <div class="brand-name">Beyond Circumstances</div>
+    </a>
+    <div class="nav-links">
+      <a href="discover.html" class="hide-mobile is-current">Discover</a>
+      <a href="about.html" class="hide-mobile">About us</a>
+      <a href="apply.html" class="hide-mobile">Apply now</a>
+      <span class="account-badge hide-mobile" id="accountBadge"></span>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="discover-hero">
+    <div class="wrap discover-hero-grid">
+      <div>
+        <p class="eyebrow">Discover &amp; Prepare</p>
+        <h1>Start with what you notice.</h1>
+        <p class="lede">Beyond Circumstances helps students move from a spark of curiosity to a small, testable idea. Notice what interests you, spot a problem nearby, and start shaping something you can try.</p>
+        <a href="#explore" class="btn btn-gold">Start Exploring</a>
+      </div>
+      <div class="phase-panel card-accent">
+        <div class="phase-panel-top"><span class="phase-panel-dot"></span><span>Phase 1</span></div>
+        <h3>Curiosity → interests → idea</h3>
+        <p>This phase is not a course. It is a guided starting point for noticing what you care about, understanding a problem, and beginning to shape a project that could become real.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The journey</p>
+        <h2>A clear path from curiosity to readiness.</h2>
+        <p>Students move through a few simple steps: notice what interests them, identify a problem they care about, think about the people affected, and shape a possible project.</p>
+      </div>
+      <div class="journey" id="journeyTracker"></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section" id="explore">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Explore your interests</p>
+        <h2>What sparks your attention?</h2>
+        <p>Choose an area you want to learn more about. This helps narrow the kind of problems or projects you might want to explore next.</p>
+      </div>
+      <div class="interest-grid" id="interestGrid"></div>
+      <div class="selection-box"><strong>Current focus:</strong><span id="currentFocus">Choose an interest to begin</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="questionSection" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Find what you care about</p>
+        <h2>Take it one step at a time.</h2>
+        <p>You do not need a perfect idea yet. Just follow what catches your attention.</p>
+      </div>
+      <div class="question-card card-accent">
+        <div class="context-panel">
+          <div class="context-tag">Your direction</div>
+          <p id="contextText"></p>
+        </div>
+        <div class="step-indicator" id="stepIndicator"></div>
+        <h3 id="questionText"></h3>
+        <p class="question-helper" id="questionHelper"></p>
+        <textarea id="answerInput" placeholder="Write a few thoughts here..."></textarea>
+        <p class="form-hint error" id="validationMessage" hidden></p>
+        <div class="step-actions">
+          <button type="button" class="btn btn-ghost" id="backBtn" hidden>Back</button>
+          <button type="button" class="btn btn-gold" id="continueBtn" style="margin-left:auto;">Continue →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="summarySection" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Your discovery</p>
+        <h2>This is what you've noticed.</h2>
+        <p>You're not looking for a perfect answer — just a clear starting point to shape next steps.</p>
+      </div>
+      <div class="summary-card card-accent">
+        <div class="summary-header"><span>YOU'VE GOT A STARTING POINT</span></div>
+        <div class="summary-intro">A quick snapshot of what you found based on your answers — edit anything if you want to change it.</div>
+        <div class="summary-grid">
+          <div class="summary-item"><span>You care about</span><strong id="sumInterest">—</strong></div>
+          <div class="summary-item"><span>You've noticed</span><strong id="sumProblem">—</strong></div>
+          <div class="summary-item"><span>You want to help</span><strong id="sumHelp">—</strong></div>
+          <div class="summary-item"><span>You could try</span><strong id="sumCreate">—</strong></div>
+        </div>
+        <div class="summary-actions">
+          <button type="button" class="btn btn-ghost" id="editAnswersBtn">Edit answers</button>
+          <button type="button" class="btn btn-gold" id="workOnIdeaBtn">Work on this idea →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ideaSection" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Project concept</p>
+        <h2>Your idea is starting to take shape.</h2>
+        <p>This is a natural continuation of what you discovered, based on your selected interest and the problems you care about.</p>
+      </div>
+      <div class="idea-card card-accent">
+        <div class="idea-header"><span>Project title</span><strong id="ideaTitle"></strong></div>
+        <div class="idea-grid">
+          <div class="idea-block"><span>Problem</span><strong id="ideaProblem"></strong></div>
+          <div class="idea-block"><span>Who it helps</span><strong id="ideaHelps"></strong></div>
+          <div class="idea-block wide"><span>Proposed solution</span><strong id="ideaSolution"></strong></div>
+          <div class="idea-block"><span>Interest behind it</span><strong id="ideaInterest"></strong></div>
+          <div class="idea-block"><span>What they care about</span><strong id="ideaMotivation"></strong></div>
+          <div class="idea-block wide"><span>Why this could work</span><strong id="ideaFeasible"></strong></div>
+          <div class="idea-block wide"><span>Concrete next steps</span><ul id="ideaNextSteps"></ul></div>
+        </div>
+      </div>
+      <div style="margin-top:1.6rem; display:flex; justify-content:flex-end;">
+        <button type="button" class="btn btn-gold" id="startBuildingBtn">Start Building →</button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Toolkit</p>
+        <h2>Useful tools, not a course.</h2>
+        <p>Use these as optional supports when you need help refining your idea, understanding a challenge, or planning next steps.</p>
+      </div>
+      <div class="toolkit-grid" id="toolkitGrid"></div>
+      <div class="selection-box"><strong>Current toolkit focus:</strong><span id="toolkitFocus"></span></div>
+    </div>
+  </section>
+
+  <section class="final-cta-band">
+    <div class="wrap final-cta-row">
+      <div>
+        <p class="eyebrow" style="margin-bottom:0.7rem;">Keep refining</p>
+        <h2>Take a little time to work through your idea.</h2>
+      </div>
+      <a href="#explore" class="btn btn-gold">Review notes</a>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="phase-switch" id="phaseSwitch">
+        <button type="button" class="btn btn-gold" data-phase="discover">Discover &amp; Prepare</button>
+        <button type="button" class="btn btn-ghost" data-phase="build">Build</button>
+        <button type="button" class="btn btn-ghost" data-phase="submit">Submission (coming soon)</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section build-section" id="buildPhase" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Phase 2</p>
+        <h2>Build</h2>
+        <p>Now that you've identified a problem and shaped an idea, start turning it into a project. Edit anything below — it's your workspace.</p>
+      </div>
+      <div class="build-grid">
+        <div class="build-row"><label for="bTitle">Project title</label><input id="bTitle" type="text"></div>
+        <div class="build-row"><label for="bProblem">Problem</label><textarea id="bProblem"></textarea></div>
+        <div class="build-row"><label for="bHelps">Who it helps</label><textarea id="bHelps"></textarea></div>
+        <div class="build-row"><label for="bSolution">Proposed solution</label><textarea id="bSolution"></textarea></div>
+        <div class="build-row"><label for="bFeasible">Why this could work</label><textarea id="bFeasible"></textarea></div>
+        <div class="build-row"><label for="bSteps">Next steps (one per line)</label><textarea id="bSteps"></textarea></div>
+        <div class="build-save-row">
+          <button type="button" class="btn btn-gold" id="saveBuildBtn">Save draft</button>
+          <span class="build-save-note" id="buildSaveNote">Saved</span>
+        </div>
+      </div>
+
+      <div class="mentor-card card-accent">
+        <div class="mentor-head">
+          <span class="mentor-tag">AI Mentor</span>
+          <h3>Ask your mentor about this idea.</h3>
+        </div>
+        <p class="mentor-copy">Uses your project details above. Ask something specific, or leave it blank for general feedback.</p>
+        <textarea id="mentorQuestion" placeholder="e.g. Is my solution realistic for a first pilot?"></textarea>
+        <div class="mentor-actions">
+          <button type="button" class="btn btn-gold" id="askMentorBtn">Get mentor feedback →</button>
+          <span class="mentor-status" id="mentorStatus"></span>
+        </div>
+        <div class="mentor-response" id="mentorResponse" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="submitPhase" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Phase 3</p>
+        <h2>Submission</h2>
+        <p>Coming soon — this is where your idea moves toward the founding cohort.</p>
+      </div>
+      <div class="submit-card card-accent">
+        <h3>Submissions aren't open yet.</h3>
+        <p>Once submissions open, this is where you'll enter <strong id="submitTitle">your idea</strong> for a shot at joining the founding cohort — with mentorship and support as it develops.</p>
+        <p>For now, keep refining it in the Build workspace so it's ready the moment applications open.</p>
+        <button type="button" class="btn btn-ghost" id="backToBuildBtn">← Back to Build</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="brand">
+          <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+          <div class="brand-name">Beyond Circumstances</div>
+        </div>
+        <p class="foot-tagline">A free venture program for teen founders in Delhi and Gurgaon — from first idea to first term sheet.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Founders</h5>
+        <p>Arjit Aggarwal</p>
+        <p>Arthur Klissou</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="mailto:beyondcircumstancesidi@gmail.com">beyondcircumstancesidi@gmail.com</a>
+        <a href="apply.html">Apply for Cohort 1</a>
+      </div>
+      <div class="foot-col">
+        <h5>Program</h5>
+        <a href="discover.html">Discover &amp; Prepare</a>
+        <a href="about.html">About us</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Beyond Circumstances</span>
+      <span>Independent youth venture initiative · Delhi NCR</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  // ---- account badge ----
+  (function(){
+    try{
+      var raw = localStorage.getItem('bc_account');
+      if(!raw) return;
+      var account = JSON.parse(raw);
+      var firstName = (account.name || '').split(' ')[0] || 'there';
+      var badge = document.getElementById('accountBadge');
+      if(!badge) return;
+      badge.textContent = 'Hi, ' + firstName + ' · ';
+      var signOut = document.createElement('button');
+      signOut.type = 'button';
+      signOut.textContent = 'Sign out';
+      signOut.addEventListener('click', function(){
+        localStorage.removeItem('bc_account_created');
+        localStorage.removeItem('bc_account');
+        location.href = 'signup.html?next=discover.html';
+      });
+      badge.appendChild(signOut);
+    }catch(e){}
+  })();
+
+  var interestCategories = ['Technology','Business','Sports','Education','Art & Design','Science','Environment','Community','Media','Other'];
+
+  var journeySteps = [
+    { label: 'Pick an interest' },
+    { label: 'Get curious' },
+    { label: 'Find your why' },
+    { label: 'Spot a problem' },
+    { label: 'Know who it helps' },
+    { label: 'Shape an idea' },
+  ];
+
+  var reflectionPrompts = [
+    { id:'learn', question:"What part of this keeps pulling at your curiosity?", helper:"Think about what you'd look into even if no one assigned it." },
+    { id:'change', question:"Why does this matter to you?", helper:"A short memory, example, or reason is enough." },
+    { id:'problem', question:"What's a problem you've noticed?", helper:"Think about something that keeps getting in someone's way." },
+    { id:'help', question:"Who do you want to help?", helper:"Be as specific as you can — students, neighbors, teammates." },
+    { id:'create', question:"What could you try to build?", helper:"Imagine one small thing: an event, a tool, a webpage, an activity." },
+  ];
+
+  var toolkitResources = [
+    { title:'Developing an Idea', icon:'IDEA', description:'Turn a rough notice into a concept you can describe in one sentence.',
+      details:{ summary:'Most ideas start vague. This narrows yours into something specific enough to test.',
+        points:['Name the exact problem in one sentence.','Name the exact person it happens to.','Write down the smallest version of a fix.'] } },
+    { title:'Talking to People', icon:'TALK', description:'Check your idea against reality before you build anything.',
+      details:{ summary:'A five-minute conversation can save weeks of building the wrong thing.',
+        points:['Ask about the problem, not your solution.','Listen for what they already try to do about it.','Write down their exact words, not your summary.'] } },
+    { title:'Planning a Pilot', icon:'PLAN', description:'Design the smallest version of your idea worth testing.',
+      details:{ summary:'A pilot is one event, one listing, or one small outreach — not the whole project.',
+        points:['Pick one audience of five to ten people.','Set a date within two weeks.','Decide what "it worked" would look like in advance.'] } },
+    { title:'Understanding Funding', icon:'FUND', description:'Learn how seed funding actually works before you need it.',
+      details:{ summary:'This connects to Capital Acquisition in the full curriculum — useful once your idea has traction.',
+        points:['Know the difference between a grant, a loan, and equity.','Understand what a term sheet actually promises.','Know what investors expect from a first pilot.'] } },
+  ];
+
+  var interestDirections = {
+    Technology: 'You want to explore how technology can solve problems.',
+    Business: 'You want to explore how ideas can become useful ventures.',
+    Sports: 'You want to explore how sports can create opportunities and impact.',
+    Education: 'You want to explore how learning can be made more accessible.',
+    'Art & Design': 'You want to explore how creativity can shape experiences and ideas.',
+    Science: 'You want to explore questions about how the world works.',
+    Environment: 'You want to explore ways to make our environment better.',
+    Community: 'You want to explore ways to strengthen the communities around you.',
+    Media: 'You want to explore how media can inform, connect, or influence people.',
+    Other: 'You want to explore where your curiosity takes you.',
+  };
+
+  var titleVerbMap = {
+    Technology:'Build', Business:'Start', Sports:'Connect', Education:'Teach',
+    'Art & Design':'Showcase', Science:'Explore', Environment:'Restore',
+    Community:'Unite', Media:'Share', Other:'Create',
+  };
+
+  var interestStarter = {
+    Technology:'a small digital tool or listing to connect people',
+    Business:'a meetup or simple marketplace to share opportunities',
+    Sports:'a signup and local event to connect players and coaches',
+    Education:'a short study group or resource packet for learners',
+    'Art & Design':'a mini show or online gallery to share work and feedback',
+    Science:'a simple demo or project showcase to engage others',
+    Environment:'a local action list or volunteer sign-up',
+    Community:'a neighborhood noticeboard or help exchange',
+    Media:'a short series or newsletter to highlight chances and stories',
+    Other:'a small pilot that tests the core idea quickly',
+  };
+
+  // ---- state ----
+  var state = {
+    selectedInterest: '',
+    selectedResource: 'Developing an Idea',
+    reflectionAnswers: { learn:'', change:'', problem:'', help:'', create:'' },
+    currentStep: 0,
+    showSummary: false,
+    showIdeaBuilder: false,
+    validationMessage: '',
+    phase: 'discover',
+    buildDraft: null,
+  };
+
+  function hasInterest(){ return Boolean(state.selectedInterest); }
+  function completedCount(){
+    return reflectionPrompts.filter(function(p){ return state.reflectionAnswers[p.id].trim(); }).length;
+  }
+  function allStepsComplete(){ return completedCount() === reflectionPrompts.length; }
+  function targetAudience(){ return state.reflectionAnswers.help.trim() || 'the people around you'; }
+  function currentProblemText(){ return state.reflectionAnswers.problem.trim() || 'a challenge you notice'; }
+  function interestLabel(){ return state.selectedInterest || 'your area of interest'; }
+
+  function personalizedHelper(stepId){
+    switch(stepId){
+      case 'learn': return "What's one specific part of " + interestLabel().toLowerCase() + " you keep wanting to learn more about?";
+      case 'change': return "Why does this interest matter to you? A short memory, example, or reason is enough.";
+      case 'problem': return "When " + targetAudience() + " tries to do something related to " + interestLabel().toLowerCase() + ", what usually gets in the way?";
+      case 'help': return "Who would benefit if this changed? Be as specific as you can (students, neighbors, teammates, etc.).";
+      case 'create': return "Imagine one small thing you could try to help: an event, a tool, a webpage, or a simple activity.";
+      default: return '';
+    }
+  }
+
+  function currentStepIndex(){
+    if(!hasInterest()) return 0;
+    if(!allStepsComplete()) return Math.min(state.currentStep + 1, journeySteps.length - 1);
+    return journeySteps.length - 1;
+  }
+
+  function computeIdeaDraft(){
+    var audience = state.reflectionAnswers.help.trim() || 'people in your community';
+    var problem = state.reflectionAnswers.problem.trim() || 'a challenge you notice';
+    var connection = state.reflectionAnswers.change.trim() || 'a reason this matters to you';
+    var suggested = state.reflectionAnswers.create.trim();
+    var shortAudience = audience.split(/[ ,.-]/)[0] || 'Community';
+    var verb = titleVerbMap[state.selectedInterest] || 'Create';
+    var projectTitle = verb + ' for ' + shortAudience;
+    var baseSuggestion = suggested || (interestStarter[state.selectedInterest] || interestStarter.Other);
+    var proposedSolution = baseSuggestion + '. It focuses on clear, testable actions: connect people, list opportunities, and run a small pilot to see if it helps.';
+    var whyFeasible = 'Start with one small step that uses local resources and feedback from ' + audience + '. A quick pilot (one event, listing, or outreach) will show whether the idea helps and what to improve.';
+    var nextSteps = [
+      'Talk with a few ' + audience + " to confirm the main challenge and what they'd find most useful.",
+      'Pick one small thing to try (a page, event, or simple tool) and sketch how it would work.',
+      'Run a short pilot, collect feedback, and update the plan based on what you learn.',
+    ];
+    return {
+      projectTitle: projectTitle,
+      problemDescription: problem,
+      beneficiaries: audience,
+      proposedSolution: proposedSolution,
+      coreMotivation: connection,
+      whyFeasible: whyFeasible,
+      nextSteps: nextSteps,
+      selectedInterest: state.selectedInterest,
+    };
+  }
+
+  // ---- render: journey ----
+  var journeyEl = document.getElementById('journeyTracker');
+  function renderJourney(){
+    var active = currentStepIndex();
+    journeyEl.innerHTML = '';
+    journeySteps.forEach(function(step, i){
+      var el = document.createElement('div');
+      el.className = 'journey-step' + (i < active ? ' is-complete' : '') + (i === active ? ' is-active' : '');
+      el.innerHTML = '<div class="journey-dot">' + (i+1) + '</div><div class="journey-label">' + step.label + '</div>';
+      journeyEl.appendChild(el);
+    });
+  }
+
+  // ---- render: interests ----
+  var interestGridEl = document.getElementById('interestGrid');
+  var currentFocusEl = document.getElementById('currentFocus');
+  interestCategories.forEach(function(cat){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'interest-card';
+    btn.textContent = cat;
+    btn.addEventListener('click', function(){
+      state.selectedInterest = cat;
+      state.showSummary = false;
+      state.showIdeaBuilder = false;
+      renderAll();
+      document.getElementById('questionSection').scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+    interestGridEl.appendChild(btn);
+  });
+  function renderInterests(){
+    Array.prototype.forEach.call(interestGridEl.children, function(btn){
+      btn.classList.toggle('is-selected', btn.textContent === state.selectedInterest);
+    });
+    currentFocusEl.textContent = state.selectedInterest || 'Choose an interest to begin';
+  }
+
+  // ---- render: question flow ----
+  var questionSection = document.getElementById('questionSection');
+  var contextText = document.getElementById('contextText');
+  var stepIndicator = document.getElementById('stepIndicator');
+  var questionText = document.getElementById('questionText');
+  var questionHelper = document.getElementById('questionHelper');
+  var answerInput = document.getElementById('answerInput');
+  var validationMessageEl = document.getElementById('validationMessage');
+  var backBtn = document.getElementById('backBtn');
+  var continueBtn = document.getElementById('continueBtn');
+
+  function renderQuestion(){
+    var show = hasInterest() && !state.showSummary;
+    questionSection.hidden = !show;
+    if(!show) return;
+
+    var q = reflectionPrompts[state.currentStep];
+    var direction = interestDirections[state.selectedInterest];
+    var html = 'You picked <strong>' + state.selectedInterest + '</strong>. ';
+    html += direction ? direction : ('You want to help <strong>' + targetAudience() + '</strong>.');
+    if(state.reflectionAnswers.problem.trim()){
+      html += ' You are noticing ' + currentProblemText() + '.';
+    }
+    contextText.innerHTML = html;
+
+    stepIndicator.textContent = 'Step ' + (state.currentStep + 1) + ' of ' + reflectionPrompts.length;
+    questionText.textContent = q.question;
+    questionHelper.textContent = personalizedHelper(q.id) || q.helper;
+    answerInput.value = state.reflectionAnswers[q.id];
+    validationMessageEl.hidden = !state.validationMessage;
+    validationMessageEl.textContent = state.validationMessage;
+    backBtn.hidden = state.currentStep === 0;
+    continueBtn.textContent = state.currentStep === reflectionPrompts.length - 1 ? 'Finish →' : 'Continue →';
+  }
+
+  answerInput.addEventListener('input', function(){
+    state.validationMessage = '';
+    validationMessageEl.hidden = true;
+    state.reflectionAnswers[reflectionPrompts[state.currentStep].id] = answerInput.value;
+  });
+
+  backBtn.addEventListener('click', function(){
+    state.validationMessage = '';
+    state.currentStep = Math.max(state.currentStep - 1, 0);
+    renderAll();
+  });
+
+  continueBtn.addEventListener('click', function(){
+    var q = reflectionPrompts[state.currentStep];
+    var answer = (state.reflectionAnswers[q.id] || '').trim();
+    if(!answer){
+      state.validationMessage = 'A quick note helps — start with a few words and build from there.';
+      renderAll();
+      return;
+    }
+    if(state.currentStep === reflectionPrompts.length - 1){
+      state.showSummary = true;
+      state.showIdeaBuilder = false;
+      renderAll();
+      document.getElementById('summarySection').scrollIntoView({ behavior:'smooth', block:'start' });
+      return;
+    }
+    state.currentStep += 1;
+    renderAll();
+  });
+
+  // ---- render: summary ----
+  var summarySection = document.getElementById('summarySection');
+  function renderSummary(){
+    var show = state.showSummary;
+    summarySection.hidden = !show;
+    if(!show) return;
+    document.getElementById('sumInterest').textContent = state.selectedInterest || '—';
+    document.getElementById('sumProblem').textContent = state.reflectionAnswers.problem || '—';
+    document.getElementById('sumHelp').textContent = state.reflectionAnswers.help || '—';
+    document.getElementById('sumCreate').textContent = state.reflectionAnswers.create || '—';
+  }
+
+  document.getElementById('editAnswersBtn').addEventListener('click', function(){
+    var firstIncomplete = -1;
+    for(var i=0;i<reflectionPrompts.length;i++){
+      if(!(state.reflectionAnswers[reflectionPrompts[i].id] || '').trim()){ firstIncomplete = i; break; }
+    }
+    state.showSummary = false;
+    state.showIdeaBuilder = false;
+    state.currentStep = firstIncomplete >= 0 ? firstIncomplete : 0;
+    renderAll();
+  });
+
+  document.getElementById('workOnIdeaBtn').addEventListener('click', function(){
+    state.showIdeaBuilder = true;
+    renderAll();
+    document.getElementById('ideaSection').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  // ---- render: idea builder ----
+  var ideaSection = document.getElementById('ideaSection');
+  function renderIdea(){
+    var show = state.showSummary && state.showIdeaBuilder;
+    ideaSection.hidden = !show;
+    if(!show) return;
+    var draft = computeIdeaDraft();
+    document.getElementById('ideaTitle').textContent = draft.projectTitle;
+    document.getElementById('ideaProblem').textContent = draft.problemDescription;
+    document.getElementById('ideaHelps').textContent = draft.beneficiaries;
+    document.getElementById('ideaSolution').textContent = draft.proposedSolution;
+    document.getElementById('ideaInterest').textContent = state.selectedInterest;
+    document.getElementById('ideaMotivation').textContent = draft.coreMotivation;
+    document.getElementById('ideaFeasible').textContent = draft.whyFeasible;
+    var ul = document.getElementById('ideaNextSteps');
+    ul.innerHTML = '';
+    draft.nextSteps.forEach(function(s){
+      var li = document.createElement('li');
+      li.textContent = s;
+      ul.appendChild(li);
+    });
+  }
+
+  document.getElementById('startBuildingBtn').addEventListener('click', function(){
+    setPhase('build');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---- toolkit ----
+  var toolkitGridEl = document.getElementById('toolkitGrid');
+  var toolkitFocusEl = document.getElementById('toolkitFocus');
+  toolkitResources.forEach(function(res){
+    var card = document.createElement('article');
+    card.className = 'toolkit-card';
+    card.innerHTML =
+      '<div class="toolkit-icon">' + res.icon + '</div>' +
+      '<h3>' + res.title + '</h3>' +
+      '<p>' + res.description + '</p>' +
+      '<button type="button" class="btn btn-ghost btn-small toolkit-explore">Explore</button>' +
+      '<div class="toolkit-details" hidden>' +
+        '<p class="toolkit-details-summary">' + res.details.summary + '</p>' +
+        '<ul class="toolkit-details-list">' + res.details.points.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+      '</div>';
+    var exploreBtn = card.querySelector('.toolkit-explore');
+    var details = card.querySelector('.toolkit-details');
+    exploreBtn.addEventListener('click', function(){
+      var isActive = state.selectedResource === res.title;
+      state.selectedResource = isActive ? '' : res.title;
+      renderToolkit();
+    });
+    card._details = details;
+    card._exploreBtn = exploreBtn;
+    card._title = res.title;
+    toolkitGridEl.appendChild(card);
+  });
+  function renderToolkit(){
+    Array.prototype.forEach.call(toolkitGridEl.children, function(card){
+      var active = state.selectedResource === card._title;
+      card._details.hidden = !active;
+      card._exploreBtn.textContent = active ? 'Collapse' : 'Explore';
+    });
+    toolkitFocusEl.textContent = state.selectedResource || '—';
+  }
+
+  // ---- phase switching ----
+  var phaseSwitchEl = document.getElementById('phaseSwitch');
+  var buildPhaseEl = document.getElementById('buildPhase');
+  var submitPhaseEl = document.getElementById('submitPhase');
+
+  function setPhase(p){
+    state.phase = p;
+    Array.prototype.forEach.call(phaseSwitchEl.children, function(btn){
+      var active = btn.getAttribute('data-phase') === p;
+      btn.classList.toggle('btn-gold', active);
+      btn.classList.toggle('btn-ghost', !active);
+    });
+    buildPhaseEl.hidden = p !== 'build';
+    submitPhaseEl.hidden = p !== 'submit';
+    if(p === 'build') fillBuildForm();
+    if(p === 'submit') document.getElementById('submitTitle').textContent =
+      (state.buildDraft && state.buildDraft.title) || computeIdeaDraft().projectTitle;
+  }
+
+  Array.prototype.forEach.call(phaseSwitchEl.children, function(btn){
+    btn.addEventListener('click', function(){ setPhase(btn.getAttribute('data-phase')); });
+  });
+
+  function fillBuildForm(){
+    var draft = state.buildDraft || (function(){
+      var d = computeIdeaDraft();
+      return {
+        title: d.projectTitle,
+        problem: d.problemDescription,
+        helps: d.beneficiaries,
+        solution: d.proposedSolution,
+        feasible: d.whyFeasible,
+        steps: d.nextSteps.join('\n'),
+      };
+    })();
+    document.getElementById('bTitle').value = draft.title;
+    document.getElementById('bProblem').value = draft.problem;
+    document.getElementById('bHelps').value = draft.helps;
+    document.getElementById('bSolution').value = draft.solution;
+    document.getElementById('bFeasible').value = draft.feasible;
+    document.getElementById('bSteps').value = draft.steps;
+  }
+
+  document.getElementById('saveBuildBtn').addEventListener('click', function(){
+    state.buildDraft = {
+      title: document.getElementById('bTitle').value,
+      problem: document.getElementById('bProblem').value,
+      helps: document.getElementById('bHelps').value,
+      solution: document.getElementById('bSolution').value,
+      feasible: document.getElementById('bFeasible').value,
+      steps: document.getElementById('bSteps').value,
+    };
+    var note = document.getElementById('buildSaveNote');
+    note.classList.add('is-visible');
+    setTimeout(function(){ note.classList.remove('is-visible'); }, 1800);
+  });
+
+  document.getElementById('askMentorBtn').addEventListener('click', function(){
+    var btn = this;
+    var status = document.getElementById('mentorStatus');
+    var responseEl = document.getElementById('mentorResponse');
+
+    var payload = {
+      title: document.getElementById('bTitle').value,
+      problem: document.getElementById('bProblem').value,
+      helps: document.getElementById('bHelps').value,
+      solution: document.getElementById('bSolution').value,
+      feasible: document.getElementById('bFeasible').value,
+      steps: document.getElementById('bSteps').value,
+      question: document.getElementById('mentorQuestion').value,
+    };
+
+    btn.disabled = true;
+    status.textContent = 'Thinking…';
+    responseEl.hidden = true;
+
+    fetch('/api/mentor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      return r.json().then(function(data){
+        if(!r.ok) throw new Error(data.error || 'The mentor is unavailable right now.');
+        return data;
+      });
+    }).then(function(data){
+      status.textContent = '';
+      responseEl.textContent = data.feedback;
+      responseEl.hidden = false;
+    }).catch(function(err){
+      status.textContent = err.message;
+    }).finally(function(){
+      btn.disabled = false;
+    });
+  });
+
+  document.getElementById('backToBuildBtn').addEventListener('click', function(){
+    setPhase('build');
+  });
+
+  // ---- render all ----
+  function renderAll(){
+    renderJourney();
+    renderInterests();
+    renderQuestion();
+    renderSummary();
+    renderIdea();
+  }
+
+  renderAll();
+  renderToolkit();
+  setPhase('discover');
+
+})();
+</script>
+
+</body>
+</html>

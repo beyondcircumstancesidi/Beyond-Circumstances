@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Circumstances — A Venture Program for Teen Founders</title>
+<meta name="description" content="A free online platform that helps teens in Delhi & Gurgaon build a real project or business — with mentorship, goal recognition, and a shot at a live investment pitch tournament.">
+<meta name="theme-color" content="#183528">
+<link rel="icon" type="image/png" href="FinalLogoBCSmall.png">
+<meta property="og:image" content="FinalLogoBCBig.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-950:#131E17;
+    --bg-900:#183528;
+    --bg-850:#1B3E2E;
+    --bg-800:#1F4233;
+    --bg-800-hi:#234E3C;
+    --line-hair: rgba(201,162,39,0.16);
+    --line-hair-strong: rgba(201,162,39,0.32);
+    --gold-700:#8C7317;
+    --gold-500:#C9A227;
+    --gold-400:#D9B646;
+    --gold-300:#E3C567;
+    --cream-100:#F4EFE1;
+    --cream-70: rgba(244,239,225,0.72);
+    --cream-45: rgba(244,239,225,0.45);
+    --sage-300:#B7CDBD;
+    --sage-400:#9FB8A6;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Work Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-900);
+    color:var(--cream-100);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background-image:repeating-linear-gradient(
+      to bottom,
+      rgba(201,162,39,0.05) 0px,
+      rgba(201,162,39,0.05) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+    opacity:0.5;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,162,39,0.07), transparent 60%),
+               radial-gradient(ellipse 80% 50% at 100% 100%, rgba(19,30,23,0.6), transparent 60%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{position:relative; z-index:1;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-300);
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:1.4em; height:1px;
+    background:var(--gold-500);
+    display:inline-block;
+  }
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; line-height:1.08; letter-spacing:-0.01em; color:var(--cream-100);}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.55rem;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:0.95rem;
+    padding:0.85rem 1.6rem;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold-300); outline-offset:3px;}
+  .btn-gold{background:var(--gold-500); color:var(--bg-950);}
+  .btn-gold:hover{background:var(--gold-300); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
+  .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
+
+  /* ---------- Ticker ---------- */
+  .ticker{
+    background:var(--bg-950);
+    border-bottom:1px solid var(--line-hair);
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+    z-index:2;
+  }
+  .ticker-track{
+    display:inline-flex;
+    animation:ticker-scroll 32s linear infinite;
+    padding:0.55rem 0;
+  }
+  .ticker-track span{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    color:var(--sage-300);
+    padding:0 1.6rem;
+    border-right:1px solid var(--line-hair);
+  }
+  .ticker-track span b{color:var(--gold-400); font-weight:500;}
+  @keyframes ticker-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(24,53,40,0.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s ease, background 0.3s ease;
+  }
+  header.scrolled{border-bottom-color:var(--line-hair); background:rgba(19,30,23,0.86);}
+  nav{
+    max-width:var(--maxw); margin:0 auto;
+    padding:1rem clamp(1.25rem,4vw,3rem);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:0.7rem;}
+  .brand-mark{
+    width:46px; height:46px;
+    object-fit:contain;
+    flex-shrink:0;
+    display:block;
+  }
+  .brand-name{font-family:var(--font-display); font-size:1.02rem; letter-spacing:0.02em; font-weight:500;}
+  .nav-links{display:flex; gap:2rem; align-items:center;}
+  .nav-links a{font-size:0.88rem; color:var(--sage-300); transition:color 0.15s ease;}
+  .nav-links a:hover{color:var(--gold-300);}
+  .nav-links a:focus-visible{outline:2px solid var(--gold-300); outline-offset:4px;}
+  @media (max-width:780px){ .nav-links a.hide-mobile{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:clamp(4rem,10vw,7.5rem) 0 clamp(3rem,7vw,5rem);}
+  .hero-inner{max-width:900px;}
+  .hero .eyebrow{margin-bottom:1.6rem;}
+  .hero-title{
+    margin:0 0 1.8rem;
+  }
+  .hero-logo-title{width:clamp(280px, 34vw, 520px); height:auto; display:block;}
+  .hero-sub{
+    font-size:clamp(1.05rem, 1.6vw, 1.28rem);
+    color:var(--cream-70);
+    max-width:620px;
+    margin-bottom:2.4rem;
+    font-weight:300;
+  }
+  .hero-ctas{display:flex; gap:1rem; flex-wrap:wrap;}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.is-visible{opacity:1; transform:none;}
+
+  /* ---------- Section shell ---------- */
+  .section{padding:clamp(4rem,8vw,6.5rem) 0;}
+  .section-head{max-width:680px; margin-bottom:clamp(2.5rem,5vw,3.5rem);}
+  .section-head h2{font-size:clamp(1.9rem, 3.4vw, 2.7rem); margin-top:0.9rem;}
+  .divider{height:1px; background:var(--line-hair); border:none;}
+
+  /* ---------- Discover feature (the centerpiece) ---------- */
+  .discover-feature{background:var(--bg-950); border-top:1px solid var(--line-hair); border-bottom:1px solid var(--line-hair);}
+  .discover-teaser-text{color:var(--cream-70); font-weight:300; font-size:1.08rem; line-height:1.85; max-width:720px; margin-bottom:2.6rem;}
+  .pillar-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-hair); border:1px solid var(--line-hair); margin-bottom:2.8rem;}
+  .pillar-card{background:var(--bg-900); padding:clamp(1.8rem,3vw,2.4rem);}
+  .pillar-card .pillar-num{font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.09em; color:var(--gold-500); margin-bottom:1.1rem; display:block;}
+  .pillar-card h3{font-family:var(--font-display); font-size:1.3rem; font-weight:500; margin-bottom:0.8rem; color:var(--cream-100);}
+  .pillar-card p{font-size:0.95rem; color:var(--cream-70); font-weight:300; line-height:1.75;}
+  @media (max-width:860px){.pillar-grid{grid-template-columns:1fr;}}
+  .discover-cta-row{display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap;}
+  .discover-cta-note{font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
+
+
+  /* ---------- Apply ---------- */
+  .apply-layout{display:grid; grid-template-columns:1fr auto; gap:clamp(2rem,5vw,3.5rem); align-items:center;}
+  .apply-copy p{color:var(--cream-70); font-weight:300; font-size:1.02rem; line-height:1.8; margin-bottom:1.4rem;}
+  .apply-date{font-family:var(--font-mono); font-size:0.78rem; color:var(--gold-300); letter-spacing:0.04em;}
+  @media (max-width:720px){.apply-layout{grid-template-columns:1fr;}}
+
+  /* ---------- Footer ---------- */
+  footer{padding:clamp(3rem,6vw,4rem) 0 2rem; border-top:1px solid var(--line-hair);}
+  .foot-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:2.5rem; padding-bottom:2.4rem; margin-bottom:1.6rem; border-bottom:1px solid var(--line-hair);}
+  .foot-tagline{max-width:320px; color:var(--sage-300); font-size:0.9rem; margin-top:0.9rem; font-weight:300;}
+  .foot-col h5{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); margin-bottom:0.9rem;}
+  .foot-col p, .foot-col a{display:block; font-size:0.88rem; color:var(--sage-300); margin-bottom:0.5rem;}
+  .foot-col a:hover{color:var(--gold-300);}
+  .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+    .reveal{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><b>BUILD</b> YOUR OWN PROJECT · ZERO COST</span>
+    <span>REAL MENTORSHIP</span>
+    <span>GOAL RECOGNITION</span>
+    <span>REAL VC JUDGES</span>
+    <span><b>1</b> TERM SHEET</span>
+    <span>DELHI &amp; GURGAON · AGES 13–18</span>
+    <span><b>BUILD</b> YOUR OWN PROJECT · ZERO COST</span>
+    <span>REAL MENTORSHIP</span>
+    <span>GOAL RECOGNITION</span>
+    <span>REAL VC JUDGES</span>
+    <span><b>1</b> TERM SHEET</span>
+    <span>DELHI &amp; GURGAON · AGES 13–18</span>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <nav>
+    <div class="brand">
+      <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+      <div class="brand-name">Beyond Circumstances</div>
+    </div>
+    <div class="nav-links">
+      <a href="about.html" class="hide-mobile">About us</a>
+      <a href="apply.html" class="hide-mobile">Apply now</a>
+      <a href="discover.html" class="btn btn-gold" style="padding:0.55rem 1.2rem; font-size:0.85rem;">Discover →</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow reveal">A venture program for Delhi &amp; Gurgaon · Ages 13–18</p>
+      <h1 class="hero-title reveal">
+        <img class="hero-logo-title" src="FinalLogoBCBig-transparent.png" alt="Beyond Circumstances">
+      </h1>
+      <p class="hero-sub reveal">
+        A free online platform that helps students turn a real interest into a project or
+        business worth building — with mentorship along the way, not a certificate at the end.
+      </p>
+      <div class="hero-ctas reveal">
+        <a href="discover.html" class="btn btn-gold">Start Discovering</a>
+        <a href="#discover" class="btn btn-ghost">See how it works ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section discover-feature" id="discover">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">This is the platform</p>
+        <h2>An online platform for turning a real interest into a real project.</h2>
+      </div>
+      <p class="discover-teaser-text reveal">
+        Beyond Circumstances isn't a video course. It's a guided, interactive path: pick an area you
+        care about, work through a few honest questions about it, and walk away with a small, testable
+        project or business idea — backed by mentorship and real recognition for the progress you make.
+      </p>
+      <div class="pillar-grid reveal">
+        <div class="pillar-card">
+          <span class="pillar-num">01</span>
+          <h3>Build your own project or business</h3>
+          <p>No fixed curriculum. You work through a guided path that turns whatever you're curious about into a small, testable idea you can actually act on.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">02</span>
+          <h3>Mentorship</h3>
+          <p>Direct guidance from the people running this program — real feedback on your idea as it takes shape, not a pre-recorded video library.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">03</span>
+          <h3>Goal recognition</h3>
+          <p>Every milestone counts — from your first reflection to a concept worth pitching. Progress gets acknowledged, not just graded.</p>
+        </div>
+      </div>
+      <div class="discover-cta-row reveal">
+        <a href="discover.html" class="btn btn-gold">Start Discovering →</a>
+        <span class="discover-cta-note">Free · takes about 15 minutes</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="apply">
+    <div class="wrap">
+      <div class="apply-layout">
+        <div class="apply-copy reveal">
+          <p class="eyebrow" style="margin-bottom:1.2rem;">Applications</p>
+          <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem); margin-bottom:1.4rem;">Ready to build something real?</h2>
+          <p>The founding cohort is open for applications. A guided platform and real mentorship, from your first idea onward.</p>
+          <p class="apply-date">Applications open now · Founding cohort launches October 2026</p>
+        </div>
+        <a href="apply.html" class="btn btn-gold reveal" style="font-size:1.02rem; padding:1rem 2.2rem;">Apply now →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="brand">
+          <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+          <div class="brand-name">Beyond Circumstances</div>
+        </div>
+        <p class="foot-tagline">A free venture program for teen founders in Delhi and Gurgaon — from first idea to first term sheet.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Founders</h5>
+        <p>Arjit Aggarwal</p>
+        <p>Arthur Klissou</p>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="mailto:beyondcircumstancesidi@gmail.com">beyondcircumstancesidi@gmail.com</a>
+        <a href="apply.html">Apply for Cohort 1</a>
+      </div>
+      <div class="foot-col">
+        <h5>Program</h5>
+        <a href="discover.html">Discover &amp; Prepare</a>
+        <a href="about.html">About us</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Beyond Circumstances</span>
+      <span>Independent youth venture initiative · Delhi NCR</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll shadow
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Generic reveal-on-scroll
+  var reveals = document.querySelectorAll('.reveal');
+  if(reduceMotion){
+    reveals.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    reveals.forEach(function(el){ revealObserver.observe(el); });
+  }
+
+</script>
+
+</body>
+</html>

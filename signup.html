@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Your Account — Beyond Circumstances</title>
+<meta name="description" content="Create a free Beyond Circumstances account to start Discover & Prepare — the guided path from curiosity to a real project idea.">
+<link rel="icon" type="image/png" href="FinalLogoBCSmall.png">
+<meta property="og:image" content="FinalLogoBCBig.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-950:#131E17;
+    --bg-900:#183528;
+    --bg-850:#1B3E2E;
+    --bg-800:#1F4233;
+    --line-hair: rgba(201,162,39,0.16);
+    --line-hair-strong: rgba(201,162,39,0.32);
+    --gold-500:#C9A227;
+    --gold-400:#D9B646;
+    --gold-300:#E3C567;
+    --cream-100:#F4EFE1;
+    --cream-70: rgba(244,239,225,0.72);
+    --sage-300:#B7CDBD;
+    --sage-400:#9FB8A6;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Work Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-900);
+    color:var(--cream-100);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background-image:repeating-linear-gradient(
+      to bottom,
+      rgba(201,162,39,0.05) 0px,
+      rgba(201,162,39,0.05) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+    opacity:0.5;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,162,39,0.07), transparent 60%),
+               radial-gradient(ellipse 80% 50% at 100% 100%, rgba(19,30,23,0.6), transparent 60%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  main{position:relative; z-index:1; flex:1;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+  .wrap-narrow{max-width:640px; margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-300);
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:1.4em; height:1px;
+    background:var(--gold-500);
+    display:inline-block;
+  }
+
+  h1,h2{font-family:var(--font-display); font-weight:600; line-height:1.08; letter-spacing:-0.01em; color:var(--cream-100);}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.55rem;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:0.95rem;
+    padding:0.85rem 1.6rem;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold-300); outline-offset:3px;}
+  .btn-gold{background:var(--gold-500); color:var(--bg-950);}
+  .btn-gold:hover{background:var(--gold-300); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
+  .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(19,30,23,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-hair);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto;
+    padding:1rem clamp(1.25rem,4vw,3rem);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:0.7rem;}
+  .brand-mark{width:46px; height:46px; object-fit:contain; flex-shrink:0; display:block;}
+  .brand-name{font-family:var(--font-display); font-size:1.02rem; letter-spacing:0.02em; font-weight:500;}
+  .nav-links{display:flex; gap:2rem; align-items:center;}
+  .nav-links a{font-size:0.88rem; color:var(--sage-300); transition:color 0.15s ease;}
+  .nav-links a:hover{color:var(--gold-300);}
+
+  /* ---------- Signup hero ---------- */
+  .signup-hero{padding:clamp(3rem,7vw,4.5rem) 0 clamp(1.5rem,4vw,2.2rem);}
+  .signup-hero h1{font-size:clamp(2rem, 4.5vw, 2.8rem); margin-bottom:1rem;}
+  .signup-hero p{color:var(--cream-70); font-weight:300; font-size:1rem; max-width:480px;}
+
+  /* ---------- Progress ---------- */
+  .progress-row{display:flex; align-items:center; gap:0.6rem; margin:1.6rem 0 0;}
+  .progress-step{display:flex; align-items:center; gap:0.5rem; font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--sage-400);}
+  .progress-dot{width:20px; height:20px; border-radius:50%; border:1.5px solid var(--line-hair-strong); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--sage-400); transition:all 0.2s ease;}
+  .progress-step.is-done .progress-dot{background:var(--gold-500); border-color:var(--gold-500); color:var(--bg-950);}
+  .progress-step.is-active .progress-dot{border-color:var(--gold-400); color:var(--gold-300);}
+  .progress-step.is-active{color:var(--gold-300);}
+  .progress-line{flex:1; height:1px; background:var(--line-hair-strong); max-width:60px;}
+
+  /* ---------- Form section ---------- */
+  .signup-section{padding:0 0 clamp(4rem,8vw,6rem);}
+  .signup-card{
+    background:var(--bg-850);
+    border:1px solid var(--line-hair-strong);
+    padding:clamp(1.8rem,4vw,2.6rem);
+    position:relative;
+  }
+  .signup-card::before{
+    content:""; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, var(--gold-500), transparent);
+  }
+  .form-row{margin-bottom:1.3rem; display:flex; flex-direction:column; gap:0.5rem;}
+  .form-row label{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage-300);}
+  .form-row label .optional{color:var(--sage-400); text-transform:none; letter-spacing:0; font-style:italic;}
+  .form-row input{
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.95rem; padding:0.8rem 0.95rem; border-radius:2px;
+    transition:border-color 0.15s ease;
+  }
+  .form-row input:focus{outline:none; border-color:var(--gold-500);}
+  .form-two{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+  .form-note{font-size:0.8rem; color:var(--sage-400); margin-top:0.6rem; font-style:italic;}
+  .form-hint.error{color:#E4A45C; font-size:0.82rem; margin-top:-0.6rem; margin-bottom:1rem; font-family:var(--font-mono);}
+  @media (max-width:560px){.form-two{grid-template-columns:1fr;}}
+
+  /* ---------- Success ---------- */
+  .success-check{width:48px; height:48px; border-radius:50%; background:var(--gold-500); color:var(--bg-950); display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:1.3rem;}
+  .admin-code{
+    font-family:var(--font-mono); font-size:1.05rem; letter-spacing:0.03em; color:var(--gold-300);
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); padding:0.9rem 1.1rem;
+    margin-bottom:1.6rem; word-break:break-all;
+  }
+  .signup-card h2{font-size:1.5rem; margin-bottom:0.8rem;}
+  .signup-card p.body-text{color:var(--cream-70); font-size:0.94rem; font-weight:300; line-height:1.7; margin-bottom:1.6rem;}
+
+  [hidden]{display:none !important;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:clamp(2rem,4vw,3rem) 0; border-top:1px solid var(--line-hair); position:relative; z-index:1;}
+  .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="beyond-circumstances.html" class="brand">
+      <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+      <div class="brand-name">Beyond Circumstances</div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About us</a>
+      <a href="beyond-circumstances.html">← Back to home</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="signup-hero">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Create your account</p>
+      <h1>One quick step before Discover &amp; Prepare.</h1>
+      <p>We just need a few details to set up your account and keep your progress saved as you work through Discover.</p>
+      <div class="progress-row" id="progressRow">
+        <div class="progress-step is-active" data-step="details"><span class="progress-dot">1</span><span>Details</span></div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="done"><span class="progress-dot">2</span><span>Done</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="signup-section">
+    <div class="wrap-narrow">
+
+      <!-- STEP 1: details -->
+      <form class="signup-card" id="detailsForm">
+        <div class="form-row">
+          <label for="fname">Full name</label>
+          <input id="fname" type="text" placeholder="Ananya Sharma" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label for="femail">Email</label>
+          <input id="femail" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-two">
+          <div class="form-row">
+            <label for="fdob">Date of birth</label>
+            <input id="fdob" type="date">
+          </div>
+          <div class="form-row">
+            <label for="fphone">Phone number <span class="optional">(optional)</span></label>
+            <input id="fphone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="fschool">School</label>
+          <input id="fschool" type="text" placeholder="Your school's name" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label for="farea">What area do you live in?</label>
+          <input id="farea" type="text" placeholder="e.g. Vasant Kunj, Delhi">
+        </div>
+        <p class="form-hint error" id="detailsError" hidden></p>
+        <button type="submit" class="btn btn-gold" style="width:100%; margin-top:0.4rem;">Continue →</button>
+        <p class="form-note">This is a demo account system — account details are saved to this browser only, there's no database behind this yet.</p>
+      </form>
+
+      <!-- ADMIN: access code -->
+      <div class="signup-card" id="adminCard" hidden>
+        <div class="success-check">✓</div>
+        <h2>Admin access granted.</h2>
+        <p class="body-text">Sign-up has been bypassed for this session. Your admin code:</p>
+        <div class="admin-code">AAAK_Admin_Granted</div>
+        <button type="button" class="btn btn-gold" id="adminContinueBtn" style="width:100%;">Continue to Discover →</button>
+      </div>
+
+      <!-- STEP 3: done -->
+      <div class="signup-card" id="doneCard" hidden>
+        <div class="success-check">✓</div>
+        <h2>You're in.</h2>
+        <p class="body-text">Your account is set up. Head into Discover &amp; Prepare to start turning what you're curious about into a real project idea.</p>
+        <a href="discover.html" class="btn btn-gold" id="goDiscoverBtn">Go to Discover &amp; Prepare →</a>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap-narrow foot-bottom">
+    <span>© 2026 Beyond Circumstances</span>
+    <span>Independent youth venture initiative · Delhi NCR</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var nextPage = params.get('next') || 'discover.html';
+  document.getElementById('goDiscoverBtn').setAttribute('href', nextPage);
+  document.getElementById('adminContinueBtn').addEventListener('click', function(){
+    location.href = nextPage;
+  });
+
+  var progressSteps = document.querySelectorAll('.progress-step');
+  function setProgress(step){
+    var order = ['details','done'];
+    var idx = order.indexOf(step);
+    progressSteps.forEach(function(el){
+      var elIdx = order.indexOf(el.getAttribute('data-step'));
+      el.classList.toggle('is-active', elIdx === idx);
+      el.classList.toggle('is-done', elIdx < idx);
+    });
+  }
+
+  var detailsForm = document.getElementById('detailsForm');
+  var doneCard = document.getElementById('doneCard');
+  var detailsError = document.getElementById('detailsError');
+
+  detailsForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('fname').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    var dob = document.getElementById('fdob').value;
+    var phone = document.getElementById('fphone').value.trim();
+    var school = document.getElementById('fschool').value.trim();
+    var area = document.getElementById('farea').value.trim();
+
+    // Admin bypass — internal use only, skips signup entirely
+    if(name === 'Admin123'){
+      try{
+        localStorage.setItem('bc_account', JSON.stringify({
+          name:'Admin', email:email || 'admin@beyondcircumstances.local',
+          dob:dob, phone:phone, school:school, area:area,
+          isAdmin:true, createdAt:new Date().toISOString()
+        }));
+        localStorage.setItem('bc_account_created', '1');
+      }catch(err){}
+      detailsForm.hidden = true;
+      document.getElementById('adminCard').hidden = false;
+      setProgress('done');
+      return;
+    }
+
+    if(!name || !email || !dob || !school || !area){
+      detailsError.textContent = 'Please fill in every required field.';
+      detailsError.hidden = false;
+      return;
+    }
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!emailOk){
+      detailsError.textContent = 'Enter a valid email address.';
+      detailsError.hidden = false;
+      return;
+    }
+    detailsError.hidden = true;
+
+    var account = { name:name, email:email, dob:dob, phone:phone, school:school, area:area, createdAt:new Date().toISOString() };
+    try{
+      localStorage.setItem('bc_account', JSON.stringify(account));
+      localStorage.setItem('bc_account_created', '1');
+    }catch(err){}
+
+    detailsForm.hidden = true;
+    doneCard.hidden = false;
+    setProgress('done');
+  });
+})();
+</script>
+
+</body>
+</html>
