@@ -221,6 +221,8 @@
   }
   .question-card textarea:focus{outline:none; border-color:var(--gold-500);}
   .form-hint.error{color:#E4A45C; font-size:0.82rem; margin-top:0.6rem; font-family:var(--font-mono);}
+  .admin-fill-btn{margin-top:0.7rem; font-size:0.76rem; padding:0.4rem 0.8rem; opacity:0.7;}
+  .admin-fill-btn:hover{opacity:1;}
   .step-actions{display:flex; justify-content:space-between; gap:1rem; margin-top:1.5rem;}
 
   /* ---------- Summary card ---------- */
@@ -408,13 +410,14 @@
     <div class="nav-links">
       <a href="discover.html" class="hide-mobile is-current">Discover</a>
       <a href="about.html" class="hide-mobile">About us</a>
-      <a href="apply.html" class="hide-mobile">Apply now</a>
       <span class="account-badge hide-mobile" id="accountBadge"></span>
     </div>
   </nav>
 </header>
 
 <main>
+
+  <div id="discoverPhaseContent">
 
   <section class="discover-hero">
     <div class="wrap discover-hero-grid">
@@ -475,6 +478,7 @@
         <h3 id="questionText"></h3>
         <p class="question-helper" id="questionHelper"></p>
         <textarea id="answerInput" placeholder="Write a few thoughts here..."></textarea>
+        <button type="button" class="btn btn-ghost btn-small admin-fill-btn" id="adminFillBtn" hidden>⚙ Fill dummy answer (admin)</button>
         <p class="form-hint error" id="validationMessage" hidden></p>
         <div class="step-actions">
           <button type="button" class="btn btn-ghost" id="backBtn" hidden>Back</button>
@@ -556,6 +560,8 @@
       <a href="#explore" class="btn btn-gold">Review notes</a>
     </div>
   </section>
+
+  </div>
 
   <section class="section" style="padding-bottom:0;">
     <div class="wrap">
@@ -772,6 +778,21 @@
     }catch(e){}
   })();
 
+  var isAdminAccount = (function(){
+    try{
+      var raw = localStorage.getItem('bc_account');
+      return raw ? Boolean(JSON.parse(raw).isAdmin) : false;
+    }catch(e){ return false; }
+  })();
+
+  var DUMMY_ANSWERS = {
+    learn: "I keep wanting to learn more about why art class is one of the first things cut when school budgets get tight, and what that actually costs kids.",
+    change: "I've always loved drawing, but my cousin's public school dropped art entirely last year, and it never came back. That stuck with me.",
+    problem: "A lot of public schools quietly cut art class when money is tight, so plenty of kids never get a real chance to try it at all.",
+    help: "Kids in underfunded public schools who never get exposed to art class in the first place.",
+    create: "A free after-school art drop-in, run by student volunteers with donated supplies.",
+  };
+
   var interestCategories = ['Technology','Business','Sports','Education','Art & Design','Science','Environment','Community','Media','Other'];
 
   var journeySteps = [
@@ -969,11 +990,23 @@
   var validationMessageEl = document.getElementById('validationMessage');
   var backBtn = document.getElementById('backBtn');
   var continueBtn = document.getElementById('continueBtn');
+  var adminFillBtn = document.getElementById('adminFillBtn');
+
+  adminFillBtn.hidden = !isAdminAccount;
+  adminFillBtn.addEventListener('click', function(){
+    var q = reflectionPrompts[state.currentStep];
+    var dummy = DUMMY_ANSWERS[q.id] || '';
+    answerInput.value = dummy;
+    state.reflectionAnswers[q.id] = dummy;
+    state.validationMessage = '';
+    validationMessageEl.hidden = true;
+  });
 
   function renderQuestion(){
     var show = hasInterest() && !state.showSummary;
     questionSection.hidden = !show;
     if(!show) return;
+    adminFillBtn.hidden = !isAdminAccount;
 
     var q = reflectionPrompts[state.currentStep];
     var direction = interestDirections[state.selectedInterest];
@@ -1079,7 +1112,6 @@
 
   document.getElementById('startBuildingBtn').addEventListener('click', function(){
     setPhase('build');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // ---- toolkit ----
@@ -1122,6 +1154,7 @@
   var phaseSwitchEl = document.getElementById('phaseSwitch');
   var buildPhaseEl = document.getElementById('buildPhase');
   var submitPhaseEl = document.getElementById('submitPhase');
+  var discoverPhaseContentEl = document.getElementById('discoverPhaseContent');
 
   function setPhase(p){
     state.phase = p;
@@ -1130,8 +1163,10 @@
       btn.classList.toggle('btn-gold', active);
       btn.classList.toggle('btn-ghost', !active);
     });
+    discoverPhaseContentEl.hidden = p !== 'discover';
     buildPhaseEl.hidden = p !== 'build';
     submitPhaseEl.hidden = p !== 'submit';
+    window.scrollTo(0, 0);
     if(p === 'build') renderBuild();
     if(p === 'submit') document.getElementById('submitTitle').textContent = computeIdeaDraft().projectTitle;
   }
