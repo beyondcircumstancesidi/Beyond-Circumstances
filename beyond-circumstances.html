@@ -116,31 +116,6 @@
   .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
   .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
 
-  /* ---------- Ticker ---------- */
-  .ticker{
-    background:var(--bg-950);
-    border-bottom:1px solid var(--line-hair);
-    overflow:hidden;
-    white-space:nowrap;
-    position:relative;
-    z-index:2;
-  }
-  .ticker-track{
-    display:inline-flex;
-    animation:ticker-scroll 32s linear infinite;
-    padding:0.55rem 0;
-  }
-  .ticker-track span{
-    font-family:var(--font-mono);
-    font-size:0.72rem;
-    letter-spacing:0.1em;
-    color:var(--sage-300);
-    padding:0 1.6rem;
-    border-right:1px solid var(--line-hair);
-  }
-  .ticker-track span b{color:var(--gold-400); font-weight:500;}
-  @keyframes ticker-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-
   /* ---------- Nav ---------- */
   header{
     position:sticky; top:0; z-index:50;
@@ -231,23 +206,6 @@
 </style>
 </head>
 <body>
-
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span><b>BUILD</b> YOUR OWN PROJECT · ZERO COST</span>
-    <span>REAL MENTORSHIP</span>
-    <span>GOAL RECOGNITION</span>
-    <span>REAL VC JUDGES</span>
-    <span><b>1</b> TERM SHEET</span>
-    <span>DELHI &amp; GURGAON · AGES 13–18</span>
-    <span><b>BUILD</b> YOUR OWN PROJECT · ZERO COST</span>
-    <span>REAL MENTORSHIP</span>
-    <span>GOAL RECOGNITION</span>
-    <span>REAL VC JUDGES</span>
-    <span><b>1</b> TERM SHEET</span>
-    <span>DELHI &amp; GURGAON · AGES 13–18</span>
-  </div>
-</div>
 
 <header id="siteHeader">
   <nav>
