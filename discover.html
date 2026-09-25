@@ -271,19 +271,59 @@
 
   /* ---------- Build workspace ---------- */
   .build-section{padding-top:1rem;}
-  .build-stage-switch{display:flex; gap:0.6rem; flex-wrap:wrap; margin:1.8rem 0 0;}
-  .build-stage-switch button{font-size:0.85rem; padding:0.6rem 1.1rem;}
   .stage-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.6rem); margin-top:1.8rem; max-width:760px;}
   .stage-card h3{font-size:1.35rem; margin-bottom:0.8rem;}
   .stage-copy{color:var(--cream-70); font-size:0.94rem; font-weight:300; line-height:1.75; margin-bottom:1.3rem;}
 
-  /* ---------- AI Mentor (shared across stages) ---------- */
+  /* ---------- Build progress (step wizard) ---------- */
+  .build-progress{display:flex; align-items:flex-start; max-width:420px; margin:1.8rem 0 0; position:relative;}
+  .build-progress-step{display:flex; flex-direction:column; align-items:center; gap:0.5rem; text-align:center; position:relative; cursor:pointer;}
+  .build-progress-dot{
+    width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line-hair-strong); background:var(--bg-900);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);
+    transition:all 0.2s ease;
+  }
+  .build-progress-label{font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--sage-400);}
+  .build-progress-line{flex:1; height:1px; background:var(--line-hair-strong); margin-top:15px;}
+  .build-progress-step.is-active .build-progress-dot{border-color:var(--gold-400); color:var(--gold-300); box-shadow:0 0 0 3px rgba(201,162,39,0.15);}
+  .build-progress-step.is-active .build-progress-label{color:var(--gold-300);}
+  .build-progress-step.is-complete .build-progress-dot{background:var(--gold-500); border-color:var(--gold-500); color:var(--bg-950);}
+  .build-progress-step.is-locked{cursor:not-allowed;}
+  .build-progress-step.is-locked .build-progress-dot{opacity:0.5;}
+  .build-progress-step.is-locked .build-progress-label{opacity:0.5;}
+
+  /* ---------- Idea recap ---------- */
+  .idea-recap{background:var(--bg-850); border:1px solid var(--line-hair-strong); margin-top:1.8rem; max-width:760px;}
+  .idea-recap-toggle{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.04em; color:var(--gold-300);
+    padding:1.1rem 1.4rem;
+  }
+  .idea-recap-body{padding:0 1.4rem 1.4rem; display:flex; flex-direction:column; gap:0.9rem;}
+  .recap-item span{display:block; font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--sage-400); margin-bottom:0.3rem;}
+  .recap-item strong{font-weight:400; color:var(--cream-100); font-size:0.9rem; line-height:1.6;}
+
+  /* ---------- AI Mentor (shared) ---------- */
+  .mentor-head{display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; margin-bottom:0.7rem;}
+  .mentor-tag{font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); border:1px solid var(--gold-700, var(--gold-500)); padding:0.28rem 0.55rem;}
+  .mentor-head h3{font-size:1.2rem; font-weight:600;}
+  .ask-mentor-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.6rem,3vw,2.1rem); margin-top:1.8rem; max-width:760px;}
+  #askMentorInput{
+    width:100%; min-height:70px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
+    margin-bottom:1rem;
+  }
+  #askMentorInput:focus{outline:none; border-color:var(--gold-500);}
   .mentor-actions{display:flex; align-items:center; gap:1rem; flex-wrap:wrap;}
   .mentor-status{font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
   .mentor-response{
     margin-top:1.4rem; padding-top:1.3rem; border-top:1px solid var(--line-hair);
     color:var(--cream-100); font-size:0.96rem; line-height:1.75; white-space:pre-line;
   }
+
+  /* ---------- Stage nav (shared back/next) ---------- */
+  .stage-nav{display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-top:1.8rem; max-width:760px; flex-wrap:wrap;}
 
   /* ---------- Problem stage ---------- */
   .log-form{margin-bottom:1.2rem;}
@@ -339,8 +379,6 @@
     font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.7;
   }
   .transcript-block textarea:focus{outline:none; border-color:var(--gold-500);}
-
-  .stage-next{display:flex; justify-content:space-between; gap:1rem; margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid var(--line-hair); flex-wrap:wrap;}
 
   /* ---------- Submission placeholder ---------- */
   .submit-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(2.2rem,5vw,3.2rem); margin-top:1.8rem; max-width:640px; text-align:left;}
@@ -534,13 +572,34 @@
       <div class="section-head">
         <p class="eyebrow">Phase 2</p>
         <h2>Build</h2>
-        <p>Turn your idea into something real, one stage at a time. Nothing here is locked — come back and edit any stage whenever you want.</p>
+        <p>Turn your idea into something real, one step at a time. You can always go back and edit an earlier step — you just can't skip ahead until the current one is submitted for mentor review.</p>
       </div>
 
-      <div class="build-stage-switch" id="buildStageSwitch">
-        <button type="button" class="btn btn-gold" data-stage="problem">1. Problem</button>
-        <button type="button" class="btn btn-ghost" data-stage="plan">2. Plan</button>
-        <button type="button" class="btn btn-ghost" data-stage="pitch">3. Pitch</button>
+      <div class="build-progress" id="buildProgress">
+        <div class="build-progress-step is-active" data-stage="problem"><span class="build-progress-dot">1</span><span class="build-progress-label">Research</span></div>
+        <div class="build-progress-line"></div>
+        <div class="build-progress-step is-locked" data-stage="plan"><span class="build-progress-dot">2</span><span class="build-progress-label">Plan</span></div>
+        <div class="build-progress-line"></div>
+        <div class="build-progress-step is-locked" data-stage="pitch"><span class="build-progress-dot">3</span><span class="build-progress-label">Pitch</span></div>
+      </div>
+
+      <div class="idea-recap card-accent">
+        <button type="button" class="idea-recap-toggle" id="ideaRecapToggle">Your submissions — Discover answers &amp; idea concept ▾</button>
+        <div class="idea-recap-body" id="ideaRecapBody" hidden></div>
+      </div>
+
+      <div class="ask-mentor-card card-accent">
+        <div class="mentor-head">
+          <span class="mentor-tag">AI Mentor</span>
+          <h3>Ask a question, anytime.</h3>
+        </div>
+        <p class="stage-copy">Your mentor won't just hand you answers — it'll help you think it through. Ask about whatever step you're on.</p>
+        <textarea id="askMentorInput" placeholder="e.g. What kind of people should I try to interview?"></textarea>
+        <div class="mentor-actions">
+          <button type="button" class="btn btn-ghost" id="askMentorChatBtn">Ask →</button>
+          <span class="mentor-status" id="askMentorStatus"></span>
+        </div>
+        <div class="mentor-response" id="askMentorResponse" hidden></div>
       </div>
 
       <!-- STAGE 1: PROBLEM -->
@@ -569,15 +628,10 @@
           </div>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askResearchMentorBtn">Get AI feedback on your research →</button>
+            <button type="button" class="btn btn-gold" id="askResearchMentorBtn">Submit research for mentor review →</button>
             <span class="mentor-status" id="researchStatus"></span>
           </div>
           <div class="mentor-response" id="researchResponse" hidden></div>
-
-          <div class="stage-next">
-            <span></span>
-            <button type="button" class="btn btn-ghost" data-goto="plan">Continue to Plan →</button>
-          </div>
         </div>
       </div>
 
@@ -593,7 +647,7 @@
           <textarea id="planText" class="plan-textarea" placeholder="Write your plan here..."></textarea>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askPlanMentorBtn">Get AI feedback →</button>
+            <button type="button" class="btn btn-gold" id="askPlanMentorBtn">Submit plan for mentor review →</button>
             <button type="button" class="btn btn-ghost" id="savePlanPdfBtn">Save as PDF</button>
             <span class="mentor-status" id="planStatus"></span>
           </div>
@@ -603,11 +657,6 @@
             <label for="peerFeedback">Peer feedback</label>
             <p class="stage-copy">Get one person to actually read your plan and react to it. Type what they said below.</p>
             <textarea id="peerFeedback" placeholder="What did your peer say?"></textarea>
-          </div>
-
-          <div class="stage-next">
-            <button type="button" class="btn btn-ghost" data-goto="problem">← Back to Problem</button>
-            <button type="button" class="btn btn-gold" data-goto="pitch">Continue to Pitch →</button>
           </div>
         </div>
       </div>
@@ -631,16 +680,16 @@
           </div>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askPitchMentorBtn">Get AI feedback on your pitch →</button>
+            <button type="button" class="btn btn-gold" id="askPitchMentorBtn">Submit pitch for mentor review →</button>
             <span class="mentor-status" id="pitchStatus"></span>
           </div>
           <div class="mentor-response" id="pitchResponse" hidden></div>
-
-          <div class="stage-next">
-            <button type="button" class="btn btn-ghost" data-goto="plan">← Back to Plan</button>
-            <span></span>
-          </div>
         </div>
+      </div>
+
+      <div class="stage-nav">
+        <button type="button" class="btn btn-ghost" id="stageBackBtn" hidden>← Back</button>
+        <button type="button" class="btn btn-gold" id="stageNextBtn" disabled>Submit research to continue</button>
       </div>
 
     </div>
@@ -813,9 +862,9 @@
     phase: 'discover',
     build: loadBuild() || {
       activeStage: 'problem',
-      problem: { log: [], pdfName: '', feedback: '' },
-      plan: { text: '', feedback: '', peerFeedback: '' },
-      pitch: { transcript: '', feedback: '' },
+      problem: { log: [], pdfName: '', feedback: '', completed: false },
+      plan: { text: '', feedback: '', peerFeedback: '', completed: false },
+      pitch: { transcript: '', feedback: '', completed: false },
     },
   };
 
@@ -1095,36 +1144,117 @@
     setPhase('build');
   });
 
-  // ---- build stage switching ----
-  var buildStageSwitchEl = document.getElementById('buildStageSwitch');
+  // ---- build stage wizard ----
+  var stageOrder = ['problem', 'plan', 'pitch'];
   var stageEls = {
     problem: document.getElementById('stageProblem'),
     plan: document.getElementById('stagePlan'),
     pitch: document.getElementById('stagePitch'),
   };
+  var stageNextLabel = {
+    problem: 'Submit research to continue',
+    plan: 'Submit plan to continue',
+    pitch: 'Submit pitch to finish',
+  };
+  var buildProgressEl = document.getElementById('buildProgress');
+  var stageBackBtn = document.getElementById('stageBackBtn');
+  var stageNextBtn = document.getElementById('stageNextBtn');
 
-  function setBuildStage(stage){
+  function isStageUnlocked(stage){
+    var idx = stageOrder.indexOf(stage);
+    if(idx === 0) return true;
+    var prevStage = stageOrder[idx - 1];
+    return Boolean(state.build[prevStage].completed);
+  }
+
+  function goToStage(stage){
+    if(!isStageUnlocked(stage)) return;
     state.build.activeStage = stage;
     persistBuild();
     Object.keys(stageEls).forEach(function(key){
       stageEls[key].hidden = key !== stage;
     });
-    Array.prototype.forEach.call(buildStageSwitchEl.children, function(btn){
-      var active = btn.getAttribute('data-stage') === stage;
-      btn.classList.toggle('btn-gold', active);
-      btn.classList.toggle('btn-ghost', !active);
+    renderBuildProgress();
+    renderStageNav();
+    window.scrollTo({ top: document.getElementById('buildPhase').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  function renderBuildProgress(){
+    var current = state.build.activeStage;
+    Array.prototype.forEach.call(buildProgressEl.children, function(el){
+      if(!el.classList.contains('build-progress-step')) return;
+      var stage = el.getAttribute('data-stage');
+      var unlocked = isStageUnlocked(stage);
+      el.classList.toggle('is-active', stage === current);
+      el.classList.toggle('is-complete', Boolean(state.build[stage].completed));
+      el.classList.toggle('is-locked', !unlocked);
     });
   }
 
-  Array.prototype.forEach.call(buildStageSwitchEl.children, function(btn){
-    btn.addEventListener('click', function(){ setBuildStage(btn.getAttribute('data-stage')); });
+  Array.prototype.forEach.call(buildProgressEl.querySelectorAll('.build-progress-step'), function(el){
+    el.addEventListener('click', function(){ goToStage(el.getAttribute('data-stage')); });
   });
 
-  Array.prototype.forEach.call(document.querySelectorAll('[data-goto]'), function(btn){
-    btn.addEventListener('click', function(){ setBuildStage(btn.getAttribute('data-goto')); });
+  function renderStageNav(){
+    var current = state.build.activeStage;
+    var idx = stageOrder.indexOf(current);
+    stageBackBtn.hidden = idx === 0;
+    var isLast = idx === stageOrder.length - 1;
+    var completed = Boolean(state.build[current].completed);
+    if(completed){
+      stageNextBtn.disabled = false;
+      stageNextBtn.textContent = isLast ? 'Pitch submitted ✓' : 'Continue to ' + (current === 'problem' ? 'Plan' : 'Pitch') + ' →';
+      stageNextBtn.hidden = isLast;
+    } else {
+      stageNextBtn.disabled = true;
+      stageNextBtn.textContent = stageNextLabel[current];
+      stageNextBtn.hidden = false;
+    }
+  }
+
+  stageBackBtn.addEventListener('click', function(){
+    var idx = stageOrder.indexOf(state.build.activeStage);
+    if(idx > 0) goToStage(stageOrder[idx - 1]);
   });
+
+  stageNextBtn.addEventListener('click', function(){
+    var idx = stageOrder.indexOf(state.build.activeStage);
+    if(state.build[state.build.activeStage].completed && idx < stageOrder.length - 1){
+      goToStage(stageOrder[idx + 1]);
+    }
+  });
+
+  // ---- idea recap ----
+  document.getElementById('ideaRecapToggle').addEventListener('click', function(){
+    var body = document.getElementById('ideaRecapBody');
+    body.hidden = !body.hidden;
+    this.textContent = 'Your submissions — Discover answers & idea concept ' + (body.hidden ? '▾' : '▴');
+  });
+
+  function renderIdeaRecap(){
+    var body = document.getElementById('ideaRecapBody');
+    var draft = computeIdeaDraft();
+    var items = [
+      ['Interest', state.selectedInterest || '—'],
+      ['What pulled your curiosity', state.reflectionAnswers.learn || '—'],
+      ['Why it matters to you', state.reflectionAnswers.change || '—'],
+      ['Problem you noticed', state.reflectionAnswers.problem || '—'],
+      ['Who you want to help', state.reflectionAnswers.help || '—'],
+      ['What you could try', state.reflectionAnswers.create || '—'],
+      ['Project title', draft.projectTitle],
+      ['Proposed solution', draft.proposedSolution],
+    ];
+    body.innerHTML = items.map(function(pair){
+      return '<div class="recap-item"><span></span><strong></strong></div>';
+    }).join('');
+    Array.prototype.forEach.call(body.children, function(el, i){
+      el.querySelector('span').textContent = items[i][0];
+      el.querySelector('strong').textContent = items[i][1];
+    });
+  }
 
   function renderBuild(){
+    renderIdeaRecap();
     renderLogList();
     document.getElementById('pdfFilename').textContent = state.build.problem.pdfName || '';
     var researchResponseEl = document.getElementById('researchResponse');
@@ -1148,7 +1278,7 @@
       pitchResponseEl.hidden = false;
     }
 
-    setBuildStage(state.build.activeStage);
+    goToStage(state.build.activeStage);
   }
 
   function mentorRequest(payload, statusEl, responseEl, btn, onDone){
@@ -1260,7 +1390,10 @@
         pdfName: file ? file.name : '',
       }, status, responseEl, btn, function(feedback){
         state.build.problem.feedback = feedback;
+        state.build.problem.completed = true;
         persistBuild();
+        renderBuildProgress();
+        renderStageNav();
       });
     }).catch(function(){
       status.textContent = 'Could not read that PDF.';
@@ -1309,7 +1442,10 @@
       planText: planText,
     }, status, responseEl, btn, function(feedback){
       state.build.plan.feedback = feedback;
+      state.build.plan.completed = true;
       persistBuild();
+      renderBuildProgress();
+      renderStageNav();
     });
   });
 
@@ -1418,7 +1554,38 @@
       transcript: transcript,
     }, status, responseEl, btn, function(feedback){
       state.build.pitch.feedback = feedback;
+      state.build.pitch.completed = true;
       persistBuild();
+      renderBuildProgress();
+      renderStageNav();
+    });
+  });
+
+  // ---- Ask the mentor (chat, does not gate progress) ----
+  document.getElementById('askMentorChatBtn').addEventListener('click', function(){
+    var btn = this;
+    var status = document.getElementById('askMentorStatus');
+    var responseEl = document.getElementById('askMentorResponse');
+    var input = document.getElementById('askMentorInput');
+    var question = input.value.trim();
+    if(!question){
+      status.textContent = 'Type a question first.';
+      return;
+    }
+    var stage = state.build.activeStage;
+    var apiStage = stage === 'problem' ? 'research' : stage;
+    var payload = { stage: apiStage, mode: 'ask', interest: state.selectedInterest, question: question };
+    if(stage === 'problem'){
+      payload.problemLog = state.build.problem.log.map(function(e){
+        return '[' + (e.type === 'interview' ? 'Interview' : 'Online research') + '] ' + e.text;
+      }).join('\n');
+    } else if(stage === 'plan'){
+      payload.planText = document.getElementById('planText').value;
+    } else if(stage === 'pitch'){
+      payload.transcript = document.getElementById('pitchTranscript').value;
+    }
+    mentorRequest(payload, status, responseEl, btn, function(){
+      input.value = '';
     });
   });
 

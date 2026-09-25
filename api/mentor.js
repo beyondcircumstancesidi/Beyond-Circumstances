@@ -9,12 +9,16 @@ function clip(text, max) {
 }
 
 const BASE_CONTEXT =
-  'You are a warm, encouraging startup mentor for Beyond Circumstances, a free venture ' +
+  'You are a warm, friendly, encouraging mentor for Beyond Circumstances, a free venture ' +
   'program for teen founders (ages 13-18) in Delhi and Gurgaon, India. Respond in plain ' +
   'conversational text — no markdown headers, no bullet lists, no bold text. Be encouraging ' +
-  'but honest, not just complimentary.';
+  'but honest, not just complimentary. Never just hand the student the answer or write their ' +
+  'content for them — your job is to help them think it through themselves, point out gaps, ' +
+  'and ask them the right questions, not to do the work.';
 
-const PROMPTS = {
+const STAGE_LABEL = { research: 'confirming a problem is real', plan: 'writing a project or business plan', pitch: 'practicing an elevator pitch' };
+
+const REVIEW_PROMPTS = {
   research:
     BASE_CONTEXT +
     ' A student is trying to confirm a problem is real before building anything for it. ' +
@@ -36,6 +40,16 @@ const PROMPTS = {
     'they explained their solution. Name one specific strength and one concrete thing to improve.',
 };
 
+function askPrompt(stage) {
+  return (
+    BASE_CONTEXT +
+    ' The student is currently working on ' + STAGE_LABEL[stage] + ' and has a specific ' +
+    "question. Answer it directly and helpfully in 3-5 sentences, using whatever work-in-" +
+    "progress context they've given you. Do not write their research, plan, or pitch for " +
+    'them — guide them toward figuring it out themselves.'
+  );
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -46,21 +60,27 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
   const stage = body.stage;
-  if (!PROMPTS[stage]) {
+  const mode = body.mode === 'ask' ? 'ask' : 'review';
+  if (!REVIEW_PROMPTS[stage]) {
     return res.status(400).json({ error: 'Unknown or missing stage' });
   }
 
   const interest = clip(body.interest, 60);
+  const question = clip(body.question, 500);
+
+  if (mode === 'ask' && !question) {
+    return res.status(400).json({ error: 'Type a question first.' });
+  }
 
   try {
     let userContent;
 
     if (stage === 'research') {
       const problemLog = clip(body.problemLog, 4000);
-      const pdfBase64 = body.pdfBase64;
+      const pdfBase64 = mode === 'review' ? body.pdfBase64 : null;
       const pdfName = clip(body.pdfName, 120);
 
-      if (!problemLog && !pdfBase64) {
+      if (mode === 'review' && !problemLog && !pdfBase64) {
         return res.status(400).json({ error: 'Add some research notes or a PDF first.' });
       }
 
@@ -72,33 +92,40 @@ export default async function handler(req, res) {
         });
       }
       let text = 'Area of interest: ' + (interest || '(not set)') + '\n\n';
-      text += problemLog ? 'Research log:\n' + problemLog : 'No log entries — see attached PDF.';
+      text += problemLog ? 'Research log so far:\n' + problemLog : 'No research logged yet.';
       if (pdfName) text += '\n\n(Attached file: ' + pdfName + ')';
+      if (mode === 'ask') text += '\n\nStudent question: ' + question;
       blocks.push({ type: 'text', text });
       userContent = blocks;
     } else if (stage === 'plan') {
       const planText = clip(body.planText, 6000);
-      if (!planText) {
+      if (mode === 'review' && !planText) {
         return res.status(400).json({ error: 'Write something in your plan first.' });
       }
-      userContent = 'Area of interest: ' + (interest || '(not set)') + '\n\nProject plan draft:\n' + planText;
+      userContent =
+        'Area of interest: ' + (interest || '(not set)') + '\n\nProject plan draft so far:\n' +
+        (planText || '(nothing written yet)') +
+        (mode === 'ask' ? '\n\nStudent question: ' + question : '');
     } else if (stage === 'pitch') {
       const transcript = clip(body.transcript, 4000);
-      if (!transcript) {
+      if (mode === 'review' && !transcript) {
         return res.status(400).json({ error: 'Record or write your pitch first.' });
       }
-      userContent = 'Area of interest: ' + (interest || '(not set)') + '\n\nPitch transcript:\n' + transcript;
+      userContent =
+        'Area of interest: ' + (interest || '(not set)') + '\n\nPitch transcript so far:\n' +
+        (transcript || '(nothing recorded yet)') +
+        (mode === 'ask' ? '\n\nStudent question: ' + question : '');
     }
 
     const msg = await anthropic.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 400,
-      system: PROMPTS[stage],
+      system: mode === 'ask' ? askPrompt(stage) : REVIEW_PROMPTS[stage],
       messages: [{ role: 'user', content: userContent }],
     });
 
     const block = msg.content && msg.content.find((b) => b.type === 'text');
-    const feedback = block && block.text ? block.text.trim() : "Sorry, I couldn't generate feedback just now.";
+    const feedback = block && block.text ? block.text.trim() : "Sorry, I couldn't generate a response just now.";
 
     return res.status(200).json({ feedback });
   } catch (err) {
