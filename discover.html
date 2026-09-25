@@ -271,37 +271,76 @@
 
   /* ---------- Build workspace ---------- */
   .build-section{padding-top:1rem;}
-  .build-grid{display:grid; grid-template-columns:1fr; gap:1.2rem; margin-top:1.8rem; max-width:760px;}
-  .build-row label{display:block; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-300); margin-bottom:0.5rem;}
-  .build-row input, .build-row textarea{
-    width:100%; background:var(--bg-850); border:1px solid var(--line-hair-strong); color:var(--cream-100);
-    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
-  }
-  .build-row textarea{min-height:90px; resize:vertical;}
-  .build-row input:focus, .build-row textarea:focus{outline:none; border-color:var(--gold-500);}
-  .build-save-row{display:flex; align-items:center; gap:1rem; margin-top:0.4rem;}
-  .build-save-note{font-family:var(--font-mono); font-size:0.76rem; color:var(--gold-300); opacity:0; transition:opacity 0.3s ease;}
-  .build-save-note.is-visible{opacity:1;}
+  .build-stage-switch{display:flex; gap:0.6rem; flex-wrap:wrap; margin:1.8rem 0 0;}
+  .build-stage-switch button{font-size:0.85rem; padding:0.6rem 1.1rem;}
+  .stage-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.6rem); margin-top:1.8rem; max-width:760px;}
+  .stage-card h3{font-size:1.35rem; margin-bottom:0.8rem;}
+  .stage-copy{color:var(--cream-70); font-size:0.94rem; font-weight:300; line-height:1.75; margin-bottom:1.3rem;}
 
-  /* ---------- AI Mentor ---------- */
-  .mentor-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.6rem,3vw,2.2rem); margin-top:2.4rem; max-width:760px;}
-  .mentor-head{display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; margin-bottom:0.7rem;}
-  .mentor-tag{font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-300); border:1px solid var(--gold-700, var(--gold-500)); padding:0.28rem 0.55rem;}
-  .mentor-head h3{font-size:1.2rem; font-weight:600;}
-  .mentor-copy{color:var(--cream-70); font-size:0.9rem; font-weight:300; line-height:1.6; margin-bottom:1.1rem;}
-  #mentorQuestion{
-    width:100%; min-height:70px; resize:vertical;
-    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
-    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
-    margin-bottom:1rem;
-  }
-  #mentorQuestion:focus{outline:none; border-color:var(--gold-500);}
+  /* ---------- AI Mentor (shared across stages) ---------- */
   .mentor-actions{display:flex; align-items:center; gap:1rem; flex-wrap:wrap;}
   .mentor-status{font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
   .mentor-response{
     margin-top:1.4rem; padding-top:1.3rem; border-top:1px solid var(--line-hair);
     color:var(--cream-100); font-size:0.96rem; line-height:1.75; white-space:pre-line;
   }
+
+  /* ---------- Problem stage ---------- */
+  .log-form{margin-bottom:1.2rem;}
+  .log-form-row{display:flex; gap:0.7rem; margin-bottom:0.7rem; align-items:center; flex-wrap:wrap;}
+  .log-form-row select{
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.88rem; padding:0.6rem 0.8rem; border-radius:2px;
+  }
+  .log-form textarea{
+    width:100%; min-height:70px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.8rem 0.95rem; border-radius:2px; line-height:1.6;
+  }
+  .log-form textarea:focus{outline:none; border-color:var(--gold-500);}
+  .log-list{display:flex; flex-direction:column; gap:0.7rem; margin-bottom:1.3rem;}
+  .log-entry{background:var(--bg-900); border:1px solid var(--line-hair); padding:0.8rem 1rem; display:flex; justify-content:space-between; gap:1rem; align-items:flex-start;}
+  .log-entry-body{flex:1;}
+  .log-entry-type{font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--gold-300); margin-bottom:0.35rem; display:block;}
+  .log-entry-text{color:var(--cream-100); font-size:0.9rem; line-height:1.6;}
+  .log-entry-remove{background:none; border:none; color:var(--sage-400); cursor:pointer; font-family:var(--font-mono); font-size:0.75rem; text-decoration:underline; flex-shrink:0;}
+  .log-entry-remove:hover{color:var(--gold-300);}
+  .pdf-upload-row{display:flex; flex-wrap:wrap; align-items:center; gap:0.8rem; margin-bottom:1.3rem; padding-top:1.2rem; border-top:1px solid var(--line-hair);}
+  .pdf-label{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--sage-300); display:block; width:100%;}
+  .pdf-upload-row input[type="file"]{font-size:0.82rem; color:var(--cream-70); max-width:100%;}
+  .pdf-filename{font-family:var(--font-mono); font-size:0.78rem; color:var(--gold-300);}
+
+  /* ---------- Plan stage ---------- */
+  .plan-toolbar{margin-bottom:0.8rem;}
+  .plan-textarea{
+    width:100%; min-height:260px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.95rem; padding:1rem 1.1rem; border-radius:2px; line-height:1.7;
+    margin-bottom:1.2rem;
+  }
+  .plan-textarea:focus{outline:none; border-color:var(--gold-500);}
+  .peer-feedback-block{margin-top:1.6rem; padding-top:1.4rem; border-top:1px solid var(--line-hair);}
+  .peer-feedback-block label{display:block; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-300); margin-bottom:0.6rem;}
+  .peer-feedback-block textarea{
+    width:100%; min-height:80px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.6;
+  }
+  .peer-feedback-block textarea:focus{outline:none; border-color:var(--gold-500);}
+
+  /* ---------- Pitch stage ---------- */
+  .recorder{display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; flex-wrap:wrap;}
+  #pitchAudioPlayback{width:100%; margin-bottom:1.2rem;}
+  .transcript-block{margin-bottom:1.2rem;}
+  .transcript-block label{display:block; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--sage-300); margin-bottom:0.6rem;}
+  .transcript-block textarea{
+    width:100%; min-height:140px; resize:vertical;
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.94rem; padding:0.85rem 1rem; border-radius:2px; line-height:1.7;
+  }
+  .transcript-block textarea:focus{outline:none; border-color:var(--gold-500);}
+
+  .stage-next{display:flex; justify-content:space-between; gap:1rem; margin-top:1.8rem; padding-top:1.4rem; border-top:1px solid var(--line-hair); flex-wrap:wrap;}
 
   /* ---------- Submission placeholder ---------- */
   .submit-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(2.2rem,5vw,3.2rem); margin-top:1.8rem; max-width:640px; text-align:left;}
@@ -495,34 +534,115 @@
       <div class="section-head">
         <p class="eyebrow">Phase 2</p>
         <h2>Build</h2>
-        <p>Now that you've identified a problem and shaped an idea, start turning it into a project. Edit anything below — it's your workspace.</p>
+        <p>Turn your idea into something real, one stage at a time. Nothing here is locked — come back and edit any stage whenever you want.</p>
       </div>
-      <div class="build-grid">
-        <div class="build-row"><label for="bTitle">Project title</label><input id="bTitle" type="text"></div>
-        <div class="build-row"><label for="bProblem">Problem</label><textarea id="bProblem"></textarea></div>
-        <div class="build-row"><label for="bHelps">Who it helps</label><textarea id="bHelps"></textarea></div>
-        <div class="build-row"><label for="bSolution">Proposed solution</label><textarea id="bSolution"></textarea></div>
-        <div class="build-row"><label for="bFeasible">Why this could work</label><textarea id="bFeasible"></textarea></div>
-        <div class="build-row"><label for="bSteps">Next steps (one per line)</label><textarea id="bSteps"></textarea></div>
-        <div class="build-save-row">
-          <button type="button" class="btn btn-gold" id="saveBuildBtn">Save draft</button>
-          <span class="build-save-note" id="buildSaveNote">Saved</span>
+
+      <div class="build-stage-switch" id="buildStageSwitch">
+        <button type="button" class="btn btn-gold" data-stage="problem">1. Problem</button>
+        <button type="button" class="btn btn-ghost" data-stage="plan">2. Plan</button>
+        <button type="button" class="btn btn-ghost" data-stage="pitch">3. Pitch</button>
+      </div>
+
+      <!-- STAGE 1: PROBLEM -->
+      <div class="build-stage" id="stageProblem">
+        <div class="stage-card card-accent">
+          <h3>Confirm the problem is real.</h3>
+          <p class="stage-copy">Don't guess. Find evidence this problem is real and worth solving — read what's already out there, or go talk directly to people who deal with it. Either counts, but you need real evidence. Log what you find below.</p>
+
+          <div class="log-form">
+            <div class="log-form-row">
+              <select id="logType">
+                <option value="online">Online research</option>
+                <option value="interview">Direct interview</option>
+              </select>
+              <button type="button" class="btn btn-ghost btn-small" id="addLogBtn">Add entry</button>
+            </div>
+            <textarea id="logText" placeholder="What did you find or hear?"></textarea>
+          </div>
+
+          <div class="log-list" id="logList"></div>
+
+          <div class="pdf-upload-row">
+            <label class="pdf-label" for="researchPdf">Attach your research as a PDF (optional — the AI mentor can read it)</label>
+            <input type="file" id="researchPdf" accept="application/pdf">
+            <span class="pdf-filename" id="pdfFilename"></span>
+          </div>
+
+          <div class="mentor-actions">
+            <button type="button" class="btn btn-gold" id="askResearchMentorBtn">Get AI feedback on your research →</button>
+            <span class="mentor-status" id="researchStatus"></span>
+          </div>
+          <div class="mentor-response" id="researchResponse" hidden></div>
+
+          <div class="stage-next">
+            <span></span>
+            <button type="button" class="btn btn-ghost" data-goto="plan">Continue to Plan →</button>
+          </div>
         </div>
       </div>
 
-      <div class="mentor-card card-accent">
-        <div class="mentor-head">
-          <span class="mentor-tag">AI Mentor</span>
-          <h3>Ask your mentor about this idea.</h3>
+      <!-- STAGE 2: PLAN -->
+      <div class="build-stage" id="stagePlan" hidden>
+        <div class="stage-card card-accent">
+          <h3>Write your project or business plan.</h3>
+          <p class="stage-copy">Turn your idea into an actual plan. Cover what the problem is, who it affects, what you're proposing, and why it could realistically work — in your own words.</p>
+
+          <div class="plan-toolbar">
+            <button type="button" class="btn btn-ghost btn-small" id="insertTemplateBtn">Insert template</button>
+          </div>
+          <textarea id="planText" class="plan-textarea" placeholder="Write your plan here..."></textarea>
+
+          <div class="mentor-actions">
+            <button type="button" class="btn btn-gold" id="askPlanMentorBtn">Get AI feedback →</button>
+            <button type="button" class="btn btn-ghost" id="savePlanPdfBtn">Save as PDF</button>
+            <span class="mentor-status" id="planStatus"></span>
+          </div>
+          <div class="mentor-response" id="planResponse" hidden></div>
+
+          <div class="peer-feedback-block">
+            <label for="peerFeedback">Peer feedback</label>
+            <p class="stage-copy">Get one person to actually read your plan and react to it. Type what they said below.</p>
+            <textarea id="peerFeedback" placeholder="What did your peer say?"></textarea>
+          </div>
+
+          <div class="stage-next">
+            <button type="button" class="btn btn-ghost" data-goto="problem">← Back to Problem</button>
+            <button type="button" class="btn btn-gold" data-goto="pitch">Continue to Pitch →</button>
+          </div>
         </div>
-        <p class="mentor-copy">Uses your project details above. Ask something specific, or leave it blank for general feedback.</p>
-        <textarea id="mentorQuestion" placeholder="e.g. Is my solution realistic for a first pilot?"></textarea>
-        <div class="mentor-actions">
-          <button type="button" class="btn btn-gold" id="askMentorBtn">Get mentor feedback →</button>
-          <span class="mentor-status" id="mentorStatus"></span>
-        </div>
-        <div class="mentor-response" id="mentorResponse" hidden></div>
       </div>
+
+      <!-- STAGE 3: PITCH -->
+      <div class="build-stage" id="stagePitch" hidden>
+        <div class="stage-card card-accent">
+          <h3>Practice your pitch.</h3>
+          <p class="stage-copy">An elevator pitch says what the problem is, who has it, what you're building, and why it matters — out loud, in under a minute. Work out what you want to say, then record yourself actually saying it.</p>
+
+          <div class="recorder">
+            <button type="button" class="btn btn-gold" id="recordBtn">● Record</button>
+            <button type="button" class="btn btn-ghost" id="stopRecordBtn" hidden>■ Stop</button>
+            <span class="mentor-status" id="recordStatus"></span>
+          </div>
+          <audio id="pitchAudioPlayback" controls hidden></audio>
+
+          <div class="transcript-block">
+            <label for="pitchTranscript">Transcript (captured live while recording — edit if needed)</label>
+            <textarea id="pitchTranscript" placeholder="Your words will appear here as you record, or type it yourself..."></textarea>
+          </div>
+
+          <div class="mentor-actions">
+            <button type="button" class="btn btn-gold" id="askPitchMentorBtn">Get AI feedback on your pitch →</button>
+            <span class="mentor-status" id="pitchStatus"></span>
+          </div>
+          <div class="mentor-response" id="pitchResponse" hidden></div>
+
+          <div class="stage-next">
+            <button type="button" class="btn btn-ghost" data-goto="plan">← Back to Plan</button>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -577,6 +697,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
 
@@ -668,6 +789,18 @@
     Other:'a small pilot that tests the core idea quickly',
   };
 
+  // ---- build stage persistence ----
+  var BUILD_KEY = 'bc_build_v2';
+  function loadBuild(){
+    try{
+      var raw = localStorage.getItem(BUILD_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function persistBuild(){
+    try{ localStorage.setItem(BUILD_KEY, JSON.stringify(state.build)); }catch(e){}
+  }
+
   // ---- state ----
   var state = {
     selectedInterest: '',
@@ -678,7 +811,12 @@
     showIdeaBuilder: false,
     validationMessage: '',
     phase: 'discover',
-    buildDraft: null,
+    build: loadBuild() || {
+      activeStage: 'problem',
+      problem: { log: [], pdfName: '', feedback: '' },
+      plan: { text: '', feedback: '', peerFeedback: '' },
+      pitch: { transcript: '', feedback: '' },
+    },
   };
 
   function hasInterest(){ return Boolean(state.selectedInterest); }
@@ -945,69 +1083,79 @@
     });
     buildPhaseEl.hidden = p !== 'build';
     submitPhaseEl.hidden = p !== 'submit';
-    if(p === 'build') fillBuildForm();
-    if(p === 'submit') document.getElementById('submitTitle').textContent =
-      (state.buildDraft && state.buildDraft.title) || computeIdeaDraft().projectTitle;
+    if(p === 'build') renderBuild();
+    if(p === 'submit') document.getElementById('submitTitle').textContent = computeIdeaDraft().projectTitle;
   }
 
   Array.prototype.forEach.call(phaseSwitchEl.children, function(btn){
     btn.addEventListener('click', function(){ setPhase(btn.getAttribute('data-phase')); });
   });
 
-  function fillBuildForm(){
-    var draft = state.buildDraft || (function(){
-      var d = computeIdeaDraft();
-      return {
-        title: d.projectTitle,
-        problem: d.problemDescription,
-        helps: d.beneficiaries,
-        solution: d.proposedSolution,
-        feasible: d.whyFeasible,
-        steps: d.nextSteps.join('\n'),
-      };
-    })();
-    document.getElementById('bTitle').value = draft.title;
-    document.getElementById('bProblem').value = draft.problem;
-    document.getElementById('bHelps').value = draft.helps;
-    document.getElementById('bSolution').value = draft.solution;
-    document.getElementById('bFeasible').value = draft.feasible;
-    document.getElementById('bSteps').value = draft.steps;
-  }
-
-  document.getElementById('saveBuildBtn').addEventListener('click', function(){
-    state.buildDraft = {
-      title: document.getElementById('bTitle').value,
-      problem: document.getElementById('bProblem').value,
-      helps: document.getElementById('bHelps').value,
-      solution: document.getElementById('bSolution').value,
-      feasible: document.getElementById('bFeasible').value,
-      steps: document.getElementById('bSteps').value,
-    };
-    var note = document.getElementById('buildSaveNote');
-    note.classList.add('is-visible');
-    setTimeout(function(){ note.classList.remove('is-visible'); }, 1800);
+  document.getElementById('backToBuildBtn').addEventListener('click', function(){
+    setPhase('build');
   });
 
-  document.getElementById('askMentorBtn').addEventListener('click', function(){
-    var btn = this;
-    var status = document.getElementById('mentorStatus');
-    var responseEl = document.getElementById('mentorResponse');
+  // ---- build stage switching ----
+  var buildStageSwitchEl = document.getElementById('buildStageSwitch');
+  var stageEls = {
+    problem: document.getElementById('stageProblem'),
+    plan: document.getElementById('stagePlan'),
+    pitch: document.getElementById('stagePitch'),
+  };
 
-    var payload = {
-      title: document.getElementById('bTitle').value,
-      problem: document.getElementById('bProblem').value,
-      helps: document.getElementById('bHelps').value,
-      solution: document.getElementById('bSolution').value,
-      feasible: document.getElementById('bFeasible').value,
-      steps: document.getElementById('bSteps').value,
-      question: document.getElementById('mentorQuestion').value,
-    };
+  function setBuildStage(stage){
+    state.build.activeStage = stage;
+    persistBuild();
+    Object.keys(stageEls).forEach(function(key){
+      stageEls[key].hidden = key !== stage;
+    });
+    Array.prototype.forEach.call(buildStageSwitchEl.children, function(btn){
+      var active = btn.getAttribute('data-stage') === stage;
+      btn.classList.toggle('btn-gold', active);
+      btn.classList.toggle('btn-ghost', !active);
+    });
+  }
 
+  Array.prototype.forEach.call(buildStageSwitchEl.children, function(btn){
+    btn.addEventListener('click', function(){ setBuildStage(btn.getAttribute('data-stage')); });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-goto]'), function(btn){
+    btn.addEventListener('click', function(){ setBuildStage(btn.getAttribute('data-goto')); });
+  });
+
+  function renderBuild(){
+    renderLogList();
+    document.getElementById('pdfFilename').textContent = state.build.problem.pdfName || '';
+    var researchResponseEl = document.getElementById('researchResponse');
+    if(state.build.problem.feedback){
+      researchResponseEl.textContent = state.build.problem.feedback;
+      researchResponseEl.hidden = false;
+    }
+
+    document.getElementById('planText').value = state.build.plan.text;
+    document.getElementById('peerFeedback').value = state.build.plan.peerFeedback;
+    var planResponseEl = document.getElementById('planResponse');
+    if(state.build.plan.feedback){
+      planResponseEl.textContent = state.build.plan.feedback;
+      planResponseEl.hidden = false;
+    }
+
+    document.getElementById('pitchTranscript').value = state.build.pitch.transcript;
+    var pitchResponseEl = document.getElementById('pitchResponse');
+    if(state.build.pitch.feedback){
+      pitchResponseEl.textContent = state.build.pitch.feedback;
+      pitchResponseEl.hidden = false;
+    }
+
+    setBuildStage(state.build.activeStage);
+  }
+
+  function mentorRequest(payload, statusEl, responseEl, btn, onDone){
     btn.disabled = true;
-    status.textContent = 'Thinking…';
+    statusEl.textContent = 'Thinking…';
     responseEl.hidden = true;
-
-    fetch('/api/mentor', {
+    return fetch('/api/mentor', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -1017,18 +1165,261 @@
         return data;
       });
     }).then(function(data){
-      status.textContent = '';
+      statusEl.textContent = '';
       responseEl.textContent = data.feedback;
       responseEl.hidden = false;
+      if(onDone) onDone(data.feedback);
     }).catch(function(err){
-      status.textContent = err.message;
+      statusEl.textContent = err.message;
     }).finally(function(){
+      btn.disabled = false;
+    });
+  }
+
+  // ---- Stage 1: Problem ----
+  function renderLogList(){
+    var listEl = document.getElementById('logList');
+    listEl.innerHTML = '';
+    state.build.problem.log.forEach(function(entry){
+      var row = document.createElement('div');
+      row.className = 'log-entry';
+      var typeLabel = entry.type === 'interview' ? 'Direct interview' : 'Online research';
+      row.innerHTML =
+        '<div class="log-entry-body"><span class="log-entry-type">' + typeLabel + '</span>' +
+        '<div class="log-entry-text"></div></div>' +
+        '<button type="button" class="log-entry-remove">Remove</button>';
+      row.querySelector('.log-entry-text').textContent = entry.text;
+      row.querySelector('.log-entry-remove').addEventListener('click', function(){
+        state.build.problem.log = state.build.problem.log.filter(function(e){ return e.id !== entry.id; });
+        persistBuild();
+        renderLogList();
+      });
+      listEl.appendChild(row);
+    });
+  }
+
+  document.getElementById('addLogBtn').addEventListener('click', function(){
+    var typeSel = document.getElementById('logType');
+    var textEl = document.getElementById('logText');
+    var text = textEl.value.trim();
+    if(!text) return;
+    state.build.problem.log.push({
+      id: Date.now() + '-' + Math.random().toString(36).slice(2),
+      type: typeSel.value,
+      text: text,
+      ts: new Date().toISOString(),
+    });
+    textEl.value = '';
+    persistBuild();
+    renderLogList();
+  });
+
+  document.getElementById('researchPdf').addEventListener('change', function(){
+    var file = this.files[0];
+    state.build.problem.pdfName = file ? file.name : '';
+    document.getElementById('pdfFilename').textContent = state.build.problem.pdfName;
+    persistBuild();
+  });
+
+  function fileToBase64(file){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(){ resolve(String(reader.result).split(',')[1]); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('askResearchMentorBtn').addEventListener('click', function(){
+    var btn = this;
+    var status = document.getElementById('researchStatus');
+    var responseEl = document.getElementById('researchResponse');
+    var fileInput = document.getElementById('researchPdf');
+    var file = fileInput.files[0];
+
+    var logText = state.build.problem.log.map(function(e){
+      return '[' + (e.type === 'interview' ? 'Interview' : 'Online research') + '] ' + e.text;
+    }).join('\n');
+
+    if(!logText && !file){
+      status.textContent = 'Add at least one log entry or attach a PDF first.';
+      return;
+    }
+
+    var ready = file ? fileToBase64(file) : Promise.resolve(null);
+    btn.disabled = true;
+    status.textContent = 'Reading…';
+    responseEl.hidden = true;
+
+    ready.then(function(pdfBase64){
+      return mentorRequest({
+        stage: 'research',
+        interest: state.selectedInterest,
+        problemLog: logText,
+        pdfBase64: pdfBase64,
+        pdfName: file ? file.name : '',
+      }, status, responseEl, btn, function(feedback){
+        state.build.problem.feedback = feedback;
+        persistBuild();
+      });
+    }).catch(function(){
+      status.textContent = 'Could not read that PDF.';
       btn.disabled = false;
     });
   });
 
-  document.getElementById('backToBuildBtn').addEventListener('click', function(){
-    setPhase('build');
+  // ---- Stage 2: Plan ----
+  var PLAN_TEMPLATE =
+    'PROBLEM\n\n\n' +
+    "WHO IT'S FOR\n\n\n" +
+    "WHAT WE'RE PROPOSING\n\n\n" +
+    'WHY THIS COULD WORK\n\n\n' +
+    'NEXT STEPS\n\n';
+
+  document.getElementById('insertTemplateBtn').addEventListener('click', function(){
+    var textarea = document.getElementById('planText');
+    if(textarea.value.trim() && !window.confirm("This will replace what you've written with the template. Continue?")) return;
+    textarea.value = PLAN_TEMPLATE;
+    state.build.plan.text = PLAN_TEMPLATE;
+    persistBuild();
+  });
+
+  document.getElementById('planText').addEventListener('input', function(){
+    state.build.plan.text = this.value;
+    persistBuild();
+  });
+
+  document.getElementById('peerFeedback').addEventListener('input', function(){
+    state.build.plan.peerFeedback = this.value;
+    persistBuild();
+  });
+
+  document.getElementById('askPlanMentorBtn').addEventListener('click', function(){
+    var btn = this;
+    var status = document.getElementById('planStatus');
+    var responseEl = document.getElementById('planResponse');
+    var planText = document.getElementById('planText').value.trim();
+    if(!planText){
+      status.textContent = 'Write something in your plan first.';
+      return;
+    }
+    mentorRequest({
+      stage: 'plan',
+      interest: state.selectedInterest,
+      planText: planText,
+    }, status, responseEl, btn, function(feedback){
+      state.build.plan.feedback = feedback;
+      persistBuild();
+    });
+  });
+
+  document.getElementById('savePlanPdfBtn').addEventListener('click', function(){
+    var planText = document.getElementById('planText').value.trim();
+    if(!planText) return;
+    if(!window.jspdf){ alert('PDF export is unavailable right now.'); return; }
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'letter' });
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+    doc.text('Beyond Circumstances — Project Plan', 40, 50);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+    var lines = doc.splitTextToSize(planText, 515);
+    doc.text(lines, 40, 80);
+    doc.save('project-plan.pdf');
+  });
+
+  // ---- Stage 3: Pitch ----
+  var mediaRecorder = null;
+  var audioChunks = [];
+  var recognition = null;
+
+  function supportsSpeechRecognition(){
+    return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+  }
+
+  document.getElementById('recordBtn').addEventListener('click', function(){
+    var recordStatus = document.getElementById('recordStatus');
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      recordStatus.textContent = 'This browser cannot access your microphone.';
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = function(e){ audioChunks.push(e.data); };
+      mediaRecorder.onstop = function(){
+        var blob = new Blob(audioChunks, { type: 'audio/webm' });
+        var url = URL.createObjectURL(blob);
+        var audioEl = document.getElementById('pitchAudioPlayback');
+        audioEl.src = url;
+        audioEl.hidden = false;
+        stream.getTracks().forEach(function(t){ t.stop(); });
+      };
+      mediaRecorder.start();
+
+      if(supportsSpeechRecognition()){
+        var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SR();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+        var base = document.getElementById('pitchTranscript').value;
+        var finalTranscript = base ? base + ' ' : '';
+        recognition.onresult = function(event){
+          var interim = '';
+          for(var i = event.resultIndex; i < event.results.length; i++){
+            if(event.results[i].isFinal){
+              finalTranscript += event.results[i][0].transcript + ' ';
+            } else {
+              interim += event.results[i][0].transcript;
+            }
+          }
+          document.getElementById('pitchTranscript').value = finalTranscript + interim;
+        };
+        recognition.onerror = function(){};
+        recognition.start();
+      } else {
+        recordStatus.textContent = 'Live transcript is not supported in this browser — type it manually below.';
+      }
+
+      document.getElementById('recordBtn').hidden = true;
+      document.getElementById('stopRecordBtn').hidden = false;
+      if(!recordStatus.textContent) recordStatus.textContent = 'Recording…';
+    }).catch(function(){
+      recordStatus.textContent = 'Could not access your microphone.';
+    });
+  });
+
+  document.getElementById('stopRecordBtn').addEventListener('click', function(){
+    if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+    if(recognition) recognition.stop();
+    document.getElementById('recordBtn').hidden = false;
+    document.getElementById('stopRecordBtn').hidden = true;
+    document.getElementById('recordStatus').textContent = 'Recording saved.';
+    state.build.pitch.transcript = document.getElementById('pitchTranscript').value;
+    persistBuild();
+  });
+
+  document.getElementById('pitchTranscript').addEventListener('input', function(){
+    state.build.pitch.transcript = this.value;
+    persistBuild();
+  });
+
+  document.getElementById('askPitchMentorBtn').addEventListener('click', function(){
+    var btn = this;
+    var status = document.getElementById('pitchStatus');
+    var responseEl = document.getElementById('pitchResponse');
+    var transcript = document.getElementById('pitchTranscript').value.trim();
+    if(!transcript){
+      status.textContent = 'Record or type your pitch first.';
+      return;
+    }
+    mentorRequest({
+      stage: 'pitch',
+      interest: state.selectedInterest,
+      transcript: transcript,
+    }, status, responseEl, btn, function(feedback){
+      state.build.pitch.feedback = feedback;
+      persistBuild();
+    });
   });
 
   // ---- render all ----
