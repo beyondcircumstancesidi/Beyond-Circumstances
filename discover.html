@@ -262,11 +262,6 @@
   .toolkit-details-summary{color:var(--cream-70); font-size:0.86rem; font-style:italic; margin-bottom:0.8rem; line-height:1.6;}
   .toolkit-details-list{margin:0 0 0.8rem; padding-left:1.1rem; color:var(--sage-300); font-size:0.85rem; line-height:1.8;}
 
-  /* ---------- Final CTA ---------- */
-  .final-cta-band{background:var(--bg-950); border-top:1px solid var(--line-hair); border-bottom:1px solid var(--line-hair); padding:clamp(2.4rem,5vw,3.4rem) 0;}
-  .final-cta-row{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.4rem;}
-  .final-cta-row h2{font-size:clamp(1.3rem, 2.4vw, 1.7rem); max-width:520px;}
-
   /* ---------- Phase switcher ---------- */
   .phase-switch{display:flex; gap:0.7rem; flex-wrap:wrap; padding:2rem 0 0;}
   .phase-switch button{font-size:0.85rem; padding:0.65rem 1.2rem;}
@@ -419,13 +414,13 @@
 
   <div id="discoverPhaseContent">
 
-  <section class="discover-hero">
+  <section class="discover-hero" id="discoverWelcome">
     <div class="wrap discover-hero-grid">
       <div>
         <p class="eyebrow">Discover &amp; Prepare</p>
         <h1>Start with what you notice.</h1>
         <p class="lede">Beyond Circumstances helps students move from a spark of curiosity to a small, testable idea. Notice what interests you, spot a problem nearby, and start shaping something you can try.</p>
-        <a href="#explore" class="btn btn-gold">Start Exploring</a>
+        <button type="button" class="btn btn-gold" id="startExploringBtn">Start Exploring</button>
       </div>
       <div class="phase-panel card-accent">
         <div class="phase-panel-top"><span class="phase-panel-dot"></span><span>Phase 1</span></div>
@@ -435,22 +430,17 @@
     </div>
   </section>
 
-  <hr class="divider">
-
-  <section class="section">
+  <section class="section" id="journeyBar" hidden>
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">The journey</p>
         <h2>A clear path from curiosity to readiness.</h2>
-        <p>Students move through a few simple steps: notice what interests them, identify a problem they care about, think about the people affected, and shape a possible project.</p>
       </div>
       <div class="journey" id="journeyTracker"></div>
     </div>
   </section>
 
-  <hr class="divider">
-
-  <section class="section" id="explore">
+  <section class="section" id="explore" hidden>
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Explore your interests</p>
@@ -459,6 +449,9 @@
       </div>
       <div class="interest-grid" id="interestGrid"></div>
       <div class="selection-box"><strong>Current focus:</strong><span id="currentFocus">Choose an interest to begin</span></div>
+      <div class="step-actions" style="margin-top:1.6rem;">
+        <button type="button" class="btn btn-ghost" id="welcomeBackBtn">← Back</button>
+      </div>
     </div>
   </section>
 
@@ -531,16 +524,13 @@
           <div class="idea-block wide"><span>Concrete next steps</span><ul id="ideaNextSteps"></ul></div>
         </div>
       </div>
-      <div style="margin-top:1.6rem; display:flex; justify-content:flex-end;">
+      <div class="step-actions" style="margin-top:1.6rem;">
+        <button type="button" class="btn btn-ghost" id="ideaBackBtn">← Back</button>
         <button type="button" class="btn btn-gold" id="startBuildingBtn">Start Building →</button>
       </div>
-    </div>
-  </section>
 
-  <hr class="divider">
+      <hr class="divider" style="margin:clamp(2.5rem,5vw,3.5rem) 0;">
 
-  <section class="section">
-    <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Toolkit</p>
         <h2>Useful tools, not a course.</h2>
@@ -548,16 +538,6 @@
       </div>
       <div class="toolkit-grid" id="toolkitGrid"></div>
       <div class="selection-box"><strong>Current toolkit focus:</strong><span id="toolkitFocus"></span></div>
-    </div>
-  </section>
-
-  <section class="final-cta-band">
-    <div class="wrap final-cta-row">
-      <div>
-        <p class="eyebrow" style="margin-bottom:0.7rem;">Keep refining</p>
-        <h2>Take a little time to work through your idea.</h2>
-      </div>
-      <a href="#explore" class="btn btn-gold">Review notes</a>
     </div>
   </section>
 
@@ -881,6 +861,7 @@
     showIdeaBuilder: false,
     validationMessage: '',
     phase: 'discover',
+    enteredFlow: false,
     build: loadBuild() || {
       activeStage: 'problem',
       problem: { log: [], pdfName: '', feedback: '', completed: false },
@@ -969,7 +950,6 @@
       state.showSummary = false;
       state.showIdeaBuilder = false;
       renderAll();
-      document.getElementById('questionSection').scrollIntoView({ behavior:'smooth', block:'start' });
     });
     interestGridEl.appendChild(btn);
   });
@@ -1023,7 +1003,8 @@
     answerInput.value = state.reflectionAnswers[q.id];
     validationMessageEl.hidden = !state.validationMessage;
     validationMessageEl.textContent = state.validationMessage;
-    backBtn.hidden = state.currentStep === 0;
+    backBtn.hidden = false;
+    backBtn.textContent = state.currentStep === 0 ? '← Back to interests' : 'Back';
     continueBtn.textContent = state.currentStep === reflectionPrompts.length - 1 ? 'Finish →' : 'Continue →';
   }
 
@@ -1035,6 +1016,11 @@
 
   backBtn.addEventListener('click', function(){
     state.validationMessage = '';
+    if(state.currentStep === 0){
+      state.selectedInterest = '';
+      renderAll();
+      return;
+    }
     state.currentStep = Math.max(state.currentStep - 1, 0);
     renderAll();
   });
@@ -1051,7 +1037,6 @@
       state.showSummary = true;
       state.showIdeaBuilder = false;
       renderAll();
-      document.getElementById('summarySection').scrollIntoView({ behavior:'smooth', block:'start' });
       return;
     }
     state.currentStep += 1;
@@ -1084,7 +1069,6 @@
   document.getElementById('workOnIdeaBtn').addEventListener('click', function(){
     state.showIdeaBuilder = true;
     renderAll();
-    document.getElementById('ideaSection').scrollIntoView({ behavior:'smooth', block:'start' });
   });
 
   // ---- render: idea builder ----
@@ -1625,12 +1609,47 @@
   });
 
   // ---- render all ----
+  function currentDiscoverView(){
+    if(state.showSummary && state.showIdeaBuilder) return 'idea';
+    if(state.showSummary) return 'summary';
+    if(hasInterest()) return 'reflect';
+    if(state.enteredFlow) return 'interest';
+    return 'welcome';
+  }
+
+  function renderDiscoverVisibility(){
+    var view = currentDiscoverView();
+    document.getElementById('discoverWelcome').hidden = view !== 'welcome';
+    document.getElementById('journeyBar').hidden = view === 'welcome';
+    document.getElementById('explore').hidden = view !== 'interest';
+    questionSection.hidden = view !== 'reflect';
+    summarySection.hidden = view !== 'summary';
+    ideaSection.hidden = view !== 'idea';
+    if(state.phase === 'discover') window.scrollTo(0, 0);
+  }
+
+  document.getElementById('startExploringBtn').addEventListener('click', function(){
+    state.enteredFlow = true;
+    renderAll();
+  });
+
+  document.getElementById('welcomeBackBtn').addEventListener('click', function(){
+    state.enteredFlow = false;
+    renderAll();
+  });
+
+  document.getElementById('ideaBackBtn').addEventListener('click', function(){
+    state.showIdeaBuilder = false;
+    renderAll();
+  });
+
   function renderAll(){
     renderJourney();
     renderInterests();
     renderQuestion();
     renderSummary();
     renderIdea();
+    renderDiscoverVisibility();
   }
 
   renderAll();
