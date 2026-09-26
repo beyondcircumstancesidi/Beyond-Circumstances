@@ -183,6 +183,22 @@
   .discover-cta-row{display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap;}
   .discover-cta-note{font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
 
+  /* ---------- Founders teaser ---------- */
+  .founders-teaser-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(2rem,5vw,3.5rem); align-items:center;}
+  .founders-quote{font-family:var(--font-display); font-size:clamp(1.4rem,2.6vw,1.9rem); font-weight:500; color:var(--gold-300); line-height:1.35; margin-bottom:1.2rem;}
+  .founders-body{color:var(--cream-70); font-weight:300; font-size:1rem; line-height:1.75; margin-bottom:1.4rem; max-width:480px;}
+  .founders-teaser-photos{display:flex; gap:1rem;}
+  .founder-mini{flex:1; text-align:center;}
+  .founder-mini img{width:100%; height:auto; border:1px solid var(--line-hair-strong); margin-bottom:0.7rem; filter:grayscale(0.15);}
+  .founder-mini span{font-family:var(--font-mono); font-size:0.76rem; color:var(--sage-300);}
+  @media (max-width:780px){.founders-teaser-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{display:flex; flex-direction:column; gap:1px; background:var(--line-hair); border:1px solid var(--line-hair); margin-top:2rem;}
+  .faq-item{background:var(--bg-900); padding:clamp(1.4rem,3vw,1.8rem) clamp(1.5rem,3vw,1.9rem);}
+  .faq-item h3{font-size:1.05rem; margin-bottom:0.6rem; font-weight:600;}
+  .faq-item p{color:var(--cream-70); font-weight:300; font-size:0.94rem; line-height:1.7;}
+
 
   /* ---------- Apply ---------- */
   .apply-layout{display:grid; grid-template-columns:1fr auto; gap:clamp(2rem,5vw,3.5rem); align-items:center;}
@@ -234,7 +250,7 @@
       </p>
       <div class="hero-ctas reveal">
         <a href="discover.html" class="btn btn-gold">Start Building</a>
-        <a href="#discover" class="btn btn-ghost">See how it works ↓</a>
+        <a href="#how-it-works" class="btn btn-ghost">See how it works ↓</a>
       </div>
     </div>
   </section>
@@ -272,6 +288,88 @@
       <div class="discover-cta-row reveal">
         <a href="discover.html" class="btn btn-gold">Start Building →</a>
         <span class="discover-cta-note">Free · takes about 15 minutes</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section" id="how-it-works">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2>Three real steps, not a syllabus.</h2>
+      </div>
+      <div class="pillar-grid reveal">
+        <div class="pillar-card">
+          <span class="pillar-num">01</span>
+          <h3>Discover — find the idea worth building</h3>
+          <p>Pick an area you care about, work through five honest questions about it, and walk away with a real project concept — not a worksheet.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">02</span>
+          <h3>Build — research it, plan it, pitch it</h3>
+          <p>Confirm the problem is real, write an actual plan, then practice pitching it out loud — with an AI mentor reviewing your work at every step, never handing you the answers.</p>
+        </div>
+        <div class="pillar-card">
+          <span class="pillar-num">03</span>
+          <h3>Submit — put it in front of real people</h3>
+          <p>When your project is ready, submit it for a shot at joining the founding cohort — mentorship, recognition, and a possible path to real investment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section" id="why-we-built-this">
+    <div class="wrap">
+      <div class="founders-teaser-grid reveal">
+        <div>
+          <p class="eyebrow" style="margin-bottom:1.2rem;">Why we built this</p>
+          <p class="founders-quote">"Talent is everywhere. Opportunity is not."</p>
+          <p class="founders-body">Beyond Circumstances is built and run by two students who felt that gap firsthand — not a company, not a curriculum vendor.</p>
+          <a href="about.html" class="btn btn-ghost">Read our story →</a>
+        </div>
+        <div class="founders-teaser-photos">
+          <div class="founder-mini">
+            <img src="Arjit.jpg" alt="Arjit Aggarwal, Co-founder of Beyond Circumstances">
+            <span>Arjit Aggarwal</span>
+          </div>
+          <div class="founder-mini">
+            <img src="Arthur.jpg" alt="Arthur Klissou, Co-founder of Beyond Circumstances">
+            <span>Arthur Klissou</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Questions</p>
+        <h2>Before you start.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3>Is it actually free?</h3>
+          <p>Yes — no login fee, no premium tier. The only thing that costs anything is your time.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do I need to already have an idea?</h3>
+          <p>No. Discover is built for exactly the opposite — you start from what you're curious about, not a fully-formed pitch.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Who can join?</h3>
+          <p>Students ages 13–18 based in Delhi or Gurgaon. The Discover and Build tools themselves are open to anyone who creates an account.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What happens after I submit my project?</h3>
+          <p>Submission into the founding cohort opens alongside the October 2026 launch — until then, keep refining it with your AI mentor.</p>
+        </div>
       </div>
     </div>
   </section>
