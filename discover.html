@@ -841,7 +841,19 @@
           'apikey': SUPABASE_ANON_KEY,
           'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
         },
-        body: JSON.stringify({ build_data: state.build, updated_at: new Date().toISOString() }),
+        body: JSON.stringify({
+          build_data: Object.assign({}, state.build, {
+            discover: {
+              selectedInterest: state.selectedInterest,
+              reflectionAnswers: state.reflectionAnswers,
+              currentStep: state.currentStep,
+              showSummary: state.showSummary,
+              showIdeaBuilder: state.showIdeaBuilder,
+              enteredFlow: state.enteredFlow,
+            },
+          }),
+          updated_at: new Date().toISOString(),
+        }),
       }).catch(function(){});
     }, 1200);
   }
@@ -858,17 +870,39 @@
     syncBuildToSupabase();
   }
 
+  var DISCOVER_KEY = 'bc_discover_v1';
+  function loadDiscover(){
+    try{
+      var raw = localStorage.getItem(DISCOVER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function persistDiscover(){
+    try{
+      localStorage.setItem(DISCOVER_KEY, JSON.stringify({
+        selectedInterest: state.selectedInterest,
+        reflectionAnswers: state.reflectionAnswers,
+        currentStep: state.currentStep,
+        showSummary: state.showSummary,
+        showIdeaBuilder: state.showIdeaBuilder,
+        enteredFlow: state.enteredFlow,
+      }));
+    }catch(e){}
+    syncBuildToSupabase();
+  }
+
   // ---- state ----
+  var savedDiscover = loadDiscover() || {};
   var state = {
-    selectedInterest: '',
+    selectedInterest: savedDiscover.selectedInterest || '',
     selectedResource: 'Developing an Idea',
-    reflectionAnswers: { learn:'', change:'', problem:'', help:'', create:'' },
-    currentStep: 0,
-    showSummary: false,
-    showIdeaBuilder: false,
+    reflectionAnswers: savedDiscover.reflectionAnswers || { learn:'', change:'', problem:'', help:'', create:'' },
+    currentStep: savedDiscover.currentStep || 0,
+    showSummary: savedDiscover.showSummary || false,
+    showIdeaBuilder: savedDiscover.showIdeaBuilder || false,
     validationMessage: '',
     phase: 'discover',
-    enteredFlow: false,
+    enteredFlow: savedDiscover.enteredFlow || false,
     build: loadBuild() || {
       activeStage: 'problem',
       problem: { log: [], pdfName: '', feedback: '', completed: false },
@@ -987,6 +1021,7 @@
     state.reflectionAnswers[q.id] = dummy;
     state.validationMessage = '';
     validationMessageEl.hidden = true;
+    persistDiscover();
   });
 
   function renderQuestion(){
@@ -1019,6 +1054,7 @@
     state.validationMessage = '';
     validationMessageEl.hidden = true;
     state.reflectionAnswers[reflectionPrompts[state.currentStep].id] = answerInput.value;
+    persistDiscover();
   });
 
   backBtn.addEventListener('click', function(){
@@ -1650,6 +1686,7 @@
     renderSummary();
     renderIdea();
     renderDiscoverVisibility();
+    persistDiscover();
   }
 
   renderAll();

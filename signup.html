@@ -446,7 +446,11 @@
 
     postJSON('/api/login', { email: email, password: password }).then(function(data){
       var account = accountFromRow(data.account);
-      try{ localStorage.setItem('bc_build_v2', JSON.stringify(data.account.build_data || {})); }catch(err){}
+      var buildData = data.account.build_data || {};
+      try{
+        localStorage.setItem('bc_build_v2', JSON.stringify(buildData));
+        if(buildData.discover){ localStorage.setItem('bc_discover_v1', JSON.stringify(buildData.discover)); }
+      }catch(err){}
       finishAs(account, {
         heading: 'Welcome back.',
         body: 'Your progress is right where you left it.',
