@@ -257,20 +257,23 @@
         <p class="form-note">This is a demo account system — account details are saved to this browser only, there's no database behind this yet.</p>
       </form>
 
-      <!-- ADMIN: access code -->
-      <div class="signup-card" id="adminCard" hidden>
-        <div class="success-check">✓</div>
-        <h2>Admin access granted.</h2>
-        <p class="body-text">Sign-up has been bypassed for this session. Your admin code:</p>
-        <div class="admin-code">AAAK_Admin_Granted</div>
-        <button type="button" class="btn btn-gold" id="adminContinueBtn" style="width:100%;">Continue to Build →</button>
-      </div>
+      <!-- ADMIN: enter code -->
+      <form class="signup-card" id="adminCodeForm" hidden>
+        <h2>Admin sign-in</h2>
+        <p class="body-text">That email is recognized. Enter the admin code to continue.</p>
+        <div class="form-row">
+          <label for="fAdminCode">Admin code</label>
+          <input id="fAdminCode" type="password" autocomplete="off">
+        </div>
+        <p class="form-hint error" id="adminCodeError" hidden></p>
+        <button type="submit" class="btn btn-gold" style="width:100%;">Enter admin panel →</button>
+      </form>
 
       <!-- STEP 3: done -->
       <div class="signup-card" id="doneCard" hidden>
         <div class="success-check">✓</div>
-        <h2>You're in.</h2>
-        <p class="body-text">Your account is set up. Head into Build to start turning what you're curious about into a real project idea.</p>
+        <h2 id="doneHeading">You're in.</h2>
+        <p class="body-text" id="doneBody">Your account is set up. Head into Build to start turning what you're curious about into a real project idea.</p>
         <a href="discover.html" class="btn btn-gold" id="goDiscoverBtn">Go to Build →</a>
       </div>
 
@@ -286,12 +289,45 @@
 
 <script>
 (function(){
+  // ---- Supabase config: fill these in once the project exists (both values
+  // are safe to hardcode here — the anon key is meant to be public, protected
+  // by Row Level Security on the server, not by secrecy). Until filled in,
+  // every sync call below silently no-ops and the site keeps working on
+  // localStorage alone, same as before. ----
+  var SUPABASE_URL = '';
+  var SUPABASE_ANON_KEY = '';
+
+  var ADMIN_EMAIL = 'beyondcircumstancesidi@gmail.com';
+  var ADMIN_CODE = 'BeyondCircumstances2026(Arjit+Arthur)';
+
+  function supabaseInsertAccount(account){
+    if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return Promise.resolve(null);
+    return fetch(SUPABASE_URL + '/rest/v1/accounts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=representation',
+      },
+      body: JSON.stringify(account),
+    }).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(rows){ return rows && rows[0] ? rows[0] : null; })
+      .catch(function(){ return null; });
+  }
+
+  function resumeAccountLookup(email){
+    return fetch('/api/resume-account', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+    }).then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .catch(function(){ return { found:false }; });
+  }
+
   var params = new URLSearchParams(window.location.search);
   var nextPage = params.get('next') || 'discover.html';
   document.getElementById('goDiscoverBtn').setAttribute('href', nextPage);
-  document.getElementById('adminContinueBtn').addEventListener('click', function(){
-    location.href = nextPage;
-  });
 
   var progressSteps = document.querySelectorAll('.progress-step');
   function setProgress(step){
@@ -305,8 +341,27 @@
   }
 
   var detailsForm = document.getElementById('detailsForm');
+  var adminCodeForm = document.getElementById('adminCodeForm');
   var doneCard = document.getElementById('doneCard');
   var detailsError = document.getElementById('detailsError');
+  var pendingAdminEmail = '';
+
+  function finishAs(account, opts){
+    opts = opts || {};
+    try{
+      localStorage.setItem('bc_account', JSON.stringify(account));
+      localStorage.setItem('bc_account_created', '1');
+    }catch(err){}
+    document.getElementById('doneHeading').textContent = opts.heading || "You're in.";
+    document.getElementById('doneBody').textContent = opts.body ||
+      "Your account is set up. Head into Build to start turning what you're curious about into a real project idea.";
+    document.getElementById('goDiscoverBtn').setAttribute('href', opts.href || nextPage);
+    document.getElementById('goDiscoverBtn').textContent = opts.btnLabel || 'Go to Build →';
+    detailsForm.hidden = true;
+    adminCodeForm.hidden = true;
+    doneCard.hidden = false;
+    setProgress('done');
+  }
 
   detailsForm.addEventListener('submit', function(e){
     e.preventDefault();
@@ -317,19 +372,13 @@
     var school = document.getElementById('fschool').value.trim();
     var area = document.getElementById('farea').value.trim();
 
-    // Admin bypass — internal use only, skips signup entirely
-    if(name === 'Admin123'){
-      try{
-        localStorage.setItem('bc_account', JSON.stringify({
-          name:'Admin', email:email || 'admin@beyondcircumstances.local',
-          dob:dob, phone:phone, school:school, area:area,
-          isAdmin:true, createdAt:new Date().toISOString()
-        }));
-        localStorage.setItem('bc_account_created', '1');
-      }catch(err){}
+    // Admin sign-in — recognized email, then asks for the admin code
+    if(email.toLowerCase() === ADMIN_EMAIL){
+      pendingAdminEmail = email;
+      detailsError.hidden = true;
       detailsForm.hidden = true;
-      document.getElementById('adminCard').hidden = false;
-      setProgress('done');
+      adminCodeForm.hidden = false;
+      document.getElementById('fAdminCode').focus();
       return;
     }
 
@@ -346,15 +395,62 @@
     }
     detailsError.hidden = true;
 
-    var account = { name:name, email:email, dob:dob, phone:phone, school:school, area:area, createdAt:new Date().toISOString() };
-    try{
-      localStorage.setItem('bc_account', JSON.stringify(account));
-      localStorage.setItem('bc_account_created', '1');
-    }catch(err){}
+    var normalizedEmail = email.toLowerCase();
+    var submitBtn = detailsForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Checking…';
 
-    detailsForm.hidden = true;
-    doneCard.hidden = false;
-    setProgress('done');
+    resumeAccountLookup(normalizedEmail).then(function(result){
+      if(result && result.found){
+        var existing = result.account;
+        var account = {
+          id: existing.id, name: existing.name, email: existing.email,
+          dob: existing.dob, phone: existing.phone, school: existing.school,
+          area: existing.area, isAdmin: Boolean(existing.is_admin),
+          createdAt: existing.created_at,
+        };
+        try{ localStorage.setItem('bc_build_v2', JSON.stringify(existing.build_data || {})); }catch(err){}
+        finishAs(account, {
+          heading: 'Welcome back.',
+          body: 'We found your account — your progress is right where you left it.',
+          href: account.isAdmin ? 'admin.html' : nextPage,
+          btnLabel: account.isAdmin ? 'Go to admin panel →' : 'Go to Build →',
+        });
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue →';
+        return;
+      }
+
+      var newAccount = { name:name, email:normalizedEmail, dob:dob, phone:phone, school:school, area:area };
+      supabaseInsertAccount(newAccount).then(function(inserted){
+        var account = inserted
+          ? { id: inserted.id, name: inserted.name, email: inserted.email, dob: inserted.dob,
+              phone: inserted.phone, school: inserted.school, area: inserted.area,
+              isAdmin: false, createdAt: inserted.created_at }
+          : Object.assign({ createdAt: new Date().toISOString() }, newAccount);
+        finishAs(account);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue →';
+      });
+    });
+  });
+
+  adminCodeForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var codeInput = document.getElementById('fAdminCode');
+    var codeError = document.getElementById('adminCodeError');
+    if(codeInput.value !== ADMIN_CODE){
+      codeError.textContent = 'Incorrect code.';
+      codeError.hidden = false;
+      return;
+    }
+    codeError.hidden = true;
+    try{ localStorage.setItem('bc_admin_code', codeInput.value); }catch(err){}
+    finishAs(
+      { name:'Admin', email: pendingAdminEmail, isAdmin:true, createdAt:new Date().toISOString() },
+      { heading:'Admin access granted.', body:'You can view student work or test the Build flow yourself.',
+        href:'admin.html', btnLabel:'Go to admin panel →' }
+    );
   });
 })();
 </script>

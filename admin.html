@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  try{
+    var raw = localStorage.getItem('bc_account');
+    var account = raw ? JSON.parse(raw) : null;
+    if(!account || !account.isAdmin){
+      location.replace('signup.html?next=admin.html');
+    }
+  }catch(e){
+    location.replace('signup.html?next=admin.html');
+  }
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Beyond Circumstances</title>
+<link rel="icon" type="image/png" href="FinalLogoBCSmall.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..500&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg-950:#131E17;
+    --bg-900:#183528;
+    --bg-850:#1B3E2E;
+    --bg-800:#1F4233;
+    --line-hair: rgba(201,162,39,0.16);
+    --line-hair-strong: rgba(201,162,39,0.32);
+    --gold-500:#C9A227;
+    --gold-400:#D9B646;
+    --gold-300:#E3C567;
+    --cream-100:#F4EFE1;
+    --cream-70: rgba(244,239,225,0.72);
+    --sage-300:#B7CDBD;
+    --sage-400:#9FB8A6;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Work Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg-900);
+    color:var(--cream-100);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem);}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; color:var(--cream-100);}
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--gold-300); display:inline-flex; align-items:center; gap:0.6em;
+  }
+  .eyebrow::before{content:""; width:1.4em; height:1px; background:var(--gold-500); display:inline-block;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:0.55rem; font-family:var(--font-body); font-weight:600;
+    font-size:0.92rem; padding:0.7rem 1.3rem; border-radius:3px; border:1px solid transparent; cursor:pointer;
+    transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-gold{background:var(--gold-500); color:var(--bg-950);}
+  .btn-gold:hover{background:var(--gold-300);}
+  .btn-ghost{background:transparent; color:var(--cream-100); border-color:var(--line-hair-strong);}
+  .btn-ghost:hover{border-color:var(--gold-400); color:var(--gold-300);}
+  .btn-small{font-size:0.8rem; padding:0.5rem 0.9rem;}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(19,30,23,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line-hair);}
+  nav{max-width:var(--maxw); margin:0 auto; padding:1rem clamp(1.25rem,4vw,3rem); display:flex; align-items:center; justify-content:space-between;}
+  .brand{display:flex; align-items:center; gap:0.7rem;}
+  .brand-mark{width:40px; height:40px; object-fit:contain;}
+  .brand-name{font-family:var(--font-display); font-size:1rem; font-weight:500;}
+  .nav-links{display:flex; gap:1.2rem; align-items:center; font-size:0.85rem; color:var(--sage-300);}
+
+  main{flex:1; padding:clamp(2.5rem,5vw,3.5rem) 0 4rem;}
+  .section-head{max-width:680px; margin-bottom:2rem;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.1rem); margin-top:0.7rem;}
+  .section-head p{color:var(--cream-70); font-weight:300; font-size:0.95rem; margin-top:0.7rem; line-height:1.7;}
+  section + section{margin-top:3.5rem; padding-top:3.5rem; border-top:1px solid var(--line-hair);}
+
+  .dummy-card{
+    background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(1.8rem,3vw,2.4rem);
+    display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; max-width:760px;
+  }
+  .dummy-card p{color:var(--cream-70); font-weight:300; font-size:0.94rem; max-width:480px;}
+
+  .status-note{font-family:var(--font-mono); font-size:0.85rem; color:var(--sage-400); margin-top:1rem;}
+  .status-note.error{color:#E4A45C;}
+
+  .account-grid{display:flex; flex-direction:column; gap:1px; background:var(--line-hair); border:1px solid var(--line-hair); margin-top:1.5rem;}
+  .account-row{background:var(--bg-900); padding:1.2rem 1.5rem; cursor:pointer;}
+  .account-row-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;}
+  .account-row-name{font-family:var(--font-display); font-size:1.1rem; font-weight:500;}
+  .account-row-meta{font-family:var(--font-mono); font-size:0.76rem; color:var(--sage-400);}
+  .account-badges{display:flex; gap:0.5rem; margin-top:0.6rem;}
+  .stage-badge{font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.05em; text-transform:uppercase; padding:0.25rem 0.5rem; border:1px solid var(--line-hair-strong); color:var(--sage-400);}
+  .stage-badge.is-done{color:var(--gold-300); border-color:var(--gold-500);}
+  .account-detail{display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--line-hair); font-size:0.88rem; color:var(--cream-70); white-space:pre-line; line-height:1.7;}
+  .account-row.is-open .account-detail{display:block;}
+  .account-detail b{color:var(--gold-300); font-weight:600;}
+
+  footer{padding:2rem 0; border-top:1px solid var(--line-hair); font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="beyond-circumstances.html" class="brand">
+      <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
+      <div class="brand-name">Beyond Circumstances</div>
+    </a>
+    <div class="nav-links">
+      <span id="whoami"></span>
+      <button type="button" class="btn btn-ghost btn-small" id="signOutBtn">Sign out</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="eyebrow">Admin panel</p>
+    <h1 style="margin-top:0.8rem; font-size:clamp(1.9rem,4vw,2.6rem);">Behind the scenes.</h1>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Test mode</p>
+        <h2>Try the Build flow yourself.</h2>
+        <p>This uses your own admin account as scratch space — nothing here touches real student data.</p>
+      </div>
+      <div class="dummy-card">
+        <p>Walk through Discover and Build exactly as a student would, to check the flow or try out a change.</p>
+        <a href="discover.html" class="btn btn-gold">Test the Build flow →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Student work</p>
+        <h2>See what students have submitted.</h2>
+        <p>Pulled directly from the database — click a row to expand it.</p>
+      </div>
+      <div id="accountsStatus" class="status-note">Loading…</div>
+      <div class="account-grid" id="accountsGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Admin only · not linked from anywhere else on the site</div>
+</footer>
+
+<script>
+(function(){
+  var account = null;
+  try{ account = JSON.parse(localStorage.getItem('bc_account') || 'null'); }catch(e){}
+  document.getElementById('whoami').textContent = account ? ('Signed in as ' + (account.email || 'admin')) : '';
+
+  document.getElementById('signOutBtn').addEventListener('click', function(){
+    try{
+      localStorage.removeItem('bc_account_created');
+      localStorage.removeItem('bc_account');
+      localStorage.removeItem('bc_admin_code');
+    }catch(e){}
+    location.href = 'signup.html';
+  });
+
+  var adminCode = null;
+  try{ adminCode = localStorage.getItem('bc_admin_code'); }catch(e){}
+
+  var statusEl = document.getElementById('accountsStatus');
+  var gridEl = document.getElementById('accountsGrid');
+
+  if(!adminCode){
+    statusEl.textContent = 'No admin code on file for this session — sign in again to load student data.';
+    statusEl.classList.add('error');
+  } else {
+    fetch('/api/admin-accounts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: adminCode }),
+    }).then(function(r){
+      return r.json().catch(function(){
+        throw new Error('No backend here — this only works once the site is deployed to Vercel.');
+      }).then(function(data){
+        if(!r.ok) throw new Error(data.error || 'Could not load accounts.');
+        return data;
+      });
+    }).then(function(data){
+      var accounts = data.accounts || [];
+      if(!accounts.length){
+        statusEl.textContent = 'No student accounts yet.';
+        return;
+      }
+      statusEl.textContent = accounts.length + ' account' + (accounts.length === 1 ? '' : 's') + '.';
+      accounts.forEach(function(a){
+        var build = a.build_data || {};
+        var row = document.createElement('div');
+        row.className = 'account-row';
+
+        var problemDone = build.problem && build.problem.completed;
+        var planDone = build.plan && build.plan.completed;
+        var pitchDone = build.pitch && build.pitch.completed;
+
+        var detailLines = [];
+        if(build.problem){
+          detailLines.push('RESEARCH LOG\n' + ((build.problem.log || []).map(function(e){
+            return '[' + e.type + '] ' + e.text;
+          }).join('\n') || '(none yet)'));
+          if(build.problem.feedback) detailLines.push('Mentor feedback: ' + build.problem.feedback);
+        }
+        if(build.plan){
+          detailLines.push('PLAN\n' + (build.plan.text || '(none yet)'));
+          if(build.plan.peerFeedback) detailLines.push('Peer feedback: ' + build.plan.peerFeedback);
+          if(build.plan.feedback) detailLines.push('Mentor feedback: ' + build.plan.feedback);
+        }
+        if(build.pitch){
+          detailLines.push('PITCH TRANSCRIPT\n' + (build.pitch.transcript || '(none yet)'));
+          if(build.pitch.feedback) detailLines.push('Mentor feedback: ' + build.pitch.feedback);
+        }
+
+        row.innerHTML =
+          '<div class="account-row-head">' +
+            '<div>' +
+              '<div class="account-row-name"></div>' +
+              '<div class="account-row-meta"></div>' +
+            '</div>' +
+            '<div class="account-badges">' +
+              '<span class="stage-badge' + (problemDone ? ' is-done' : '') + '">Research</span>' +
+              '<span class="stage-badge' + (planDone ? ' is-done' : '') + '">Plan</span>' +
+              '<span class="stage-badge' + (pitchDone ? ' is-done' : '') + '">Pitch</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="account-detail"></div>';
+
+        row.querySelector('.account-row-name').textContent = a.name + (a.is_admin ? ' (admin)' : '');
+        row.querySelector('.account-row-meta').textContent =
+          [a.email, a.school, a.area].filter(Boolean).join(' · ');
+        row.querySelector('.account-detail').textContent = detailLines.join('\n\n') || 'No Build progress yet.';
+
+        row.addEventListener('click', function(){
+          row.classList.toggle('is-open');
+        });
+        gridEl.appendChild(row);
+      });
+    }).catch(function(err){
+      statusEl.textContent = err.message;
+      statusEl.classList.add('error');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
