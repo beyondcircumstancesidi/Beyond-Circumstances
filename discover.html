@@ -377,11 +377,6 @@
   }
   .transcript-block textarea:focus{outline:none; border-color:var(--gold-500);}
 
-  /* ---------- Submission placeholder ---------- */
-  .submit-card{background:var(--bg-850); border:1px solid var(--line-hair-strong); padding:clamp(2.2rem,5vw,3.2rem); margin-top:1.8rem; max-width:640px; text-align:left;}
-  .submit-card h3{font-size:1.5rem; margin-bottom:0.9rem;}
-  .submit-card p{color:var(--cream-70); font-size:0.96rem; font-weight:300; line-height:1.75; margin-bottom:1rem;}
-
   /* ---------- Footer ---------- */
   footer{padding:clamp(3rem,6vw,4rem) 0 2rem; border-top:1px solid var(--line-hair); position:relative; z-index:1;}
   .foot-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:2.5rem; padding-bottom:2.4rem; margin-bottom:1.6rem; border-bottom:1px solid var(--line-hair);}
@@ -548,7 +543,6 @@
       <div class="phase-switch" id="phaseSwitch">
         <button type="button" class="btn btn-gold" data-phase="discover">Discover &amp; Prepare</button>
         <button type="button" class="btn btn-ghost" data-phase="build">Build</button>
-        <button type="button" class="btn btn-ghost" data-phase="submit">Submission (coming soon)</button>
       </div>
     </div>
   </section>
@@ -570,7 +564,7 @@
       </div>
 
       <div class="idea-recap card-accent">
-        <button type="button" class="idea-recap-toggle" id="ideaRecapToggle">Your submissions — Discover answers &amp; idea concept ▾</button>
+        <button type="button" class="idea-recap-toggle" id="ideaRecapToggle">Your answers &amp; idea concept ▾</button>
         <div class="idea-recap-body" id="ideaRecapBody" hidden></div>
       </div>
 
@@ -681,21 +675,6 @@
     </div>
   </section>
 
-  <section class="section" id="submitPhase" hidden>
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Phase 3</p>
-        <h2>Submission</h2>
-        <p>Coming soon — this is where your project gets a final review.</p>
-      </div>
-      <div class="submit-card card-accent">
-        <h3>Submissions aren't open yet.</h3>
-        <p>Once submissions open, this is where you'll enter <strong id="submitTitle">your idea</strong> for a final mentor review — real feedback and real recognition for something you actually built.</p>
-        <p>For now, keep refining it in the Build workspace so it's ready the moment this opens.</p>
-        <button type="button" class="btn btn-ghost" id="backToBuildBtn">← Back to Build</button>
-      </div>
-    </div>
-  </section>
 
 </main>
 
@@ -1165,7 +1144,6 @@
   // ---- phase switching ----
   var phaseSwitchEl = document.getElementById('phaseSwitch');
   var buildPhaseEl = document.getElementById('buildPhase');
-  var submitPhaseEl = document.getElementById('submitPhase');
   var discoverPhaseContentEl = document.getElementById('discoverPhaseContent');
 
   function setPhase(p){
@@ -1177,18 +1155,12 @@
     });
     discoverPhaseContentEl.hidden = p !== 'discover';
     buildPhaseEl.hidden = p !== 'build';
-    submitPhaseEl.hidden = p !== 'submit';
     window.scrollTo(0, 0);
     if(p === 'build') renderBuild();
-    if(p === 'submit') document.getElementById('submitTitle').textContent = computeIdeaDraft().projectTitle;
   }
 
   Array.prototype.forEach.call(phaseSwitchEl.children, function(btn){
     btn.addEventListener('click', function(){ setPhase(btn.getAttribute('data-phase')); });
-  });
-
-  document.getElementById('backToBuildBtn').addEventListener('click', function(){
-    setPhase('build');
   });
 
   // ---- build stage wizard ----
@@ -1275,7 +1247,7 @@
   document.getElementById('ideaRecapToggle').addEventListener('click', function(){
     var body = document.getElementById('ideaRecapBody');
     body.hidden = !body.hidden;
-    this.textContent = 'Your submissions — Discover answers & idea concept ' + (body.hidden ? '▾' : '▴');
+    this.textContent = 'Your answers & idea concept ' + (body.hidden ? '▾' : '▴');
   });
 
   function renderIdeaRecap(){
