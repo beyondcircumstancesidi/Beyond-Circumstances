@@ -237,6 +237,10 @@
           <label for="femail">Email</label>
           <input id="femail" type="email" placeholder="you@example.com" autocomplete="email">
         </div>
+        <div class="form-row">
+          <label for="fpassword">Password</label>
+          <input id="fpassword" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+        </div>
         <div class="form-two">
           <div class="form-row">
             <label for="fdob">Date of birth</label>
@@ -262,36 +266,32 @@
       <!-- LOG IN: existing account -->
       <form class="signup-card" id="loginForm" hidden>
         <h2>Welcome back.</h2>
-        <p class="body-text">Enter the email you signed up with — your progress will be right where you left it.</p>
+        <p class="body-text">Enter your email and password — your progress will be right where you left it.</p>
         <div class="form-row">
           <label for="fLoginEmail">Email</label>
           <input id="fLoginEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="fLoginPassword">Password</label>
+          <input id="fLoginPassword" type="password" autocomplete="current-password">
         </div>
         <p class="form-hint error" id="loginError" hidden></p>
         <button type="submit" class="btn btn-gold" style="width:100%;">Log in →</button>
       </form>
 
-      <!-- ADMIN STEP 1: enter email -->
-      <form class="signup-card" id="adminEmailForm" hidden>
+      <!-- ADMIN: email + code together -->
+      <form class="signup-card" id="adminForm" hidden>
         <h2>Admin sign-in</h2>
-        <p class="body-text">Enter your admin email to continue.</p>
+        <p class="body-text">Enter your admin email and the admin code.</p>
         <div class="form-row">
           <label for="fAdminEmail">Email</label>
           <input id="fAdminEmail" type="email" autocomplete="off">
         </div>
-        <p class="form-hint error" id="adminEmailError" hidden></p>
-        <button type="submit" class="btn btn-gold" style="width:100%;">Continue →</button>
-      </form>
-
-      <!-- ADMIN STEP 2: enter code -->
-      <form class="signup-card" id="adminCodeForm" hidden>
-        <h2>Admin sign-in</h2>
-        <p class="body-text">Enter the admin code to continue.</p>
         <div class="form-row">
           <label for="fAdminCode">Admin code</label>
           <input id="fAdminCode" type="password" autocomplete="off">
         </div>
-        <p class="form-hint error" id="adminCodeError" hidden></p>
+        <p class="form-hint error" id="adminError" hidden></p>
         <button type="submit" class="btn btn-gold" style="width:100%;">Enter admin panel →</button>
       </form>
 
@@ -315,40 +315,22 @@
 
 <script>
 (function(){
-  // ---- Supabase config: fill these in once the project exists (both values
-  // are safe to hardcode here — the anon key is meant to be public, protected
-  // by Row Level Security on the server, not by secrecy). Until filled in,
-  // every sync call below silently no-ops and the site keeps working on
-  // localStorage alone, same as before. ----
-  var SUPABASE_URL = 'https://hmofpoafkjxxtzjfmcgc.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhtb2Zwb2Fma2p4eHR6amZtY2djIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjYwNDcsImV4cCI6MjEwNjcwMjA0N30.HNUQbeRWkh-woZPJwo2wKCNqreQHZKyS-nU9nWwNPxs';
-
   var ADMIN_EMAIL = 'beyondcircumstancesidi@gmail.com';
   var ADMIN_CODE = 'BeyondCircumstances2026(Arjit+Arthur)';
 
-  function supabaseInsertAccount(account){
-    if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return Promise.resolve(null);
-    return fetch(SUPABASE_URL + '/rest/v1/accounts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-        'Prefer': 'return=representation',
-      },
-      body: JSON.stringify(account),
-    }).then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(rows){ return rows && rows[0] ? rows[0] : null; })
-      .catch(function(){ return null; });
-  }
-
-  function resumeAccountLookup(email){
-    return fetch('/api/resume-account', {
+  function postJSON(url, body){
+    return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email }),
-    }).then(function(r){ return r.json().catch(function(){ return {}; }); })
-      .catch(function(){ return { found:false }; });
+      body: JSON.stringify(body),
+    }).then(function(r){
+      return r.json().catch(function(){
+        throw new Error('No backend here — this only works once the site is deployed to Vercel.');
+      }).then(function(data){
+        if(!r.ok) throw new Error(data.error || 'Something went wrong.');
+        return data;
+      });
+    });
   }
 
   var params = new URLSearchParams(window.location.search);
@@ -357,14 +339,12 @@
 
   var signupForm = document.getElementById('signupForm');
   var loginForm = document.getElementById('loginForm');
-  var adminEmailForm = document.getElementById('adminEmailForm');
-  var adminCodeForm = document.getElementById('adminCodeForm');
+  var adminForm = document.getElementById('adminForm');
   var doneCard = document.getElementById('doneCard');
   var detailsError = document.getElementById('detailsError');
   var authTabsEl = document.getElementById('authTabs');
-  var pendingAdminEmail = '';
 
-  var panels = { signup: signupForm, login: loginForm, admin: adminEmailForm };
+  var panels = { signup: signupForm, login: loginForm, admin: adminForm };
 
   function setTab(tab){
     Array.prototype.forEach.call(authTabsEl.children, function(btn){
@@ -373,7 +353,6 @@
     Object.keys(panels).forEach(function(key){
       panels[key].hidden = key !== tab;
     });
-    adminCodeForm.hidden = true;
     doneCard.hidden = true;
   }
 
@@ -394,82 +373,69 @@
     document.getElementById('goDiscoverBtn').textContent = opts.btnLabel || 'Go to Build →';
     signupForm.hidden = true;
     loginForm.hidden = true;
-    adminEmailForm.hidden = true;
-    adminCodeForm.hidden = true;
+    adminForm.hidden = true;
     doneCard.hidden = false;
   }
 
-  adminEmailForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    var email = document.getElementById('fAdminEmail').value.trim();
-    var emailError = document.getElementById('adminEmailError');
-    if(email.toLowerCase() !== ADMIN_EMAIL){
-      emailError.textContent = 'That email is not recognized.';
-      emailError.hidden = false;
-      return;
-    }
-    emailError.hidden = true;
-    pendingAdminEmail = email;
-    adminEmailForm.hidden = true;
-    adminCodeForm.hidden = false;
-    document.getElementById('fAdminCode').focus();
-  });
+  function accountFromRow(row){
+    return {
+      id: row.id, name: row.name, email: row.email, dob: row.dob,
+      phone: row.phone, school: row.school, area: row.area,
+      isAdmin: Boolean(row.is_admin), createdAt: row.created_at,
+    };
+  }
 
   signupForm.addEventListener('submit', function(e){
     e.preventDefault();
     var name = document.getElementById('fname').value.trim();
     var email = document.getElementById('femail').value.trim();
+    var password = document.getElementById('fpassword').value;
     var dob = document.getElementById('fdob').value;
     var phone = document.getElementById('fphone').value.trim();
     var school = document.getElementById('fschool').value.trim();
     var area = document.getElementById('farea').value.trim();
 
-    if(!name || !email || !dob || !school || !area){
+    if(!name || !email || !password || !dob || !school || !area){
       detailsError.textContent = 'Please fill in every required field.';
       detailsError.hidden = false;
       return;
     }
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if(!emailOk){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
       detailsError.textContent = 'Enter a valid email address.';
+      detailsError.hidden = false;
+      return;
+    }
+    if(password.length < 6){
+      detailsError.textContent = 'Password must be at least 6 characters.';
       detailsError.hidden = false;
       return;
     }
     detailsError.hidden = true;
 
-    var normalizedEmail = email.toLowerCase();
     var submitBtn = signupForm.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Checking…';
+    submitBtn.textContent = 'Creating…';
 
-    resumeAccountLookup(normalizedEmail).then(function(result){
+    postJSON('/api/create-account', {
+      name: name, email: email, password: password, dob: dob, phone: phone, school: school, area: area,
+    }).then(function(data){
+      finishAs(accountFromRow(data.account));
+    }).catch(function(err){
+      detailsError.textContent = err.message;
+      detailsError.hidden = false;
+    }).finally(function(){
       submitBtn.disabled = false;
       submitBtn.textContent = 'Create account →';
-
-      if(result && result.found){
-        detailsError.textContent = 'An account with this email already exists — use the Log in tab instead.';
-        detailsError.hidden = false;
-        return;
-      }
-
-      var newAccount = { name:name, email:normalizedEmail, dob:dob, phone:phone, school:school, area:area };
-      supabaseInsertAccount(newAccount).then(function(inserted){
-        var account = inserted
-          ? { id: inserted.id, name: inserted.name, email: inserted.email, dob: inserted.dob,
-              phone: inserted.phone, school: inserted.school, area: inserted.area,
-              isAdmin: false, createdAt: inserted.created_at }
-          : Object.assign({ createdAt: new Date().toISOString() }, newAccount);
-        finishAs(account);
-      });
     });
   });
 
   loginForm.addEventListener('submit', function(e){
     e.preventDefault();
     var email = document.getElementById('fLoginEmail').value.trim();
+    var password = document.getElementById('fLoginPassword').value;
     var loginError = document.getElementById('loginError');
-    if(!email){
-      loginError.textContent = 'Enter your email.';
+    if(!email || !password){
+      loginError.textContent = 'Enter your email and password.';
       loginError.hidden = false;
       return;
     }
@@ -478,45 +444,38 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Checking…';
 
-    resumeAccountLookup(email.toLowerCase()).then(function(result){
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Log in →';
-
-      if(!result || !result.found){
-        loginError.textContent = 'No account found with that email — try Sign up instead.';
-        loginError.hidden = false;
-        return;
-      }
-      var existing = result.account;
-      var account = {
-        id: existing.id, name: existing.name, email: existing.email,
-        dob: existing.dob, phone: existing.phone, school: existing.school,
-        area: existing.area, isAdmin: Boolean(existing.is_admin),
-        createdAt: existing.created_at,
-      };
-      try{ localStorage.setItem('bc_build_v2', JSON.stringify(existing.build_data || {})); }catch(err){}
+    postJSON('/api/login', { email: email, password: password }).then(function(data){
+      var account = accountFromRow(data.account);
+      try{ localStorage.setItem('bc_build_v2', JSON.stringify(data.account.build_data || {})); }catch(err){}
       finishAs(account, {
         heading: 'Welcome back.',
         body: 'Your progress is right where you left it.',
         href: account.isAdmin ? 'admin.html' : nextPage,
         btnLabel: account.isAdmin ? 'Go to admin panel →' : 'Go to Build →',
       });
+    }).catch(function(err){
+      loginError.textContent = err.message;
+      loginError.hidden = false;
+    }).finally(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Log in →';
     });
   });
 
-  adminCodeForm.addEventListener('submit', function(e){
+  adminForm.addEventListener('submit', function(e){
     e.preventDefault();
-    var codeInput = document.getElementById('fAdminCode');
-    var codeError = document.getElementById('adminCodeError');
-    if(codeInput.value !== ADMIN_CODE){
-      codeError.textContent = 'Incorrect code.';
-      codeError.hidden = false;
+    var email = document.getElementById('fAdminEmail').value.trim();
+    var code = document.getElementById('fAdminCode').value;
+    var adminError = document.getElementById('adminError');
+    if(email.toLowerCase() !== ADMIN_EMAIL || code !== ADMIN_CODE){
+      adminError.textContent = 'Incorrect email or code.';
+      adminError.hidden = false;
       return;
     }
-    codeError.hidden = true;
-    try{ localStorage.setItem('bc_admin_code', codeInput.value); }catch(err){}
+    adminError.hidden = true;
+    try{ localStorage.setItem('bc_admin_code', code); }catch(err){}
     finishAs(
-      { name:'Admin', email: pendingAdminEmail, isAdmin:true, createdAt:new Date().toISOString() },
+      { name:'Admin', email: email, isAdmin:true, createdAt:new Date().toISOString() },
       { heading:'Admin access granted.', body:'You can view student work or test the Build flow yourself.',
         href:'admin.html', btnLabel:'Go to admin panel →' }
     );

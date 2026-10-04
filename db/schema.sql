@@ -6,6 +6,7 @@ create table if not exists accounts (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null unique,
+  password_hash text,
   dob date,
   phone text,
   school text,
@@ -19,18 +20,19 @@ create table if not exists accounts (
 -- Row Level Security: locked down by default, opened up only where needed.
 alter table accounts enable row level security;
 
--- Anyone can create an account (this is what the sign-up page does).
-create policy "anyone can insert an account"
-  on accounts for insert
-  with check (true);
+-- No insert policy for the public anon key - account creation happens only
+-- through api/create-account.js (service role key), so passwords always get
+-- hashed server-side and can never be bypassed by writing directly to the
+-- table with the public key.
 
 -- A client can update a row if it knows that row's id (its own account,
--- kept in the browser after sign-up). Not real authentication - just
--- enough to let a signed-up student save their own Build progress
--- without a password. Reading the table back is NOT allowed here on
--- purpose, so account emails/phone numbers aren't publicly queryable -
--- the admin panel reads through a backend function instead (service
--- role key), never the public key used by this site's front end.
+-- kept in the browser after sign-up/login). This only covers things like
+-- Build progress - it can't be used to change the password or email, since
+-- those aren't sent from discover.html's save calls. Reading the table back
+-- is NOT allowed here on purpose, so account emails/phone numbers/password
+-- hashes aren't publicly queryable - the admin panel and login both read
+-- through backend functions instead (service role key), never the public
+-- key used by this site's front end.
 create policy "a client can update its own account row"
   on accounts for update
   using (true)

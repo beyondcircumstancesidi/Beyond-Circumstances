@@ -17,7 +17,9 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Invalid admin code.' });
   }
 
-  const url = process.env.SUPABASE_URL + '/rest/v1/accounts?select=*&order=created_at.desc';
+  // Explicitly excludes password_hash — never return it, even to the admin UI.
+  const url = process.env.SUPABASE_URL +
+    '/rest/v1/accounts?select=id,name,email,dob,phone,school,area,is_admin,build_data,created_at,updated_at&order=created_at.desc';
 
   try {
     const r = await fetch(url, {
