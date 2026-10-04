@@ -140,14 +140,16 @@
   .signup-hero h1{font-size:clamp(2rem, 4.5vw, 2.8rem); margin-bottom:1rem;}
   .signup-hero p{color:var(--cream-70); font-weight:300; font-size:1rem; max-width:480px;}
 
-  /* ---------- Progress ---------- */
-  .progress-row{display:flex; align-items:center; gap:0.6rem; margin:1.6rem 0 0;}
-  .progress-step{display:flex; align-items:center; gap:0.5rem; font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--sage-400);}
-  .progress-dot{width:20px; height:20px; border-radius:50%; border:1.5px solid var(--line-hair-strong); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--sage-400); transition:all 0.2s ease;}
-  .progress-step.is-done .progress-dot{background:var(--gold-500); border-color:var(--gold-500); color:var(--bg-950);}
-  .progress-step.is-active .progress-dot{border-color:var(--gold-400); color:var(--gold-300);}
-  .progress-step.is-active{color:var(--gold-300);}
-  .progress-line{flex:1; height:1px; background:var(--line-hair-strong); max-width:60px;}
+  /* ---------- Auth tabs ---------- */
+  .auth-tabs{display:flex; gap:0.4rem; margin-bottom:1.6rem; border-bottom:1px solid var(--line-hair);}
+  .auth-tab{
+    background:none; border:none; cursor:pointer;
+    font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--sage-400); padding:0.8rem 1.1rem; border-bottom:2px solid transparent; margin-bottom:-1px;
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  .auth-tab:hover{color:var(--sage-300);}
+  .auth-tab.is-active{color:var(--gold-300); border-bottom-color:var(--gold-500);}
 
   /* ---------- Form section ---------- */
   .signup-section{padding:0 0 clamp(4rem,8vw,6rem);}
@@ -210,22 +212,23 @@
 <main>
   <section class="signup-hero">
     <div class="wrap-narrow">
-      <p class="eyebrow">Create your account</p>
-      <h1>One quick step before you start Building.</h1>
-      <p>We just need a few details to set up your account and keep your progress saved as you work through it.</p>
-      <div class="progress-row" id="progressRow">
-        <div class="progress-step is-active" data-step="details"><span class="progress-dot">1</span><span>Details</span></div>
-        <div class="progress-line"></div>
-        <div class="progress-step" data-step="done"><span class="progress-dot">2</span><span>Done</span></div>
-      </div>
+      <p class="eyebrow">Your account</p>
+      <h1 id="authHeading">Sign in or create an account to start Building.</h1>
+      <p>Everyone's welcome — it just takes a minute.</p>
     </div>
   </section>
 
   <section class="signup-section">
     <div class="wrap-narrow">
 
-      <!-- STEP 1: details -->
-      <form class="signup-card" id="detailsForm">
+      <div class="auth-tabs" id="authTabs">
+        <button type="button" class="auth-tab is-active" data-tab="signup">Sign up</button>
+        <button type="button" class="auth-tab" data-tab="login">Log in</button>
+        <button type="button" class="auth-tab" data-tab="admin">Admin Log in</button>
+      </div>
+
+      <!-- SIGN UP: new account -->
+      <form class="signup-card" id="signupForm">
         <div class="form-row">
           <label for="fname">Full name</label>
           <input id="fname" type="text" placeholder="Ananya Sharma" autocomplete="name" required>
@@ -253,12 +256,20 @@
           <input id="farea" type="text" placeholder="e.g. your city or neighborhood">
         </div>
         <p class="form-hint error" id="detailsError" hidden></p>
-        <button type="submit" class="btn btn-gold" style="width:100%; margin-top:0.4rem;">Continue →</button>
+        <button type="submit" class="btn btn-gold" style="width:100%; margin-top:0.4rem;">Create account →</button>
       </form>
 
-      <div style="text-align:center; margin-top:1.4rem;" id="adminLoginRow">
-        <button type="button" class="btn btn-ghost btn-small" id="adminLoginBtn">Admin login</button>
-      </div>
+      <!-- LOG IN: existing account -->
+      <form class="signup-card" id="loginForm" hidden>
+        <h2>Welcome back.</h2>
+        <p class="body-text">Enter the email you signed up with — your progress will be right where you left it.</p>
+        <div class="form-row">
+          <label for="fLoginEmail">Email</label>
+          <input id="fLoginEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <p class="form-hint error" id="loginError" hidden></p>
+        <button type="submit" class="btn btn-gold" style="width:100%;">Log in →</button>
+      </form>
 
       <!-- ADMIN STEP 1: enter email -->
       <form class="signup-card" id="adminEmailForm" hidden>
@@ -269,10 +280,7 @@
           <input id="fAdminEmail" type="email" autocomplete="off">
         </div>
         <p class="form-hint error" id="adminEmailError" hidden></p>
-        <div class="step-actions" style="display:flex; justify-content:space-between; gap:1rem;">
-          <button type="button" class="btn btn-ghost" id="adminEmailBackBtn">← Back</button>
-          <button type="submit" class="btn btn-gold">Continue →</button>
-        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%;">Continue →</button>
       </form>
 
       <!-- ADMIN STEP 2: enter code -->
@@ -287,7 +295,7 @@
         <button type="submit" class="btn btn-gold" style="width:100%;">Enter admin panel →</button>
       </form>
 
-      <!-- STEP 3: done -->
+      <!-- DONE -->
       <div class="signup-card" id="doneCard" hidden>
         <div class="success-check">✓</div>
         <h2 id="doneHeading">You're in.</h2>
@@ -347,24 +355,31 @@
   var nextPage = params.get('next') || 'discover.html';
   document.getElementById('goDiscoverBtn').setAttribute('href', nextPage);
 
-  var progressSteps = document.querySelectorAll('.progress-step');
-  function setProgress(step){
-    var order = ['details','done'];
-    var idx = order.indexOf(step);
-    progressSteps.forEach(function(el){
-      var elIdx = order.indexOf(el.getAttribute('data-step'));
-      el.classList.toggle('is-active', elIdx === idx);
-      el.classList.toggle('is-done', elIdx < idx);
-    });
-  }
-
-  var detailsForm = document.getElementById('detailsForm');
-  var adminLoginRow = document.getElementById('adminLoginRow');
+  var signupForm = document.getElementById('signupForm');
+  var loginForm = document.getElementById('loginForm');
   var adminEmailForm = document.getElementById('adminEmailForm');
   var adminCodeForm = document.getElementById('adminCodeForm');
   var doneCard = document.getElementById('doneCard');
   var detailsError = document.getElementById('detailsError');
+  var authTabsEl = document.getElementById('authTabs');
   var pendingAdminEmail = '';
+
+  var panels = { signup: signupForm, login: loginForm, admin: adminEmailForm };
+
+  function setTab(tab){
+    Array.prototype.forEach.call(authTabsEl.children, function(btn){
+      btn.classList.toggle('is-active', btn.getAttribute('data-tab') === tab);
+    });
+    Object.keys(panels).forEach(function(key){
+      panels[key].hidden = key !== tab;
+    });
+    adminCodeForm.hidden = true;
+    doneCard.hidden = true;
+  }
+
+  Array.prototype.forEach.call(authTabsEl.children, function(btn){
+    btn.addEventListener('click', function(){ setTab(btn.getAttribute('data-tab')); });
+  });
 
   function finishAs(account, opts){
     opts = opts || {};
@@ -377,26 +392,12 @@
       "Your account is set up. Head into Build to start turning what you're curious about into a real project idea.";
     document.getElementById('goDiscoverBtn').setAttribute('href', opts.href || nextPage);
     document.getElementById('goDiscoverBtn').textContent = opts.btnLabel || 'Go to Build →';
-    detailsForm.hidden = true;
-    adminLoginRow.hidden = true;
+    signupForm.hidden = true;
+    loginForm.hidden = true;
     adminEmailForm.hidden = true;
     adminCodeForm.hidden = true;
     doneCard.hidden = false;
-    setProgress('done');
   }
-
-  document.getElementById('adminLoginBtn').addEventListener('click', function(){
-    detailsForm.hidden = true;
-    adminLoginRow.hidden = true;
-    adminEmailForm.hidden = false;
-    document.getElementById('fAdminEmail').focus();
-  });
-
-  document.getElementById('adminEmailBackBtn').addEventListener('click', function(){
-    adminEmailForm.hidden = true;
-    detailsForm.hidden = false;
-    adminLoginRow.hidden = false;
-  });
 
   adminEmailForm.addEventListener('submit', function(e){
     e.preventDefault();
@@ -414,7 +415,7 @@
     document.getElementById('fAdminCode').focus();
   });
 
-  detailsForm.addEventListener('submit', function(e){
+  signupForm.addEventListener('submit', function(e){
     e.preventDefault();
     var name = document.getElementById('fname').value.trim();
     var email = document.getElementById('femail').value.trim();
@@ -437,28 +438,17 @@
     detailsError.hidden = true;
 
     var normalizedEmail = email.toLowerCase();
-    var submitBtn = detailsForm.querySelector('button[type="submit"]');
+    var submitBtn = signupForm.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Checking…';
 
     resumeAccountLookup(normalizedEmail).then(function(result){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Create account →';
+
       if(result && result.found){
-        var existing = result.account;
-        var account = {
-          id: existing.id, name: existing.name, email: existing.email,
-          dob: existing.dob, phone: existing.phone, school: existing.school,
-          area: existing.area, isAdmin: Boolean(existing.is_admin),
-          createdAt: existing.created_at,
-        };
-        try{ localStorage.setItem('bc_build_v2', JSON.stringify(existing.build_data || {})); }catch(err){}
-        finishAs(account, {
-          heading: 'Welcome back.',
-          body: 'We found your account — your progress is right where you left it.',
-          href: account.isAdmin ? 'admin.html' : nextPage,
-          btnLabel: account.isAdmin ? 'Go to admin panel →' : 'Go to Build →',
-        });
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Continue →';
+        detailsError.textContent = 'An account with this email already exists — use the Log in tab instead.';
+        detailsError.hidden = false;
         return;
       }
 
@@ -470,8 +460,46 @@
               isAdmin: false, createdAt: inserted.created_at }
           : Object.assign({ createdAt: new Date().toISOString() }, newAccount);
         finishAs(account);
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Continue →';
+      });
+    });
+  });
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('fLoginEmail').value.trim();
+    var loginError = document.getElementById('loginError');
+    if(!email){
+      loginError.textContent = 'Enter your email.';
+      loginError.hidden = false;
+      return;
+    }
+    loginError.hidden = true;
+    var submitBtn = loginForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Checking…';
+
+    resumeAccountLookup(email.toLowerCase()).then(function(result){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Log in →';
+
+      if(!result || !result.found){
+        loginError.textContent = 'No account found with that email — try Sign up instead.';
+        loginError.hidden = false;
+        return;
+      }
+      var existing = result.account;
+      var account = {
+        id: existing.id, name: existing.name, email: existing.email,
+        dob: existing.dob, phone: existing.phone, school: existing.school,
+        area: existing.area, isAdmin: Boolean(existing.is_admin),
+        createdAt: existing.created_at,
+      };
+      try{ localStorage.setItem('bc_build_v2', JSON.stringify(existing.build_data || {})); }catch(err){}
+      finishAs(account, {
+        heading: 'Welcome back.',
+        body: 'Your progress is right where you left it.',
+        href: account.isAdmin ? 'admin.html' : nextPage,
+        btnLabel: account.isAdmin ? 'Go to admin panel →' : 'Go to Build →',
       });
     });
   });
