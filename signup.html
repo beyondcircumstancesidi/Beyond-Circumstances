@@ -254,13 +254,31 @@
         </div>
         <p class="form-hint error" id="detailsError" hidden></p>
         <button type="submit" class="btn btn-gold" style="width:100%; margin-top:0.4rem;">Continue →</button>
-        <p class="form-note">This is a demo account system — account details are saved to this browser only, there's no database behind this yet.</p>
       </form>
 
-      <!-- ADMIN: enter code -->
+      <div style="text-align:center; margin-top:1.4rem;" id="adminLoginRow">
+        <button type="button" class="btn btn-ghost btn-small" id="adminLoginBtn">Admin login</button>
+      </div>
+
+      <!-- ADMIN STEP 1: enter email -->
+      <form class="signup-card" id="adminEmailForm" hidden>
+        <h2>Admin sign-in</h2>
+        <p class="body-text">Enter your admin email to continue.</p>
+        <div class="form-row">
+          <label for="fAdminEmail">Email</label>
+          <input id="fAdminEmail" type="email" autocomplete="off">
+        </div>
+        <p class="form-hint error" id="adminEmailError" hidden></p>
+        <div class="step-actions" style="display:flex; justify-content:space-between; gap:1rem;">
+          <button type="button" class="btn btn-ghost" id="adminEmailBackBtn">← Back</button>
+          <button type="submit" class="btn btn-gold">Continue →</button>
+        </div>
+      </form>
+
+      <!-- ADMIN STEP 2: enter code -->
       <form class="signup-card" id="adminCodeForm" hidden>
         <h2>Admin sign-in</h2>
-        <p class="body-text">That email is recognized. Enter the admin code to continue.</p>
+        <p class="body-text">Enter the admin code to continue.</p>
         <div class="form-row">
           <label for="fAdminCode">Admin code</label>
           <input id="fAdminCode" type="password" autocomplete="off">
@@ -341,6 +359,8 @@
   }
 
   var detailsForm = document.getElementById('detailsForm');
+  var adminLoginRow = document.getElementById('adminLoginRow');
+  var adminEmailForm = document.getElementById('adminEmailForm');
   var adminCodeForm = document.getElementById('adminCodeForm');
   var doneCard = document.getElementById('doneCard');
   var detailsError = document.getElementById('detailsError');
@@ -358,10 +378,41 @@
     document.getElementById('goDiscoverBtn').setAttribute('href', opts.href || nextPage);
     document.getElementById('goDiscoverBtn').textContent = opts.btnLabel || 'Go to Build →';
     detailsForm.hidden = true;
+    adminLoginRow.hidden = true;
+    adminEmailForm.hidden = true;
     adminCodeForm.hidden = true;
     doneCard.hidden = false;
     setProgress('done');
   }
+
+  document.getElementById('adminLoginBtn').addEventListener('click', function(){
+    detailsForm.hidden = true;
+    adminLoginRow.hidden = true;
+    adminEmailForm.hidden = false;
+    document.getElementById('fAdminEmail').focus();
+  });
+
+  document.getElementById('adminEmailBackBtn').addEventListener('click', function(){
+    adminEmailForm.hidden = true;
+    detailsForm.hidden = false;
+    adminLoginRow.hidden = false;
+  });
+
+  adminEmailForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('fAdminEmail').value.trim();
+    var emailError = document.getElementById('adminEmailError');
+    if(email.toLowerCase() !== ADMIN_EMAIL){
+      emailError.textContent = 'That email is not recognized.';
+      emailError.hidden = false;
+      return;
+    }
+    emailError.hidden = true;
+    pendingAdminEmail = email;
+    adminEmailForm.hidden = true;
+    adminCodeForm.hidden = false;
+    document.getElementById('fAdminCode').focus();
+  });
 
   detailsForm.addEventListener('submit', function(e){
     e.preventDefault();
@@ -371,16 +422,6 @@
     var phone = document.getElementById('fphone').value.trim();
     var school = document.getElementById('fschool').value.trim();
     var area = document.getElementById('farea').value.trim();
-
-    // Admin sign-in — recognized email, then asks for the admin code
-    if(email.toLowerCase() === ADMIN_EMAIL){
-      pendingAdminEmail = email;
-      detailsError.hidden = true;
-      detailsForm.hidden = true;
-      adminCodeForm.hidden = false;
-      document.getElementById('fAdminCode').focus();
-      return;
-    }
 
     if(!name || !email || !dob || !school || !area){
       detailsError.textContent = 'Please fill in every required field.';
