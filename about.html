@@ -227,6 +227,42 @@
   .foot-col p, .foot-col a{display:block; font-size:0.88rem; color:var(--sage-300); margin-bottom:0.5rem;}
   .foot-col a:hover{color:var(--gold-300);}
   .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+
+  /* ---------- Language switch ---------- */
+  .lang-switch{position:relative;}
+  .lang-btn{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:transparent; border:1px solid var(--line-hair-strong);
+    color:var(--cream-100); font-family:var(--font-body); font-size:0.82rem; font-weight:600;
+    padding:0.45rem 0.7rem; border-radius:3px; cursor:pointer;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:var(--gold-400); color:var(--gold-300);}
+  .lang-globe{font-size:0.95rem; line-height:1;}
+  .lang-caret{font-size:0.6rem; color:var(--sage-400);}
+  .lang-menu{
+    position:absolute; top:calc(100% + 0.6rem); right:0; z-index:60;
+    min-width:170px; list-style:none;
+    background:var(--bg-850); border:1px solid var(--line-hair-strong); border-radius:4px;
+    padding:0.35rem; box-shadow:0 14px 32px rgba(0,0,0,0.4);
+  }
+  .lang-menu[hidden]{display:none;}
+  .lang-menu li{
+    display:flex; align-items:center; gap:0.65rem;
+    padding:0.55rem 0.6rem; border-radius:3px; cursor:pointer;
+    font-size:0.88rem; color:var(--cream-100);
+    transition:background 0.12s ease;
+  }
+  .lang-menu li:hover{background:var(--bg-800-hi);}
+  .lang-menu li[aria-selected="true"]{color:var(--gold-300);}
+  .lang-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    background:var(--gold-500); color:var(--bg-950);
+    font-family:var(--font-display); font-size:0.8rem; font-weight:600;
+  }
+  .lang-menu li[aria-selected="true"] .lang-badge{background:var(--gold-300);}
+  [data-i18n][dir="rtl"]{text-align:right;}
 </style>
 </head>
 <body>
@@ -238,8 +274,20 @@
       <div class="brand-name">Beyond Circumstances</div>
     </a>
     <div class="nav-links">
-      <a href="about.html" class="hide-mobile" style="color:var(--gold-300);">About us</a>
-      <a href="discover.html" class="btn btn-gold" style="padding:0.55rem 1.2rem; font-size:0.85rem;">Build →</a>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-code" id="langCode">EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="en" aria-selected="true"><span class="lang-badge">A</span><span class="lang-name">English</span></li>
+          <li role="option" data-lang="hi" aria-selected="false"><span class="lang-badge">अ</span><span class="lang-name">हिंदी</span></li>
+          <li role="option" data-lang="ur" aria-selected="false"><span class="lang-badge">ا</span><span class="lang-name">اردو</span></li>
+        </ul>
+      </div>
+      <a href="about.html" class="hide-mobile" style="color:var(--gold-300);" data-i18n="nav.about">About us</a>
+      <a href="discover.html" class="btn btn-gold" style="padding:0.55rem 1.2rem; font-size:0.85rem;" data-i18n="nav.build">Build →</a>
     </div>
   </nav>
 </header>
@@ -248,8 +296,8 @@
 
   <section class="about-hero">
     <div class="wrap">
-      <p class="eyebrow">About us</p>
-      <h1>Why We Started This</h1>
+      <p class="eyebrow" data-i18n="about.eyebrow">About us</p>
+      <h1 data-i18n="about.h1">Why We Started This</h1>
     </div>
   </section>
 
@@ -320,27 +368,100 @@
           <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
           <div class="brand-name">Beyond Circumstances</div>
         </div>
-        <p class="foot-tagline">A free AI-powered platform, open to everyone, that helps you turn a real interest into a real project.</p>
+        <p class="foot-tagline" data-i18n="foot.tagline">A free AI-powered platform, open to everyone, that helps you turn a real interest into a real project.</p>
       </div>
       <div class="foot-col">
-        <h5>Founders</h5>
+        <h5 data-i18n="foot.founders">Founders</h5>
         <p>Arjit Aggarwal</p>
         <p>Arthur Klissou</p>
       </div>
       <div class="foot-col">
-        <h5>Contact</h5>
+        <h5 data-i18n="foot.contact">Contact</h5>
         <a href="mailto:beyondcircumstancesidi@gmail.com">beyondcircumstancesidi@gmail.com</a>
       </div>
       <div class="foot-col">
-        <h5>Program</h5>
-        <a href="discover.html">Build</a>
+        <h5 data-i18n="foot.program">Program</h5>
+        <a href="discover.html" data-i18n="foot.build">Build</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>Independent youth venture initiative · Delhi NCR</span>
+      <span data-i18n="foot.bottom">Independent youth venture initiative · Delhi NCR</span>
     </div>
   </div>
 </footer>
+
+<script>
+  var I18N = {
+    hi: {
+      'nav.about':'हमारे बारे में', 'nav.build':'बिल्ड →',
+      'about.eyebrow':'हमारे बारे में', 'about.h1':'हमने यह क्यों शुरू किया',
+      'foot.tagline':'एक मुफ़्त, AI-संचालित प्लेटफ़ॉर्म, सभी के लिए खुला, जो आपकी सच्ची रुचि को एक असली प्रोजेक्ट में बदलने में मदद करता है।',
+      'foot.founders':'संस्थापक', 'foot.contact':'संपर्क', 'foot.program':'प्रोग्राम', 'foot.build':'बिल्ड',
+      'foot.bottom':'एक स्वतंत्र युवा वेंचर पहल · दिल्ली NCR'
+    },
+    ur: {
+      'nav.about':'ہمارے بارے میں', 'nav.build':'بلڈ →',
+      'about.eyebrow':'ہمارے بارے میں', 'about.h1':'ہم نے یہ کیوں شروع کیا',
+      'foot.tagline':'ایک مفت، AI سے چلنے والا پلیٹ فارم، سب کے لیے کھلا، جو آپ کی حقیقی دلچسپی کو ایک حقیقی پروجیکٹ میں بدلنے میں مدد دیتا ہے۔',
+      'foot.founders':'بانی', 'foot.contact':'رابطہ', 'foot.program':'پروگرام', 'foot.build':'بلڈ',
+      'foot.bottom':'ایک خودمختار نوجوان وینچر پہل · دہلی NCR'
+    }
+  };
+
+  (function(){
+    var LANG_KEY = 'bc_lang';
+    var langBtn = document.getElementById('langBtn');
+    var langMenu = document.getElementById('langMenu');
+    var langCode = document.getElementById('langCode');
+    var langSwitch = document.getElementById('langSwitch');
+    if(!langBtn) return;
+
+    var nodes = [];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      nodes.push({ el: el, key: el.getAttribute('data-i18n'), en: el.textContent });
+    });
+
+    function applyLang(lang){
+      var dict = I18N[lang] || null;
+      nodes.forEach(function(n){
+        n.el.textContent = dict && dict[n.key] ? dict[n.key] : n.en;
+        n.el.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+      });
+      langCode.textContent = lang.toUpperCase();
+      langMenu.querySelectorAll('li').forEach(function(li){
+        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+    }
+
+    langBtn.addEventListener('click', function(){
+      var opening = langMenu.hidden;
+      langMenu.hidden = !opening;
+      langBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    });
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.addEventListener('click', function(){
+        applyLang(li.getAttribute('data-lang'));
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!langSwitch.contains(e.target)){
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    var saved = 'en';
+    try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+    if(saved !== 'en') applyLang(saved);
+  })();
+</script>
 
 </body>
 </html>

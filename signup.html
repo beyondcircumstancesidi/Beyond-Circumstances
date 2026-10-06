@@ -192,6 +192,42 @@
   /* ---------- Footer ---------- */
   footer{padding:clamp(2rem,4vw,3rem) 0; border-top:1px solid var(--line-hair); position:relative; z-index:1;}
   .foot-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.78rem; color:var(--sage-400); font-family:var(--font-mono);}
+
+  /* ---------- Language switch ---------- */
+  .lang-switch{position:relative;}
+  .lang-btn{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:transparent; border:1px solid var(--line-hair-strong);
+    color:var(--cream-100); font-family:var(--font-body); font-size:0.82rem; font-weight:600;
+    padding:0.45rem 0.7rem; border-radius:3px; cursor:pointer;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:var(--gold-400); color:var(--gold-300);}
+  .lang-globe{font-size:0.95rem; line-height:1;}
+  .lang-caret{font-size:0.6rem; color:var(--sage-400);}
+  .lang-menu{
+    position:absolute; top:calc(100% + 0.6rem); right:0; z-index:60;
+    min-width:170px; list-style:none;
+    background:var(--bg-850); border:1px solid var(--line-hair-strong); border-radius:4px;
+    padding:0.35rem; box-shadow:0 14px 32px rgba(0,0,0,0.4);
+  }
+  .lang-menu[hidden]{display:none;}
+  .lang-menu li{
+    display:flex; align-items:center; gap:0.65rem;
+    padding:0.55rem 0.6rem; border-radius:3px; cursor:pointer;
+    font-size:0.88rem; color:var(--cream-100);
+    transition:background 0.12s ease;
+  }
+  .lang-menu li:hover{background:var(--bg-800-hi);}
+  .lang-menu li[aria-selected="true"]{color:var(--gold-300);}
+  .lang-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    background:var(--gold-500); color:var(--bg-950);
+    font-family:var(--font-display); font-size:0.8rem; font-weight:600;
+  }
+  .lang-menu li[aria-selected="true"] .lang-badge{background:var(--gold-300);}
+  [data-i18n][dir="rtl"]{text-align:right;}
 </style>
 </head>
 <body>
@@ -203,8 +239,20 @@
       <div class="brand-name">Beyond Circumstances</div>
     </a>
     <div class="nav-links">
-      <a href="about.html">About us</a>
-      <a href="beyond-circumstances.html">← Back to home</a>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-code" id="langCode">EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="en" aria-selected="true"><span class="lang-badge">A</span><span class="lang-name">English</span></li>
+          <li role="option" data-lang="hi" aria-selected="false"><span class="lang-badge">अ</span><span class="lang-name">हिंदी</span></li>
+          <li role="option" data-lang="ur" aria-selected="false"><span class="lang-badge">ا</span><span class="lang-name">اردو</span></li>
+        </ul>
+      </div>
+      <a href="about.html" data-i18n="nav.about">About us</a>
+      <a href="beyond-circumstances.html" data-i18n="nav.home">← Back to home</a>
     </div>
   </nav>
 </header>
@@ -212,9 +260,9 @@
 <main>
   <section class="signup-hero">
     <div class="wrap-narrow">
-      <p class="eyebrow">Your account</p>
-      <h1 id="authHeading">Sign in or create an account to start Building.</h1>
-      <p>Everyone's welcome — it just takes a minute.</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Your account</p>
+      <h1 id="authHeading" data-i18n="hero.h1">Sign in or create an account to start Building.</h1>
+      <p data-i18n="hero.sub">Everyone's welcome — it just takes a minute.</p>
     </div>
   </section>
 
@@ -222,9 +270,9 @@
     <div class="wrap-narrow">
 
       <div class="auth-tabs" id="authTabs">
-        <button type="button" class="auth-tab is-active" data-tab="signup">Sign up</button>
-        <button type="button" class="auth-tab" data-tab="login">Log in</button>
-        <button type="button" class="auth-tab" data-tab="admin">Admin Log in</button>
+        <button type="button" class="auth-tab is-active" data-tab="signup" data-i18n="tab.signup">Sign up</button>
+        <button type="button" class="auth-tab" data-tab="login" data-i18n="tab.login">Log in</button>
+        <button type="button" class="auth-tab" data-tab="admin" data-i18n="tab.admin">Admin Log in</button>
       </div>
 
       <!-- SIGN UP: new account -->
@@ -485,6 +533,77 @@
     );
   });
 })();
+</script>
+
+<script>
+  var I18N = {
+    hi: {
+      'nav.about':'हमारे बारे में', 'nav.home':'← होम पर वापस जाएं',
+      'hero.eyebrow':'आपका अकाउंट', 'hero.h1':'बिल्ड शुरू करने के लिए साइन इन करें या अकाउंट बनाएं।',
+      'hero.sub':'सभी का स्वागत है — इसमें सिर्फ़ एक मिनट लगता है।',
+      'tab.signup':'साइन अप', 'tab.login':'लॉग इन', 'tab.admin':'एडमिन लॉग इन'
+    },
+    ur: {
+      'nav.about':'ہمارے بارے میں', 'nav.home':'← ہوم پر واپس جائیں',
+      'hero.eyebrow':'آپ کا اکاؤنٹ', 'hero.h1':'بلڈ شروع کرنے کے لیے سائن ان کریں یا اکاؤنٹ بنائیں۔',
+      'hero.sub':'سب کا خوش آمدید ہے — اس میں صرف ایک منٹ لگتا ہے۔',
+      'tab.signup':'سائن اپ', 'tab.login':'لاگ ان', 'tab.admin':'ایڈمن لاگ ان'
+    }
+  };
+
+  (function(){
+    var LANG_KEY = 'bc_lang';
+    var langBtn = document.getElementById('langBtn');
+    var langMenu = document.getElementById('langMenu');
+    var langCode = document.getElementById('langCode');
+    var langSwitch = document.getElementById('langSwitch');
+    if(!langBtn) return;
+
+    var nodes = [];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      nodes.push({ el: el, key: el.getAttribute('data-i18n'), en: el.textContent });
+    });
+
+    function applyLang(lang){
+      var dict = I18N[lang] || null;
+      nodes.forEach(function(n){
+        n.el.textContent = dict && dict[n.key] ? dict[n.key] : n.en;
+        n.el.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+      });
+      langCode.textContent = lang.toUpperCase();
+      langMenu.querySelectorAll('li').forEach(function(li){
+        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+    }
+
+    langBtn.addEventListener('click', function(){
+      var opening = langMenu.hidden;
+      langMenu.hidden = !opening;
+      langBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    });
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.addEventListener('click', function(){
+        applyLang(li.getAttribute('data-lang'));
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!langSwitch.contains(e.target)){
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    var saved = 'en';
+    try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+    if(saved !== 'en') applyLang(saved);
+  })();
 </script>
 
 </body>

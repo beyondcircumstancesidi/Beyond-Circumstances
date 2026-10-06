@@ -212,6 +212,42 @@
     *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
     .reveal{opacity:1; transform:none;}
   }
+
+  /* ---------- Language switch ---------- */
+  .lang-switch{position:relative;}
+  .lang-btn{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:transparent; border:1px solid var(--line-hair-strong);
+    color:var(--cream-100); font-family:var(--font-body); font-size:0.82rem; font-weight:600;
+    padding:0.45rem 0.7rem; border-radius:3px; cursor:pointer;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:var(--gold-400); color:var(--gold-300);}
+  .lang-globe{font-size:0.95rem; line-height:1;}
+  .lang-caret{font-size:0.6rem; color:var(--sage-400);}
+  .lang-menu{
+    position:absolute; top:calc(100% + 0.6rem); right:0; z-index:60;
+    min-width:170px; list-style:none;
+    background:var(--bg-850); border:1px solid var(--line-hair-strong); border-radius:4px;
+    padding:0.35rem; box-shadow:0 14px 32px rgba(0,0,0,0.4);
+  }
+  .lang-menu[hidden]{display:none;}
+  .lang-menu li{
+    display:flex; align-items:center; gap:0.65rem;
+    padding:0.55rem 0.6rem; border-radius:3px; cursor:pointer;
+    font-size:0.88rem; color:var(--cream-100);
+    transition:background 0.12s ease;
+  }
+  .lang-menu li:hover{background:var(--bg-800-hi);}
+  .lang-menu li[aria-selected="true"]{color:var(--gold-300);}
+  .lang-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    background:var(--gold-500); color:var(--bg-950);
+    font-family:var(--font-display); font-size:0.8rem; font-weight:600;
+  }
+  .lang-menu li[aria-selected="true"] .lang-badge{background:var(--gold-300);}
+  [data-i18n][dir="rtl"]{text-align:right;}
 </style>
 </head>
 <body>
@@ -223,8 +259,20 @@
       <div class="brand-name">Beyond Circumstances</div>
     </div>
     <div class="nav-links">
-      <a href="about.html" class="hide-mobile">About us</a>
-      <a href="discover.html" class="btn btn-gold" style="padding:0.55rem 1.2rem; font-size:0.85rem;">Build →</a>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-code" id="langCode">EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="en" aria-selected="true"><span class="lang-badge">A</span><span class="lang-name">English</span></li>
+          <li role="option" data-lang="hi" aria-selected="false"><span class="lang-badge">अ</span><span class="lang-name">हिंदी</span></li>
+          <li role="option" data-lang="ur" aria-selected="false"><span class="lang-badge">ا</span><span class="lang-name">اردو</span></li>
+        </ul>
+      </div>
+      <a href="about.html" class="hide-mobile" data-i18n="nav.about">About us</a>
+      <a href="discover.html" class="btn btn-gold" style="padding:0.55rem 1.2rem; font-size:0.85rem;" data-i18n="nav.build">Build →</a>
     </div>
   </nav>
 </header>
@@ -233,17 +281,17 @@
 
   <section class="hero">
     <div class="wrap hero-inner">
-      <p class="eyebrow reveal">Free · Open to everyone</p>
+      <p class="eyebrow reveal" data-i18n="hero.eyebrow">Free · Open to everyone</p>
       <h1 class="hero-title reveal">
         <img class="hero-logo-title" src="FinalLogoBCBig-transparent.png" alt="Beyond Circumstances">
       </h1>
-      <p class="hero-sub reveal">
+      <p class="hero-sub reveal" data-i18n="hero.sub">
         A free online platform that helps students turn a real interest into a project or
         business worth building — with mentorship along the way, not a certificate at the end.
       </p>
       <div class="hero-ctas reveal">
-        <a href="discover.html" class="btn btn-gold">Start Building</a>
-        <a href="#how-it-works" class="btn btn-ghost">See how it works ↓</a>
+        <a href="discover.html" class="btn btn-gold" data-i18n="hero.cta1">Start Building</a>
+        <a href="#how-it-works" class="btn btn-ghost" data-i18n="hero.cta2">See how it works ↓</a>
       </div>
     </div>
   </section>
@@ -253,10 +301,10 @@
   <section class="section discover-feature" id="discover">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">This is the platform</p>
-        <h2>An online platform for turning a real interest into a real project.</h2>
+        <p class="eyebrow" data-i18n="disc.eyebrow">This is the platform</p>
+        <h2 data-i18n="disc.h2">An online platform for turning a real interest into a real project.</h2>
       </div>
-      <p class="discover-teaser-text reveal">
+      <p class="discover-teaser-text reveal" data-i18n="disc.teaser">
         Beyond Circumstances isn't a video course. It's a guided, interactive path: pick an area you
         care about, work through a few honest questions about it, and walk away with a small, testable
         project or business idea — backed by mentorship and real recognition for the progress you make.
@@ -264,23 +312,23 @@
       <div class="pillar-grid reveal">
         <div class="pillar-card">
           <span class="pillar-num">01</span>
-          <h3>Build your own project or business</h3>
-          <p>No fixed curriculum. You work through a guided path that turns whatever you're curious about into a small, testable idea you can actually act on.</p>
+          <h3 data-i18n="dp1.h3">Build your own project or business</h3>
+          <p data-i18n="dp1.p">No fixed curriculum. You work through a guided path that turns whatever you're curious about into a small, testable idea you can actually act on.</p>
         </div>
         <div class="pillar-card">
           <span class="pillar-num">02</span>
-          <h3>Mentorship</h3>
-          <p>Direct guidance from the people running this program — real feedback on your idea as it takes shape, not a pre-recorded video library.</p>
+          <h3 data-i18n="dp2.h3">Mentorship</h3>
+          <p data-i18n="dp2.p">Direct guidance from the people running this program — real feedback on your idea as it takes shape, not a pre-recorded video library.</p>
         </div>
         <div class="pillar-card">
           <span class="pillar-num">03</span>
-          <h3>Goal recognition</h3>
-          <p>Every milestone counts — from your first reflection to a concept worth pitching. Progress gets acknowledged, not just graded.</p>
+          <h3 data-i18n="dp3.h3">Goal recognition</h3>
+          <p data-i18n="dp3.p">Every milestone counts — from your first reflection to a concept worth pitching. Progress gets acknowledged, not just graded.</p>
         </div>
       </div>
       <div class="discover-cta-row reveal">
-        <a href="discover.html" class="btn btn-gold">Start Building →</a>
-        <span class="discover-cta-note">Free · takes about 15 minutes</span>
+        <a href="discover.html" class="btn btn-gold" data-i18n="disc.cta">Start Building →</a>
+        <span class="discover-cta-note" data-i18n="disc.note">Free · takes about 15 minutes</span>
       </div>
     </div>
   </section>
@@ -290,24 +338,24 @@
   <section class="section" id="how-it-works">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">How it works</p>
-        <h2>Three real steps, not a syllabus.</h2>
+        <p class="eyebrow" data-i18n="how.eyebrow">How it works</p>
+        <h2 data-i18n="how.h2">Three real steps, not a syllabus.</h2>
       </div>
       <div class="pillar-grid reveal">
         <div class="pillar-card">
           <span class="pillar-num">01</span>
-          <h3>Discover — find the idea worth building</h3>
-          <p>Pick an area you care about, work through five honest questions about it, and walk away with a real project concept — not a worksheet.</p>
+          <h3 data-i18n="hp1.h3">Discover — find the idea worth building</h3>
+          <p data-i18n="hp1.p">Pick an area you care about, work through five honest questions about it, and walk away with a real project concept — not a worksheet.</p>
         </div>
         <div class="pillar-card">
           <span class="pillar-num">02</span>
-          <h3>Build — research it, plan it, pitch it</h3>
-          <p>Confirm the problem is real, write an actual plan, then practice pitching it out loud — with an AI mentor reviewing your work at every step, never handing you the answers.</p>
+          <h3 data-i18n="hp2.h3">Build — research it, plan it, pitch it</h3>
+          <p data-i18n="hp2.p">Confirm the problem is real, write an actual plan, then practice pitching it out loud — with an AI mentor reviewing your work at every step, never handing you the answers.</p>
         </div>
         <div class="pillar-card">
           <span class="pillar-num">03</span>
-          <h3>Walk away with something real</h3>
-          <p>Not a certificate — an actual plan, a practiced pitch, and real feedback from a mentor who never just gave you the answer.</p>
+          <h3 data-i18n="hp3.h3">Walk away with something real</h3>
+          <p data-i18n="hp3.p">Not a certificate — an actual plan, a practiced pitch, and real feedback from a mentor who never just gave you the answer.</p>
         </div>
       </div>
     </div>
@@ -319,10 +367,10 @@
     <div class="wrap">
       <div class="founders-teaser-grid reveal">
         <div>
-          <p class="eyebrow" style="margin-bottom:1.2rem;">Why we built this</p>
-          <p class="founders-quote">"Talent is everywhere. Opportunity is not."</p>
-          <p class="founders-body">Beyond Circumstances is built and run by two students who felt that gap firsthand — not a company, not a curriculum vendor.</p>
-          <a href="about.html" class="btn btn-ghost">Read our story →</a>
+          <p class="eyebrow" style="margin-bottom:1.2rem;" data-i18n="why.eyebrow">Why we built this</p>
+          <p class="founders-quote" data-i18n="why.quote">"Talent is everywhere. Opportunity is not."</p>
+          <p class="founders-body" data-i18n="why.body">Beyond Circumstances is built and run by two students who felt that gap firsthand — not a company, not a curriculum vendor.</p>
+          <a href="about.html" class="btn btn-ghost" data-i18n="why.link">Read our story →</a>
         </div>
         <div class="founders-teaser-photos">
           <div class="founder-mini">
@@ -343,25 +391,25 @@
   <section class="section" id="faq">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Questions</p>
-        <h2>Before you start.</h2>
+        <p class="eyebrow" data-i18n="faq.eyebrow">Questions</p>
+        <h2 data-i18n="faq.h2">Before you start.</h2>
       </div>
       <div class="faq-list reveal">
         <div class="faq-item">
-          <h3>Is it actually free?</h3>
-          <p>Yes — no login fee, no premium tier. The only thing that costs anything is your time.</p>
+          <h3 data-i18n="faq1.q">Is it actually free?</h3>
+          <p data-i18n="faq1.a">Yes — no login fee, no premium tier. The only thing that costs anything is your time.</p>
         </div>
         <div class="faq-item">
-          <h3>Do I need to already have an idea?</h3>
-          <p>No. Discover is built for exactly the opposite — you start from what you're curious about, not a fully-formed pitch.</p>
+          <h3 data-i18n="faq2.q">Do I need to already have an idea?</h3>
+          <p data-i18n="faq2.a">No. Discover is built for exactly the opposite — you start from what you're curious about, not a fully-formed pitch.</p>
         </div>
         <div class="faq-item">
-          <h3>Who can join?</h3>
-          <p>Anyone, anywhere. There's no application, no age cutoff, no location requirement — just create an account and start.</p>
+          <h3 data-i18n="faq3.q">Who can join?</h3>
+          <p data-i18n="faq3.a">Anyone, anywhere. There's no application, no age cutoff, no location requirement — just create an account and start.</p>
         </div>
         <div class="faq-item">
-          <h3>How do I get feedback on my project?</h3>
-          <p>Your AI mentor reviews your research, plan, and pitch as you go. Keep refining it for as long as you want — there's no deadline to work against.</p>
+          <h3 data-i18n="faq4.q">How do I get feedback on my project?</h3>
+          <p data-i18n="faq4.a">Your AI mentor reviews your research, plan, and pitch as you go. Keep refining it for as long as you want — there's no deadline to work against.</p>
         </div>
       </div>
     </div>
@@ -378,25 +426,25 @@
           <img class="brand-mark" src="FinalLogoBCSmall-transparent.png" alt="Beyond Circumstances logo">
           <div class="brand-name">Beyond Circumstances</div>
         </div>
-        <p class="foot-tagline">A free AI-powered platform, open to everyone, that helps you turn a real interest into a real project.</p>
+        <p class="foot-tagline" data-i18n="foot.tagline">A free AI-powered platform, open to everyone, that helps you turn a real interest into a real project.</p>
       </div>
       <div class="foot-col">
-        <h5>Founders</h5>
+        <h5 data-i18n="foot.founders">Founders</h5>
         <p>Arjit Aggarwal</p>
         <p>Arthur Klissou</p>
       </div>
       <div class="foot-col">
-        <h5>Contact</h5>
+        <h5 data-i18n="foot.contact">Contact</h5>
         <a href="mailto:beyondcircumstancesidi@gmail.com">beyondcircumstancesidi@gmail.com</a>
       </div>
       <div class="foot-col">
-        <h5>Program</h5>
-        <a href="discover.html">Build</a>
-        <a href="about.html">About us</a>
+        <h5 data-i18n="foot.program">Program</h5>
+        <a href="discover.html" data-i18n="foot.build">Build</a>
+        <a href="about.html" data-i18n="foot.about">About us</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>Independent youth venture initiative · Delhi NCR</span>
+      <span data-i18n="foot.bottom">Independent youth venture initiative · Delhi NCR</span>
     </div>
   </div>
 </footer>
@@ -426,6 +474,119 @@
     reveals.forEach(function(el){ revealObserver.observe(el); });
   }
 
+  // ---------- Language switch ----------
+  var I18N = {
+    hi: {
+      'nav.about':'हमारे बारे में', 'nav.build':'बिल्ड →',
+      'hero.eyebrow':'मुफ़्त · सभी के लिए खुला',
+      'hero.sub':'एक मुफ़्त ऑनलाइन प्लेटफ़ॉर्म जो छात्रों को उनकी किसी सच्ची रुचि को एक प्रोजेक्ट या बिज़नेस में बदलने में मदद करता है — रास्ते में मेंटरशिप के साथ, अंत में सिर्फ़ एक सर्टिफ़िकेट नहीं।',
+      'hero.cta1':'बनाना शुरू करें', 'hero.cta2':'देखें यह कैसे काम करता है ↓',
+      'disc.eyebrow':'यही है प्लेटफ़ॉर्म',
+      'disc.h2':'एक ऐसा ऑनलाइन प्लेटफ़ॉर्म जो आपकी सच्ची रुचि को एक असली प्रोजेक्ट में बदल देता है।',
+      'disc.teaser':'Beyond Circumstances कोई वीडियो कोर्स नहीं है। यह एक गाइडेड, इंटरैक्टिव रास्ता है: वह क्षेत्र चुनें जिसकी आपको परवाह है, उसके बारे में कुछ ईमानदार सवालों से गुज़रें, और एक छोटे, टेस्ट किए जा सकने वाले प्रोजेक्ट या बिज़नेस आइडिया के साथ निकलें — मेंटरशिप और आपकी प्रगति की असली पहचान के साथ।',
+      'dp1.h3':'अपना प्रोजेक्ट या बिज़नेस बनाएं', 'dp1.p':'कोई तय किया हुआ कोर्स नहीं। आप एक गाइडेड रास्ते से गुज़रते हैं जो आपकी किसी भी रुचि को एक छोटे, टेस्ट किए जा सकने वाले आइडिया में बदल देता है जिस पर आप वाकई काम कर सकते हैं।',
+      'dp2.h3':'मेंटरशिप', 'dp2.p':'इस प्रोग्राम को चलाने वाले लोगों से सीधा मार्गदर्शन — आपके आइडिया पर असली फ़ीडबैक जैसे-जैसे वह आकार लेता है, कोई पहले से रिकॉर्ड की गई वीडियो लाइब्रेरी नहीं।',
+      'dp3.h3':'लक्ष्य की पहचान', 'dp3.p':'हर मील का पत्थर मायने रखता है — आपके पहले विचार से लेकर पिच करने लायक आइडिया तक। प्रगति को सराहा जाता है, सिर्फ़ ग्रेड नहीं दिया जाता।',
+      'disc.cta':'बनाना शुरू करें →', 'disc.note':'मुफ़्त · लगभग 15 मिनट लगते हैं',
+      'how.eyebrow':'यह कैसे काम करता है', 'how.h2':'तीन असली कदम, कोई सिलेबस नहीं।',
+      'hp1.h3':'डिस्कवर — वह आइडिया खोजें जो बनाने लायक है', 'hp1.p':'वह क्षेत्र चुनें जिसकी आपको परवाह है, उसके बारे में पांच ईमानदार सवालों से गुज़रें, और एक असली प्रोजेक्ट कॉन्सेप्ट के साथ निकलें — कोई वर्कशीट नहीं।',
+      'hp2.h3':'बिल्ड — रिसर्च करें, प्लान बनाएं, पिच करें', 'hp2.p':'पुष्टि करें कि समस्या असली है, एक ठोस योजना लिखें, फिर उसे ज़ोर से पिच करने का अभ्यास करें — हर कदम पर एक AI मेंटर आपके काम की समीक्षा करता है, कभी सीधे जवाब नहीं देता।',
+      'hp3.h3':'कुछ असली लेकर जाएं', 'hp3.p':'कोई सर्टिफ़िकेट नहीं — एक वास्तविक योजना, एक अभ्यास की हुई पिच, और एक मेंटर से असली फ़ीडबैक जिसने कभी सीधे जवाब नहीं दिया।',
+      'why.eyebrow':'हमने यह क्यों बनाया', 'why.quote':'"प्रतिभा हर जगह है। अवसर नहीं।"',
+      'why.body':'Beyond Circumstances दो छात्रों द्वारा बनाया और चलाया जाता है जिन्होंने इस कमी को खुद महसूस किया — न कोई कंपनी, न कोई कर्रिकुलम बेचने वाला।',
+      'why.link':'हमारी कहानी पढ़ें →',
+      'faq.eyebrow':'सवाल', 'faq.h2':'शुरू करने से पहले।',
+      'faq1.q':'क्या यह वाकई मुफ़्त है?', 'faq1.a':'हां — कोई लॉगिन फ़ीस नहीं, कोई प्रीमियम प्लान नहीं। जो चीज़ खर्च होती है वह सिर्फ़ आपका समय है।',
+      'faq2.q':'क्या मेरे पास पहले से आइडिया होना चाहिए?', 'faq2.a':'नहीं। डिस्कवर बिल्कुल इसके उल्टे के लिए बनाया गया है — आप अपनी जिज्ञासा से शुरू करते हैं, किसी पूरी तरह तैयार पिच से नहीं।',
+      'faq3.q':'कौन शामिल हो सकता है?', 'faq3.a':'कोई भी, कहीं भी। कोई आवेदन नहीं, कोई उम्र की सीमा नहीं, कोई जगह की शर्त नहीं — सिर्फ़ एक अकाउंट बनाएं और शुरू करें।',
+      'faq4.q':'मुझे अपने प्रोजेक्ट पर फ़ीडबैक कैसे मिलेगा?', 'faq4.a':'आपका AI मेंटर आपकी रिसर्च, योजना और पिच की समीक्षा करता रहता है जैसे-जैसे आप आगे बढ़ते हैं। जितना चाहें उतना सुधारते रहें — इसके लिए कोई डेडलाइन नहीं है।',
+      'foot.tagline':'एक मुफ़्त, AI-संचालित प्लेटफ़ॉर्म, सभी के लिए खुला, जो आपकी सच्ची रुचि को एक असली प्रोजेक्ट में बदलने में मदद करता है।',
+      'foot.founders':'संस्थापक', 'foot.contact':'संपर्क', 'foot.program':'प्रोग्राम', 'foot.build':'बिल्ड', 'foot.about':'हमारे बारे में',
+      'foot.bottom':'एक स्वतंत्र युवा वेंचर पहल · दिल्ली NCR'
+    },
+    ur: {
+      'nav.about':'ہمارے بارے میں', 'nav.build':'بلڈ →',
+      'hero.eyebrow':'مفت · سب کے لیے کھلا',
+      'hero.sub':'ایک مفت آن لائن پلیٹ فارم جو طلبہ کو ان کی حقیقی دلچسپی کو ایک پروجیکٹ یا بزنس میں بدلنے میں مدد دیتا ہے — راستے میں رہنمائی کے ساتھ، آخر میں صرف ایک سرٹیفیکیٹ نہیں۔',
+      'hero.cta1':'بنانا شروع کریں', 'hero.cta2':'دیکھیں یہ کیسے کام کرتا ہے ↓',
+      'disc.eyebrow':'یہی ہے پلیٹ فارم',
+      'disc.h2':'ایک ایسا آن لائن پلیٹ فارم جو آپ کی حقیقی دلچسپی کو ایک حقیقی پروجیکٹ میں بدل دیتا ہے۔',
+      'disc.teaser':'Beyond Circumstances کوئی ویڈیو کورس نہیں ہے۔ یہ ایک رہنمائی شدہ، انٹرایکٹو راستہ ہے: وہ شعبہ چنیں جس کی آپ کو پرواہ ہے، اس کے بارے میں چند ایماندار سوالوں سے گزریں، اور ایک چھوٹے، آزمائے جا سکنے والے پروجیکٹ یا بزنس آئیڈیا کے ساتھ نکلیں — رہنمائی اور آپ کی پیش رفت کی حقیقی پہچان کے ساتھ۔',
+      'dp1.h3':'اپنا پروجیکٹ یا بزنس بنائیں', 'dp1.p':'کوئی مقرر کردہ نصاب نہیں۔ آپ ایک رہنمائی شدہ راستے سے گزرتے ہیں جو آپ کی کسی بھی دلچسپی کو ایک چھوٹے، قابلِ آزمائش آئیڈیے میں بدل دیتا ہے جس پر آپ واقعی عمل کر سکتے ہیں۔',
+      'dp2.h3':'رہنمائی', 'dp2.p':'اس پروگرام کو چلانے والے لوگوں سے براہ راست رہنمائی — آپ کے آئیڈیے پر حقیقی رائے جیسے جیسے وہ شکل لیتا ہے، کوئی پہلے سے ریکارڈ شدہ ویڈیو لائبریری نہیں۔',
+      'dp3.h3':'مقصد کی پہچان', 'dp3.p':'ہر سنگِ میل اہمیت رکھتا ہے — آپ کے پہلے خیال سے لے کر پیش کرنے کے قابل آئیڈیے تک۔ پیش رفت کو سراہا جاتا ہے، صرف نمبر نہیں دیے جاتے۔',
+      'disc.cta':'بنانا شروع کریں →', 'disc.note':'مفت · تقریباً 15 منٹ لگتے ہیں',
+      'how.eyebrow':'یہ کیسے کام کرتا ہے', 'how.h2':'تین حقیقی قدم، کوئی نصاب نہیں۔',
+      'hp1.h3':'ڈسکور — وہ آئیڈیا تلاش کریں جو بنانے کے قابل ہے', 'hp1.p':'وہ شعبہ چنیں جس کی آپ کو پرواہ ہے، اس کے بارے میں پانچ ایماندار سوالوں سے گزریں، اور ایک حقیقی پروجیکٹ تصور کے ساتھ نکلیں — کوئی ورک شیٹ نہیں۔',
+      'hp2.h3':'بلڈ — تحقیق کریں، منصوبہ بنائیں، پیش کریں', 'hp2.p':'تصدیق کریں کہ مسئلہ حقیقی ہے، ایک ٹھوس منصوبہ لکھیں، پھر اسے بلند آواز میں پیش کرنے کی مشق کریں — ہر قدم پر ایک AI مینٹر آپ کے کام کا جائزہ لیتا ہے، کبھی براہ راست جواب نہیں دیتا۔',
+      'hp3.h3':'کچھ حقیقی لے کر جائیں', 'hp3.p':'کوئی سرٹیفیکیٹ نہیں — ایک حقیقی منصوبہ، ایک مشق شدہ پیشکش، اور ایک مینٹر کی حقیقی رائے جس نے کبھی سیدھا جواب نہیں دیا۔',
+      'why.eyebrow':'ہم نے یہ کیوں بنایا', 'why.quote':'"صلاحیت ہر جگہ ہے۔ موقع نہیں۔"',
+      'why.body':'Beyond Circumstances دو طالب علموں کا بنایا اور چلایا ہوا ہے جنہوں نے یہ کمی خود محسوس کی — نہ کوئی کمپنی، نہ نصاب بیچنے والا ادارہ۔',
+      'why.link':'ہماری کہانی پڑھیں →',
+      'faq.eyebrow':'سوالات', 'faq.h2':'شروع کرنے سے پہلے۔',
+      'faq1.q':'کیا یہ واقعی مفت ہے؟', 'faq1.a':'جی ہاں — کوئی لاگ ان فیس نہیں، کوئی پریمیم پلان نہیں۔ جو چیز خرچ ہوتی ہے وہ صرف آپ کا وقت ہے۔',
+      'faq2.q':'کیا میرے پاس پہلے سے آئیڈیا ہونا ضروری ہے؟', 'faq2.a':'نہیں۔ ڈسکور بالکل اس کے برعکس کے لیے بنایا گیا ہے — آپ اپنے تجسس سے شروع کرتے ہیں، کسی مکمل تیار شدہ پیشکش سے نہیں۔',
+      'faq3.q':'کون شامل ہو سکتا ہے؟', 'faq3.a':'کوئی بھی، کہیں بھی۔ کوئی درخواست نہیں، عمر کی کوئی حد نہیں، مقام کی کوئی شرط نہیں — صرف ایک اکاؤنٹ بنائیں اور شروع کریں۔',
+      'faq4.q':'مجھے اپنے پروجیکٹ پر رائے کیسے ملے گی؟', 'faq4.a':'آپ کا AI مینٹر آپ کی تحقیق، منصوبے اور پیشکش کا جائزہ لیتا رہتا ہے جیسے جیسے آپ آگے بڑھتے ہیں۔ جتنا چاہیں بہتر کرتے رہیں — اس کی کوئی ڈیڈ لائن نہیں۔',
+      'foot.tagline':'ایک مفت، AI سے چلنے والا پلیٹ فارم، سب کے لیے کھلا، جو آپ کی حقیقی دلچسپی کو ایک حقیقی پروجیکٹ میں بدلنے میں مدد دیتا ہے۔',
+      'foot.founders':'بانی', 'foot.contact':'رابطہ', 'foot.program':'پروگرام', 'foot.build':'بلڈ', 'foot.about':'ہمارے بارے میں',
+      'foot.bottom':'ایک خودمختار نوجوان وینچر پہل · دہلی NCR'
+    }
+  };
+
+  (function(){
+    var LANG_KEY = 'bc_lang';
+    var langBtn = document.getElementById('langBtn');
+    var langMenu = document.getElementById('langMenu');
+    var langCode = document.getElementById('langCode');
+    var langSwitch = document.getElementById('langSwitch');
+    if(!langBtn) return;
+
+    var nodes = [];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      nodes.push({ el: el, key: el.getAttribute('data-i18n'), en: el.textContent });
+    });
+
+    function applyLang(lang){
+      var dict = I18N[lang] || null;
+      nodes.forEach(function(n){
+        n.el.textContent = dict && dict[n.key] ? dict[n.key] : n.en;
+        n.el.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+      });
+      langCode.textContent = lang.toUpperCase();
+      langMenu.querySelectorAll('li').forEach(function(li){
+        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+    }
+
+    langBtn.addEventListener('click', function(){
+      var opening = langMenu.hidden;
+      langMenu.hidden = !opening;
+      langBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    });
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.addEventListener('click', function(){
+        applyLang(li.getAttribute('data-lang'));
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!langSwitch.contains(e.target)){
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    var saved = 'en';
+    try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+    if(saved !== 'en') applyLang(saved);
+  })();
 </script>
 
 </body>

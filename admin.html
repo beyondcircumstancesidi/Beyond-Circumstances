@@ -108,6 +108,42 @@
   .account-detail b{color:var(--gold-300); font-weight:600;}
 
   footer{padding:2rem 0; border-top:1px solid var(--line-hair); font-family:var(--font-mono); font-size:0.78rem; color:var(--sage-400);}
+
+  /* ---------- Language switch ---------- */
+  .lang-switch{position:relative;}
+  .lang-btn{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:transparent; border:1px solid var(--line-hair-strong);
+    color:var(--cream-100); font-family:var(--font-body); font-size:0.82rem; font-weight:600;
+    padding:0.45rem 0.7rem; border-radius:3px; cursor:pointer;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-btn:hover, .lang-btn[aria-expanded="true"]{border-color:var(--gold-400); color:var(--gold-300);}
+  .lang-globe{font-size:0.95rem; line-height:1;}
+  .lang-caret{font-size:0.6rem; color:var(--sage-400);}
+  .lang-menu{
+    position:absolute; top:calc(100% + 0.6rem); right:0; z-index:60;
+    min-width:170px; list-style:none;
+    background:var(--bg-850); border:1px solid var(--line-hair-strong); border-radius:4px;
+    padding:0.35rem; box-shadow:0 14px 32px rgba(0,0,0,0.4);
+  }
+  .lang-menu[hidden]{display:none;}
+  .lang-menu li{
+    display:flex; align-items:center; gap:0.65rem;
+    padding:0.55rem 0.6rem; border-radius:3px; cursor:pointer;
+    font-size:0.88rem; color:var(--cream-100);
+    transition:background 0.12s ease;
+  }
+  .lang-menu li:hover{background:var(--bg-800-hi);}
+  .lang-menu li[aria-selected="true"]{color:var(--gold-300);}
+  .lang-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    background:var(--gold-500); color:var(--bg-950);
+    font-family:var(--font-display); font-size:0.8rem; font-weight:600;
+  }
+  .lang-menu li[aria-selected="true"] .lang-badge{background:var(--gold-300);}
+  [data-i18n][dir="rtl"]{text-align:right;}
 </style>
 </head>
 <body>
@@ -119,16 +155,28 @@
       <div class="brand-name">Beyond Circumstances</div>
     </a>
     <div class="nav-links">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-globe" aria-hidden="true">🌐</span>
+          <span class="lang-code" id="langCode">EN</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="en" aria-selected="true"><span class="lang-badge">A</span><span class="lang-name">English</span></li>
+          <li role="option" data-lang="hi" aria-selected="false"><span class="lang-badge">अ</span><span class="lang-name">हिंदी</span></li>
+          <li role="option" data-lang="ur" aria-selected="false"><span class="lang-badge">ا</span><span class="lang-name">اردو</span></li>
+        </ul>
+      </div>
       <span id="whoami"></span>
-      <button type="button" class="btn btn-ghost btn-small" id="signOutBtn">Sign out</button>
+      <button type="button" class="btn btn-ghost btn-small" id="signOutBtn" data-i18n="nav.signout">Sign out</button>
     </div>
   </nav>
 </header>
 
 <main>
   <div class="wrap">
-    <p class="eyebrow">Admin panel</p>
-    <h1 style="margin-top:0.8rem; font-size:clamp(1.9rem,4vw,2.6rem);">Behind the scenes.</h1>
+    <p class="eyebrow" data-i18n="admin.eyebrow">Admin panel</p>
+    <h1 style="margin-top:0.8rem; font-size:clamp(1.9rem,4vw,2.6rem);" data-i18n="admin.h1">Behind the scenes.</h1>
   </div>
 
   <section>
@@ -261,6 +309,73 @@
     });
   }
 })();
+</script>
+
+<script>
+  var I18N = {
+    hi: {
+      'nav.signout':'साइन आउट',
+      'admin.eyebrow':'एडमिन पैनल', 'admin.h1':'पर्दे के पीछे।'
+    },
+    ur: {
+      'nav.signout':'سائن آؤٹ',
+      'admin.eyebrow':'ایڈمن پینل', 'admin.h1':'پردے کے پیچھے۔'
+    }
+  };
+
+  (function(){
+    var LANG_KEY = 'bc_lang';
+    var langBtn = document.getElementById('langBtn');
+    var langMenu = document.getElementById('langMenu');
+    var langCode = document.getElementById('langCode');
+    var langSwitch = document.getElementById('langSwitch');
+    if(!langBtn) return;
+
+    var nodes = [];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      nodes.push({ el: el, key: el.getAttribute('data-i18n'), en: el.textContent });
+    });
+
+    function applyLang(lang){
+      var dict = I18N[lang] || null;
+      nodes.forEach(function(n){
+        n.el.textContent = dict && dict[n.key] ? dict[n.key] : n.en;
+        n.el.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+      });
+      langCode.textContent = lang.toUpperCase();
+      langMenu.querySelectorAll('li').forEach(function(li){
+        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+    }
+
+    langBtn.addEventListener('click', function(){
+      var opening = langMenu.hidden;
+      langMenu.hidden = !opening;
+      langBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    });
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.addEventListener('click', function(){
+        applyLang(li.getAttribute('data-lang'));
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!langSwitch.contains(e.target)){
+        langMenu.hidden = true;
+        langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    var saved = 'en';
+    try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+    if(saved !== 'en') applyLang(saved);
+  })();
 </script>
 
 </body>
