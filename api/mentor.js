@@ -50,6 +50,13 @@ function askPrompt(stage) {
   );
 }
 
+const LANGUAGE_NAMES = { hi: 'Hindi', ur: 'Urdu' };
+
+function languageInstruction(lang) {
+  if (!LANGUAGE_NAMES[lang]) return '';
+  return ' Respond entirely in ' + LANGUAGE_NAMES[lang] + ', written in its native script, not English — including if the student wrote their question or notes in English.';
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -67,6 +74,7 @@ export default async function handler(req, res) {
 
   const interest = clip(body.interest, 60);
   const question = clip(body.question, 500);
+  const lang = body.language === 'hi' || body.language === 'ur' ? body.language : 'en';
 
   if (mode === 'ask' && !question) {
     return res.status(400).json({ error: 'Type a question first.' });
@@ -120,7 +128,7 @@ export default async function handler(req, res) {
     const msg = await anthropic.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 400,
-      system: mode === 'ask' ? askPrompt(stage) : REVIEW_PROMPTS[stage],
+      system: (mode === 'ask' ? askPrompt(stage) : REVIEW_PROMPTS[stage]) + languageInstruction(lang),
       messages: [{ role: 'user', content: userContent }],
     });
 

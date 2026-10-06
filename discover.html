@@ -265,6 +265,8 @@
   /* ---------- Phase switcher ---------- */
   .phase-switch{display:flex; gap:0.7rem; flex-wrap:wrap; padding:2rem 0 0;}
   .phase-switch button{font-size:0.85rem; padding:0.65rem 1.2rem;}
+  .phase-switch button.is-locked{opacity:0.5; cursor:not-allowed;}
+  .lock-icon{font-size:0.85em;}
 
   /* ---------- Build workspace ---------- */
   .build-section{padding-top:1rem;}
@@ -460,15 +462,15 @@
   <section class="discover-hero" id="discoverWelcome">
     <div class="wrap discover-hero-grid">
       <div>
-        <p class="eyebrow">Discover &amp; Prepare</p>
-        <h1>Start with what you notice.</h1>
-        <p class="lede">Beyond Circumstances helps students move from a spark of curiosity to a small, testable idea. Notice what interests you, spot a problem nearby, and start shaping something you can try.</p>
-        <button type="button" class="btn btn-gold" id="startExploringBtn">Start Exploring</button>
+        <p class="eyebrow" data-i18n="phase.discover">Discover &amp; Prepare</p>
+        <h1 data-i18n="discover.h1">Start with what you notice.</h1>
+        <p class="lede" data-i18n="discover.lede">Beyond Circumstances helps students move from a spark of curiosity to a small, testable idea. Notice what interests you, spot a problem nearby, and start shaping something you can try.</p>
+        <button type="button" class="btn btn-gold" id="startExploringBtn" data-i18n="discover.startExploring">Start Exploring</button>
       </div>
       <div class="phase-panel card-accent">
-        <div class="phase-panel-top"><span class="phase-panel-dot"></span><span>Phase 1</span></div>
-        <h3>Curiosity → interests → idea</h3>
-        <p>This phase is not a course. It is a guided starting point for noticing what you care about, understanding a problem, and beginning to shape a project that could become real.</p>
+        <div class="phase-panel-top"><span class="phase-panel-dot"></span><span data-i18n="discover.phase1">Phase 1</span></div>
+        <h3 data-i18n="discover.phasePanelH3">Curiosity → interests → idea</h3>
+        <p data-i18n="discover.phasePanelP">This phase is not a course. It is a guided starting point for noticing what you care about, understanding a problem, and beginning to shape a project that could become real.</p>
       </div>
     </div>
   </section>
@@ -476,8 +478,8 @@
   <section class="section" id="journeyBar" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">The journey</p>
-        <h2>A clear path from curiosity to readiness.</h2>
+        <p class="eyebrow" data-i18n="journey.eyebrow">The journey</p>
+        <h2 data-i18n="journey.h2">A clear path from curiosity to readiness.</h2>
       </div>
       <div class="journey" id="journeyTracker"></div>
     </div>
@@ -486,14 +488,14 @@
   <section class="section" id="explore" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Explore your interests</p>
-        <h2>What sparks your attention?</h2>
-        <p>Choose an area you want to learn more about. This helps narrow the kind of problems or projects you might want to explore next.</p>
+        <p class="eyebrow" data-i18n="explore.eyebrow">Explore your interests</p>
+        <h2 data-i18n="explore.h2">What sparks your attention?</h2>
+        <p data-i18n="explore.p">Choose an area you want to learn more about. This helps narrow the kind of problems or projects you might want to explore next.</p>
       </div>
       <div class="interest-grid" id="interestGrid"></div>
-      <div class="selection-box"><strong>Current focus:</strong><span id="currentFocus">Choose an interest to begin</span></div>
+      <div class="selection-box"><strong data-i18n="explore.currentFocusLabel">Current focus:</strong><span id="currentFocus">Choose an interest to begin</span></div>
       <div class="step-actions" style="margin-top:1.6rem;">
-        <button type="button" class="btn btn-ghost" id="welcomeBackBtn">← Back</button>
+        <button type="button" class="btn btn-ghost" id="welcomeBackBtn" data-i18n="build.stageBackLabel">← Back</button>
       </div>
     </div>
   </section>
@@ -501,20 +503,20 @@
   <section class="section" id="questionSection" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Find what you care about</p>
-        <h2>Take it one step at a time.</h2>
-        <p>You do not need a perfect idea yet. Just follow what catches your attention.</p>
+        <p class="eyebrow" data-i18n="question.eyebrow">Find what you care about</p>
+        <h2 data-i18n="question.h2">Take it one step at a time.</h2>
+        <p data-i18n="question.p">You do not need a perfect idea yet. Just follow what catches your attention.</p>
       </div>
       <div class="question-card card-accent">
         <div class="context-panel">
-          <div class="context-tag">Your direction</div>
+          <div class="context-tag" data-i18n="question.yourDirection">Your direction</div>
           <p id="contextText"></p>
         </div>
         <div class="step-indicator" id="stepIndicator"></div>
         <h3 id="questionText"></h3>
         <p class="question-helper" id="questionHelper"></p>
-        <textarea id="answerInput" placeholder="Write a few thoughts here..."></textarea>
-        <button type="button" class="btn btn-ghost btn-small admin-fill-btn" id="adminFillBtn" hidden>⚙ Fill dummy answer (admin)</button>
+        <textarea id="answerInput" placeholder="Write a few thoughts here..." data-i18n-ph="question.answerPlaceholder"></textarea>
+        <button type="button" class="btn btn-ghost btn-small admin-fill-btn" id="adminFillBtn" hidden data-i18n="question.adminFillBtn">⚙ Fill dummy answer (admin)</button>
         <p class="form-hint error" id="validationMessage" hidden></p>
         <div class="step-actions">
           <button type="button" class="btn btn-ghost" id="backBtn" hidden>Back</button>
@@ -527,22 +529,22 @@
   <section class="section" id="summarySection" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Your discovery</p>
-        <h2>This is what you've noticed.</h2>
-        <p>You're not looking for a perfect answer — just a clear starting point to shape next steps.</p>
+        <p class="eyebrow" data-i18n="summary.eyebrow">Your discovery</p>
+        <h2 data-i18n="summary.h2">This is what you've noticed.</h2>
+        <p data-i18n="summary.p">You're not looking for a perfect answer — just a clear starting point to shape next steps.</p>
       </div>
       <div class="summary-card card-accent">
-        <div class="summary-header"><span>YOU'VE GOT A STARTING POINT</span></div>
-        <div class="summary-intro">A quick snapshot of what you found based on your answers — edit anything if you want to change it.</div>
+        <div class="summary-header"><span data-i18n="summary.header">YOU'VE GOT A STARTING POINT</span></div>
+        <div class="summary-intro" data-i18n="summary.intro">A quick snapshot of what you found based on your answers — edit anything if you want to change it.</div>
         <div class="summary-grid">
-          <div class="summary-item"><span>You care about</span><strong id="sumInterest">—</strong></div>
-          <div class="summary-item"><span>You've noticed</span><strong id="sumProblem">—</strong></div>
-          <div class="summary-item"><span>You want to help</span><strong id="sumHelp">—</strong></div>
-          <div class="summary-item"><span>You could try</span><strong id="sumCreate">—</strong></div>
+          <div class="summary-item"><span data-i18n="summary.careAbout">You care about</span><strong id="sumInterest">—</strong></div>
+          <div class="summary-item"><span data-i18n="summary.noticed">You've noticed</span><strong id="sumProblem">—</strong></div>
+          <div class="summary-item"><span data-i18n="summary.wantToHelp">You want to help</span><strong id="sumHelp">—</strong></div>
+          <div class="summary-item"><span data-i18n="summary.couldTry">You could try</span><strong id="sumCreate">—</strong></div>
         </div>
         <div class="summary-actions">
-          <button type="button" class="btn btn-ghost" id="editAnswersBtn">Edit answers</button>
-          <button type="button" class="btn btn-gold" id="workOnIdeaBtn">Work on this idea →</button>
+          <button type="button" class="btn btn-ghost" id="editAnswersBtn" data-i18n="summary.editAnswers">Edit answers</button>
+          <button type="button" class="btn btn-gold" id="workOnIdeaBtn" data-i18n="summary.workOnIdea">Work on this idea →</button>
         </div>
       </div>
     </div>
@@ -551,36 +553,36 @@
   <section class="section" id="ideaSection" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Project concept</p>
-        <h2>Your idea is starting to take shape.</h2>
-        <p>This is a natural continuation of what you discovered, based on your selected interest and the problems you care about.</p>
+        <p class="eyebrow" data-i18n="idea.eyebrow">Project concept</p>
+        <h2 data-i18n="idea.h2">Your idea is starting to take shape.</h2>
+        <p data-i18n="idea.p">This is a natural continuation of what you discovered, based on your selected interest and the problems you care about.</p>
       </div>
       <div class="idea-card card-accent">
-        <div class="idea-header"><span>Project title</span><strong id="ideaTitle"></strong></div>
+        <div class="idea-header"><span data-i18n="recapTitle">Project title</span><strong id="ideaTitle"></strong></div>
         <div class="idea-grid">
-          <div class="idea-block"><span>Problem</span><strong id="ideaProblem"></strong></div>
-          <div class="idea-block"><span>Who it helps</span><strong id="ideaHelps"></strong></div>
-          <div class="idea-block wide"><span>Proposed solution</span><strong id="ideaSolution"></strong></div>
-          <div class="idea-block"><span>Interest behind it</span><strong id="ideaInterest"></strong></div>
-          <div class="idea-block"><span>What they care about</span><strong id="ideaMotivation"></strong></div>
-          <div class="idea-block wide"><span>Why this could work</span><strong id="ideaFeasible"></strong></div>
-          <div class="idea-block wide"><span>Concrete next steps</span><ul id="ideaNextSteps"></ul></div>
+          <div class="idea-block"><span data-i18n="idea.problem">Problem</span><strong id="ideaProblem"></strong></div>
+          <div class="idea-block"><span data-i18n="idea.whoItHelps">Who it helps</span><strong id="ideaHelps"></strong></div>
+          <div class="idea-block wide"><span data-i18n="recapSolution">Proposed solution</span><strong id="ideaSolution"></strong></div>
+          <div class="idea-block"><span data-i18n="idea.interestBehindIt">Interest behind it</span><strong id="ideaInterest"></strong></div>
+          <div class="idea-block"><span data-i18n="idea.whatTheyCareAbout">What they care about</span><strong id="ideaMotivation"></strong></div>
+          <div class="idea-block wide"><span data-i18n="idea.whyThisCouldWork">Why this could work</span><strong id="ideaFeasible"></strong></div>
+          <div class="idea-block wide"><span data-i18n="idea.nextSteps">Concrete next steps</span><ul id="ideaNextSteps"></ul></div>
         </div>
       </div>
       <div class="step-actions" style="margin-top:1.6rem;">
-        <button type="button" class="btn btn-ghost" id="ideaBackBtn">← Back</button>
-        <button type="button" class="btn btn-gold" id="startBuildingBtn">Start Building →</button>
+        <button type="button" class="btn btn-ghost" id="ideaBackBtn" data-i18n="build.stageBackLabel">← Back</button>
+        <button type="button" class="btn btn-gold" id="startBuildingBtn" data-i18n="idea.startBuilding">Start Building →</button>
       </div>
 
       <hr class="divider" style="margin:clamp(2.5rem,5vw,3.5rem) 0;">
 
       <div class="section-head">
-        <p class="eyebrow">Toolkit</p>
-        <h2>Useful tools, not a course.</h2>
-        <p>Use these as optional supports when you need help refining your idea, understanding a challenge, or planning next steps.</p>
+        <p class="eyebrow" data-i18n="toolkit.eyebrow">Toolkit</p>
+        <h2 data-i18n="toolkit.h2">Useful tools, not a course.</h2>
+        <p data-i18n="toolkit.p">Use these as optional supports when you need help refining your idea, understanding a challenge, or planning next steps.</p>
       </div>
       <div class="toolkit-grid" id="toolkitGrid"></div>
-      <div class="selection-box"><strong>Current toolkit focus:</strong><span id="toolkitFocus"></span></div>
+      <div class="selection-box"><strong data-i18n="toolkit.currentFocusLabel">Current toolkit focus:</strong><span id="toolkitFocus"></span></div>
     </div>
   </section>
 
@@ -590,7 +592,10 @@
     <div class="wrap">
       <div class="phase-switch" id="phaseSwitch">
         <button type="button" class="btn btn-gold" data-phase="discover" data-i18n="phase.discover">Discover &amp; Prepare</button>
-        <button type="button" class="btn btn-ghost" data-phase="build" data-i18n="nav.build">Build</button>
+        <button type="button" class="btn btn-ghost" data-phase="build">
+          <span class="lock-icon" id="buildLockIcon" aria-hidden="true" hidden>🔒 </span>
+          <span data-i18n="nav.build">Build</span>
+        </button>
       </div>
     </div>
   </section>
@@ -604,11 +609,11 @@
       </div>
 
       <div class="build-progress" id="buildProgress">
-        <div class="build-progress-step is-active" data-stage="problem"><span class="build-progress-dot">1</span><span class="build-progress-label">Research</span></div>
+        <div class="build-progress-step is-active" data-stage="problem"><span class="build-progress-dot">1</span><span class="build-progress-label" data-i18n="build.researchLabel">Research</span></div>
         <div class="build-progress-line"></div>
-        <div class="build-progress-step is-locked" data-stage="plan"><span class="build-progress-dot">2</span><span class="build-progress-label">Plan</span></div>
+        <div class="build-progress-step is-locked" data-stage="plan"><span class="build-progress-dot">2</span><span class="build-progress-label" data-i18n="planLabel">Plan</span></div>
         <div class="build-progress-line"></div>
-        <div class="build-progress-step is-locked" data-stage="pitch"><span class="build-progress-dot">3</span><span class="build-progress-label">Pitch</span></div>
+        <div class="build-progress-step is-locked" data-stage="pitch"><span class="build-progress-dot">3</span><span class="build-progress-label" data-i18n="pitchLabel">Pitch</span></div>
       </div>
 
       <div class="idea-recap card-accent">
@@ -618,13 +623,13 @@
 
       <div class="ask-mentor-card card-accent">
         <div class="mentor-head">
-          <span class="mentor-tag">AI Mentor</span>
-          <h3>Ask a question, anytime.</h3>
+          <span class="mentor-tag" data-i18n="build.mentorTag">AI Mentor</span>
+          <h3 data-i18n="build.askAnytimeH3">Ask a question, anytime.</h3>
         </div>
-        <p class="stage-copy">Your mentor won't just hand you answers — it'll help you think it through. Ask about whatever step you're on.</p>
-        <textarea id="askMentorInput" placeholder="e.g. What kind of people should I try to interview?"></textarea>
+        <p class="stage-copy" data-i18n="build.askAnytimeCopy">Your mentor won't just hand you answers — it'll help you think it through. Ask about whatever step you're on.</p>
+        <textarea id="askMentorInput" placeholder="e.g. What kind of people should I try to interview?" data-i18n-ph="build.askMentorPlaceholder"></textarea>
         <div class="mentor-actions">
-          <button type="button" class="btn btn-ghost" id="askMentorChatBtn">Ask →</button>
+          <button type="button" class="btn btn-ghost" id="askMentorChatBtn" data-i18n="build.askBtn">Ask →</button>
           <span class="mentor-status" id="askMentorStatus"></span>
         </div>
         <div class="mentor-response" id="askMentorResponse" hidden></div>
@@ -633,30 +638,30 @@
       <!-- STAGE 1: PROBLEM -->
       <div class="build-stage" id="stageProblem">
         <div class="stage-card card-accent">
-          <h3>Confirm the problem is real.</h3>
-          <p class="stage-copy">Don't guess. Find evidence this problem is real and worth solving — read what's already out there, or go talk directly to people who deal with it. Either counts, but you need real evidence. Log what you find below.</p>
+          <h3 data-i18n="build.stage1H3">Confirm the problem is real.</h3>
+          <p class="stage-copy" data-i18n="build.stage1Copy">Don't guess. Find evidence this problem is real and worth solving — read what's already out there, or go talk directly to people who deal with it. Either counts, but you need real evidence. Log what you find below.</p>
 
           <div class="log-form">
             <div class="log-form-row">
               <select id="logType">
-                <option value="online">Online research</option>
-                <option value="interview">Direct interview</option>
+                <option value="online" data-i18n="onlineResearch">Online research</option>
+                <option value="interview" data-i18n="directInterview">Direct interview</option>
               </select>
-              <button type="button" class="btn btn-ghost btn-small" id="addLogBtn">Add entry</button>
+              <button type="button" class="btn btn-ghost btn-small" id="addLogBtn" data-i18n="build.addEntry">Add entry</button>
             </div>
-            <textarea id="logText" placeholder="What did you find or hear?"></textarea>
+            <textarea id="logText" placeholder="What did you find or hear?" data-i18n-ph="build.logTextPlaceholder"></textarea>
           </div>
 
           <div class="log-list" id="logList"></div>
 
           <div class="pdf-upload-row">
-            <label class="pdf-label" for="researchPdf">Attach your research as a PDF (optional — the AI mentor can read it)</label>
+            <label class="pdf-label" for="researchPdf" data-i18n="build.pdfLabel">Attach your research as a PDF (optional — the AI mentor can read it)</label>
             <input type="file" id="researchPdf" accept="application/pdf">
             <span class="pdf-filename" id="pdfFilename"></span>
           </div>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askResearchMentorBtn">Submit research for mentor review →</button>
+            <button type="button" class="btn btn-gold" id="askResearchMentorBtn" data-i18n="build.submitResearch">Submit research for mentor review →</button>
             <span class="mentor-status" id="researchStatus"></span>
           </div>
           <div class="mentor-response" id="researchResponse" hidden></div>
@@ -666,25 +671,25 @@
       <!-- STAGE 2: PLAN -->
       <div class="build-stage" id="stagePlan" hidden>
         <div class="stage-card card-accent">
-          <h3>Write your project or business plan.</h3>
-          <p class="stage-copy">Turn your idea into an actual plan. Cover what the problem is, who it affects, what you're proposing, and why it could realistically work — in your own words.</p>
+          <h3 data-i18n="build.stage2H3">Write your project or business plan.</h3>
+          <p class="stage-copy" data-i18n="build.stage2Copy">Turn your idea into an actual plan. Cover what the problem is, who it affects, what you're proposing, and why it could realistically work — in your own words.</p>
 
           <div class="plan-toolbar">
-            <button type="button" class="btn btn-ghost btn-small" id="insertTemplateBtn">Insert template</button>
+            <button type="button" class="btn btn-ghost btn-small" id="insertTemplateBtn" data-i18n="build.insertTemplate">Insert template</button>
           </div>
-          <textarea id="planText" class="plan-textarea" placeholder="Write your plan here..."></textarea>
+          <textarea id="planText" class="plan-textarea" placeholder="Write your plan here..." data-i18n-ph="build.planPlaceholder"></textarea>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askPlanMentorBtn">Submit plan for mentor review →</button>
-            <button type="button" class="btn btn-ghost" id="savePlanPdfBtn">Save as PDF</button>
+            <button type="button" class="btn btn-gold" id="askPlanMentorBtn" data-i18n="build.submitPlan">Submit plan for mentor review →</button>
+            <button type="button" class="btn btn-ghost" id="savePlanPdfBtn" data-i18n="build.saveAsPdf">Save as PDF</button>
             <span class="mentor-status" id="planStatus"></span>
           </div>
           <div class="mentor-response" id="planResponse" hidden></div>
 
           <div class="peer-feedback-block">
-            <label for="peerFeedback">Peer feedback</label>
-            <p class="stage-copy">Get one person to actually read your plan and react to it. Type what they said below.</p>
-            <textarea id="peerFeedback" placeholder="What did your peer say?"></textarea>
+            <label for="peerFeedback" data-i18n="build.peerFeedbackLabel">Peer feedback</label>
+            <p class="stage-copy" data-i18n="build.peerFeedbackCopy">Get one person to actually read your plan and react to it. Type what they said below.</p>
+            <textarea id="peerFeedback" placeholder="What did your peer say?" data-i18n-ph="build.peerFeedbackPlaceholder"></textarea>
           </div>
         </div>
       </div>
@@ -692,23 +697,23 @@
       <!-- STAGE 3: PITCH -->
       <div class="build-stage" id="stagePitch" hidden>
         <div class="stage-card card-accent">
-          <h3>Practice your pitch.</h3>
-          <p class="stage-copy">An elevator pitch says what the problem is, who has it, what you're building, and why it matters — out loud, in under a minute. Work out what you want to say, then record yourself actually saying it.</p>
+          <h3 data-i18n="build.stage3H3">Practice your pitch.</h3>
+          <p class="stage-copy" data-i18n="build.stage3Copy">An elevator pitch says what the problem is, who has it, what you're building, and why it matters — out loud, in under a minute. Work out what you want to say, then record yourself actually saying it.</p>
 
           <div class="recorder">
-            <button type="button" class="btn btn-gold" id="recordBtn">● Record</button>
-            <button type="button" class="btn btn-ghost" id="stopRecordBtn" hidden>■ Stop</button>
+            <button type="button" class="btn btn-gold" id="recordBtn" data-i18n="build.recordBtnLabel">● Record</button>
+            <button type="button" class="btn btn-ghost" id="stopRecordBtn" hidden data-i18n="build.stopBtnLabel">■ Stop</button>
             <span class="mentor-status" id="recordStatus"></span>
           </div>
           <audio id="pitchAudioPlayback" controls hidden></audio>
 
           <div class="transcript-block">
-            <label for="pitchTranscript">Transcript (captured live while recording — edit if needed)</label>
-            <textarea id="pitchTranscript" placeholder="Your words will appear here as you record, or type it yourself..."></textarea>
+            <label for="pitchTranscript" data-i18n="build.transcriptLabel">Transcript (captured live while recording — edit if needed)</label>
+            <textarea id="pitchTranscript" placeholder="Your words will appear here as you record, or type it yourself..." data-i18n-ph="build.transcriptPlaceholder"></textarea>
           </div>
 
           <div class="mentor-actions">
-            <button type="button" class="btn btn-gold" id="askPitchMentorBtn">Submit pitch for mentor review →</button>
+            <button type="button" class="btn btn-gold" id="askPitchMentorBtn" data-i18n="build.submitPitch">Submit pitch for mentor review →</button>
             <span class="mentor-status" id="pitchStatus"></span>
           </div>
           <div class="mentor-response" id="pitchResponse" hidden></div>
@@ -716,7 +721,7 @@
       </div>
 
       <div class="stage-nav">
-        <button type="button" class="btn btn-ghost" id="stageBackBtn" hidden>← Back</button>
+        <button type="button" class="btn btn-ghost" id="stageBackBtn" hidden data-i18n="build.stageBackLabel">← Back</button>
         <button type="button" class="btn btn-gold" id="stageNextBtn" disabled>Submit research to continue</button>
       </div>
 
@@ -790,79 +795,519 @@
     }catch(e){ return false; }
   })();
 
-  var DUMMY_ANSWERS = {
-    learn: "I keep wanting to learn more about why art class is one of the first things cut when school budgets get tight, and what that actually costs kids.",
-    change: "I've always loved drawing, but my cousin's public school dropped art entirely last year, and it never came back. That stuck with me.",
-    problem: "A lot of public schools quietly cut art class when money is tight, so plenty of kids never get a real chance to try it at all.",
-    help: "Kids in underfunded public schools who never get exposed to art class in the first place.",
-    create: "A free after-school art drop-in, run by student volunteers with donated supplies.",
-  };
+  // ---- language ----
+  var LANG_KEY = 'bc_lang';
+  var currentLang = 'en';
+  try{ currentLang = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
 
   var interestCategories = ['Technology','Business','Sports','Education','Art & Design','Science','Environment','Community','Media','Other'];
 
-  var journeySteps = [
-    { label: 'Pick an interest' },
-    { label: 'Get curious' },
-    { label: 'Find your why' },
-    { label: 'Spot a problem' },
-    { label: 'Know who it helps' },
-    { label: 'Shape an idea' },
-  ];
-
-  var reflectionPrompts = [
-    { id:'learn', question:"What part of this keeps pulling at your curiosity?", helper:"Think about what you'd look into even if no one assigned it." },
-    { id:'change', question:"Why does this matter to you?", helper:"A short memory, example, or reason is enough." },
-    { id:'problem', question:"What's a problem you've noticed?", helper:"Think about something that keeps getting in someone's way." },
-    { id:'help', question:"Who do you want to help?", helper:"Be as specific as you can — students, neighbors, teammates." },
-    { id:'create', question:"What could you try to build?", helper:"Imagine one small thing: an event, a tool, a webpage, an activity." },
-  ];
-
-  var toolkitResources = [
-    { title:'Developing an Idea', icon:'IDEA', description:'Turn a rough notice into a concept you can describe in one sentence.',
-      details:{ summary:'Most ideas start vague. This narrows yours into something specific enough to test.',
-        points:['Name the exact problem in one sentence.','Name the exact person it happens to.','Write down the smallest version of a fix.'] } },
-    { title:'Talking to People', icon:'TALK', description:'Check your idea against reality before you build anything.',
-      details:{ summary:'A five-minute conversation can save weeks of building the wrong thing.',
-        points:['Ask about the problem, not your solution.','Listen for what they already try to do about it.','Write down their exact words, not your summary.'] } },
-    { title:'Planning a Pilot', icon:'PLAN', description:'Design the smallest version of your idea worth testing.',
-      details:{ summary:'A pilot is one event, one listing, or one small outreach — not the whole project.',
-        points:['Pick one audience of five to ten people.','Set a date within two weeks.','Decide what "it worked" would look like in advance.'] } },
-    { title:'Handling Feedback', icon:'FEED', description:'Turn mentor and peer feedback into actual changes, not just notes you agree with.',
-      details:{ summary:'Feedback only helps if you act on it. This is about deciding what to change and what to leave.',
-        points:['Separate "this is wrong" from "this could be clearer."','Pick one piece of feedback to act on first.','Re-ask the same question after you revise — see if the answer changes.'] } },
-  ];
-
-  var interestDirections = {
-    Technology: 'You want to explore how technology can solve problems.',
-    Business: 'You want to explore how ideas can become useful ventures.',
-    Sports: 'You want to explore how sports can create opportunities and impact.',
-    Education: 'You want to explore how learning can be made more accessible.',
-    'Art & Design': 'You want to explore how creativity can shape experiences and ideas.',
-    Science: 'You want to explore questions about how the world works.',
-    Environment: 'You want to explore ways to make our environment better.',
-    Community: 'You want to explore ways to strengthen the communities around you.',
-    Media: 'You want to explore how media can inform, connect, or influence people.',
-    Other: 'You want to explore where your curiosity takes you.',
+  var INTEREST_LABELS = {
+    hi: { Technology:'तकनीक', Business:'बिज़नेस', Sports:'खेल', Education:'शिक्षा', 'Art & Design':'कला और डिज़ाइन', Science:'विज्ञान', Environment:'पर्यावरण', Community:'समुदाय', Media:'मीडिया', Other:'अन्य' },
+    ur: { Technology:'ٹیکنالوجی', Business:'بزنس', Sports:'کھیل', Education:'تعلیم', 'Art & Design':'آرٹ اور ڈیزائن', Science:'سائنس', Environment:'ماحول', Community:'کمیونٹی', Media:'میڈیا', Other:'دیگر' }
   };
+  function interestCategoryLabel(cat){
+    var map = INTEREST_LABELS[currentLang];
+    return (map && map[cat]) || cat;
+  }
 
-  var titleVerbMap = {
-    Technology:'Build', Business:'Start', Sports:'Connect', Education:'Teach',
-    'Art & Design':'Showcase', Science:'Explore', Environment:'Restore',
-    Community:'Unite', Media:'Share', Other:'Create',
+  var UI = {
+    en: {
+      chooseInterest:'Choose an interest to begin',
+      yourAreaOfInterest:'your area of interest',
+      fallbackAudience:'people in your community',
+      fallbackProblem:'a challenge you notice',
+      fallbackConnection:'a reason this matters to you',
+      fallbackCommunity:'Community',
+      backToInterests:'← Back to interests',
+      back:'Back',
+      finish:'Finish →',
+      continueArrow:'Continue →',
+      needAFewWords:'A quick note helps — start with a few words and build from there.',
+      explore:'Explore',
+      collapse:'Collapse',
+      stepOf:function(n,total){ return 'Step ' + n + ' of ' + total; },
+      youPicked:function(interest){ return 'You picked <strong>' + interest + '</strong>. '; },
+      youAreNoticing:function(problem){ return ' You are noticing ' + problem + '.'; },
+      youWantToHelp:function(audience){ return 'You want to help <strong>' + audience + '</strong>.'; },
+      ideaRecapLabel:'Your answers & idea concept',
+      recapInterest:'Interest', recapLearn:'What pulled your curiosity', recapChange:'Why it matters to you',
+      recapProblem:'Problem you noticed', recapHelp:'Who you want to help', recapCreate:'What you could try',
+      recapTitle:'Project title', recapSolution:'Proposed solution',
+      onlineResearch:'Online research', directInterview:'Direct interview', remove:'Remove',
+      addLogFirst:'Add at least one log entry or attach a PDF first.',
+      writeInPlanFirst:'Write something in your plan first.',
+      recordOrTypeFirst:'Record or type your pitch first.',
+      typeQuestionFirst:'Type a question first.',
+      thinking:'Thinking…', reading:'Reading…',
+      couldNotReadPdf:'Could not read that PDF.',
+      mentorUnavailable:'The mentor is unavailable right now.',
+      'nav.about':'About us', 'nav.build':'Build',
+      'phase.discover':'Discover & Prepare',
+      'build.phase':'Phase 2',
+      'build.intro':"Turn your idea into something real, one step at a time. You can always go back and edit an earlier step — you just can't skip ahead until the current one is submitted for mentor review.",
+      'foot.tagline':'A free AI-powered platform, open to everyone, that helps you turn a real interest into a real project.',
+      'foot.founders':'Founders', 'foot.contact':'Contact', 'foot.program':'Program',
+      'foot.bottom':'Independent youth venture initiative · Delhi NCR',
+      'discover.h1':'Start with what you notice.',
+      'discover.lede':'Beyond Circumstances helps students move from a spark of curiosity to a small, testable idea. Notice what interests you, spot a problem nearby, and start shaping something you can try.',
+      'discover.startExploring':'Start Exploring',
+      'discover.phase1':'Phase 1',
+      'discover.phasePanelH3':'Curiosity → interests → idea',
+      'discover.phasePanelP':'This phase is not a course. It is a guided starting point for noticing what you care about, understanding a problem, and beginning to shape a project that could become real.',
+      'journey.eyebrow':'The journey',
+      'journey.h2':'A clear path from curiosity to readiness.',
+      'explore.eyebrow':'Explore your interests',
+      'explore.h2':'What sparks your attention?',
+      'explore.p':'Choose an area you want to learn more about. This helps narrow the kind of problems or projects you might want to explore next.',
+      'explore.currentFocusLabel':'Current focus:',
+      'question.eyebrow':'Find what you care about',
+      'question.h2':'Take it one step at a time.',
+      'question.p':'You do not need a perfect idea yet. Just follow what catches your attention.',
+      'question.yourDirection':'Your direction',
+      'question.answerPlaceholder':'Write a few thoughts here...',
+      'question.adminFillBtn':'⚙ Fill dummy answer (admin)',
+      'summary.eyebrow':'Your discovery',
+      'summary.h2':"This is what you've noticed.",
+      'summary.p':"You're not looking for a perfect answer — just a clear starting point to shape next steps.",
+      'summary.header':"YOU'VE GOT A STARTING POINT",
+      'summary.intro':'A quick snapshot of what you found based on your answers — edit anything if you want to change it.',
+      'summary.careAbout':'You care about',
+      'summary.noticed':"You've noticed",
+      'summary.wantToHelp':'You want to help',
+      'summary.couldTry':'You could try',
+      'summary.editAnswers':'Edit answers',
+      'summary.workOnIdea':'Work on this idea →',
+      'idea.eyebrow':'Project concept',
+      'idea.h2':'Your idea is starting to take shape.',
+      'idea.p':'This is a natural continuation of what you discovered, based on your selected interest and the problems you care about.',
+      'idea.problem':'Problem',
+      'idea.whoItHelps':'Who it helps',
+      'idea.interestBehindIt':'Interest behind it',
+      'idea.whatTheyCareAbout':'What they care about',
+      'idea.whyThisCouldWork':'Why this could work',
+      'idea.nextSteps':'Concrete next steps',
+      'idea.startBuilding':'Start Building →',
+      'toolkit.eyebrow':'Toolkit',
+      'toolkit.h2':'Useful tools, not a course.',
+      'toolkit.p':'Use these as optional supports when you need help refining your idea, understanding a challenge, or planning next steps.',
+      'toolkit.currentFocusLabel':'Current toolkit focus:',
+      micUnavailable:'This browser cannot access your microphone.',
+      noLiveTranscript:'Live transcript is not supported in this browser — type it manually below.',
+      recording:'Recording…', recordingSaved:'Recording saved.', micBlocked:'Could not access your microphone.',
+      templateConfirm:"This will replace what you've written with the template. Continue?",
+      pdfUnavailable:'PDF export is unavailable right now.',
+      stageNextLabel:{ problem:'Submit research to continue', plan:'Submit plan to continue', pitch:'Submit pitch to finish' },
+      pitchSubmitted:'Pitch submitted ✓',
+      continueTo:function(stage){ return 'Continue to ' + stage + ' →'; },
+      planLabel:'Plan', pitchLabel:'Pitch',
+      lockedTooltip:'Finish Discover & Prepare first.',
+      planTemplate:
+        'PROBLEM\n\n\n' + "WHO IT'S FOR\n\n\n" + "WHAT WE'RE PROPOSING\n\n\n" +
+        'WHY THIS COULD WORK\n\n\n' + 'NEXT STEPS\n\n',
+      'build.researchLabel':'Research',
+      'build.mentorTag':'AI Mentor',
+      'build.askAnytimeH3':'Ask a question, anytime.',
+      'build.askAnytimeCopy':"Your mentor won't just hand you answers — it'll help you think it through. Ask about whatever step you're on.",
+      'build.askMentorPlaceholder':'e.g. What kind of people should I try to interview?',
+      'build.askBtn':'Ask →',
+      'build.stage1H3':'Confirm the problem is real.',
+      'build.stage1Copy':"Don't guess. Find evidence this problem is real and worth solving — read what's already out there, or go talk directly to people who deal with it. Either counts, but you need real evidence. Log what you find below.",
+      'build.addEntry':'Add entry',
+      'build.logTextPlaceholder':'What did you find or hear?',
+      'build.pdfLabel':'Attach your research as a PDF (optional — the AI mentor can read it)',
+      'build.submitResearch':'Submit research for mentor review →',
+      'build.stage2H3':'Write your project or business plan.',
+      'build.stage2Copy':"Turn your idea into an actual plan. Cover what the problem is, who it affects, what you're proposing, and why it could realistically work — in your own words.",
+      'build.insertTemplate':'Insert template',
+      'build.planPlaceholder':'Write your plan here...',
+      'build.submitPlan':'Submit plan for mentor review →',
+      'build.saveAsPdf':'Save as PDF',
+      'build.peerFeedbackLabel':'Peer feedback',
+      'build.peerFeedbackCopy':'Get one person to actually read your plan and react to it. Type what they said below.',
+      'build.peerFeedbackPlaceholder':'What did your peer say?',
+      'build.stage3H3':'Practice your pitch.',
+      'build.stage3Copy':"An elevator pitch says what the problem is, who has it, what you're building, and why it matters — out loud, in under a minute. Work out what you want to say, then record yourself actually saying it.",
+      'build.recordBtnLabel':'● Record',
+      'build.stopBtnLabel':'■ Stop',
+      'build.transcriptLabel':'Transcript (captured live while recording — edit if needed)',
+      'build.transcriptPlaceholder':'Your words will appear here as you record, or type it yourself...',
+      'build.submitPitch':'Submit pitch for mentor review →',
+      'build.stageBackLabel':'← Back',
+    },
+    hi: {
+      chooseInterest:'शुरू करने के लिए एक रुचि चुनें',
+      yourAreaOfInterest:'आपकी रुचि का क्षेत्र',
+      fallbackAudience:'आपके समुदाय के लोग',
+      fallbackProblem:'एक चुनौती जो आपने देखी है',
+      fallbackConnection:'एक वजह जो आपके लिए मायने रखती है',
+      fallbackCommunity:'समुदाय',
+      backToInterests:'← रुचियों पर वापस जाएं',
+      back:'वापस',
+      finish:'पूरा करें →',
+      continueArrow:'जारी रखें →',
+      needAFewWords:'एक छोटा सा नोट मदद करता है — कुछ शब्दों से शुरू करें और आगे बढ़ाएं।',
+      explore:'जानें',
+      collapse:'छोटा करें',
+      stepOf:function(n,total){ return 'चरण ' + n + ' / ' + total; },
+      youPicked:function(interest){ return 'आपने <strong>' + interest + '</strong> चुना। '; },
+      youAreNoticing:function(problem){ return ' आप ' + problem + ' को नोटिस कर रहे हैं।'; },
+      youWantToHelp:function(audience){ return 'आप <strong>' + audience + '</strong> की मदद करना चाहते हैं।'; },
+      ideaRecapLabel:'आपके जवाब और आइडिया कॉन्सेप्ट',
+      recapInterest:'रुचि', recapLearn:'आपकी जिज्ञासा किस बात ने खींची', recapChange:'यह आपके लिए क्यों मायने रखता है',
+      recapProblem:'आपने जो समस्या देखी', recapHelp:'आप किसकी मदद करना चाहते हैं', recapCreate:'आप क्या आज़मा सकते हैं',
+      recapTitle:'प्रोजेक्ट का नाम', recapSolution:'प्रस्तावित समाधान',
+      onlineResearch:'ऑनलाइन रिसर्च', directInterview:'सीधा इंटरव्यू', remove:'हटाएं',
+      addLogFirst:'पहले कम से कम एक एंट्री जोड़ें या एक PDF अटैच करें।',
+      writeInPlanFirst:'पहले अपनी योजना में कुछ लिखें।',
+      recordOrTypeFirst:'पहले अपनी पिच रिकॉर्ड करें या टाइप करें।',
+      typeQuestionFirst:'पहले एक सवाल टाइप करें।',
+      thinking:'सोच रहे हैं…', reading:'पढ़ रहे हैं…',
+      couldNotReadPdf:'वह PDF नहीं पढ़ी जा सकी।',
+      mentorUnavailable:'मेंटर अभी उपलब्ध नहीं है।',
+      'nav.about':'हमारे बारे में', 'nav.build':'बिल्ड',
+      'phase.discover':'डिस्कवर और तैयारी',
+      'build.phase':'फ़ेज़ 2',
+      'build.intro':'अपने आइडिया को कुछ असली में बदलें, एक-एक कदम करके। आप हमेशा पीछे जाकर पिछला कदम बदल सकते हैं — बस मौजूदा कदम को मेंटर रिव्यू के लिए सबमिट किए बिना आगे नहीं बढ़ सकते।',
+      'foot.tagline':'एक मुफ़्त, AI-संचालित प्लेटफ़ॉर्म, सभी के लिए खुला, जो आपकी सच्ची रुचि को एक असली प्रोजेक्ट में बदलने में मदद करता है।',
+      'foot.founders':'संस्थापक', 'foot.contact':'संपर्क', 'foot.program':'प्रोग्राम',
+      'foot.bottom':'एक स्वतंत्र युवा वेंचर पहल · दिल्ली NCR',
+      'discover.h1':'जो आप नोटिस करते हैं, उससे शुरुआत करें।',
+      'discover.lede':'Beyond Circumstances छात्रों को जिज्ञासा की एक चिंगारी से एक छोटे, टेस्ट किए जा सकने वाले आइडिया तक पहुंचने में मदद करता है। जो आपकी दिलचस्पी है उसे नोटिस करें, आसपास की कोई समस्या पहचानें, और कुछ आज़माने लायक आकार देना शुरू करें।',
+      'discover.startExploring':'एक्सप्लोर करना शुरू करें',
+      'discover.phase1':'फ़ेज़ 1',
+      'discover.phasePanelH3':'जिज्ञासा → रुचियां → आइडिया',
+      'discover.phasePanelP':'यह फ़ेज़ कोई कोर्स नहीं है। यह एक गाइडेड शुरुआती बिंदु है — यह नोटिस करने के लिए कि आपको किस बात की परवाह है, एक समस्या को समझने के लिए, और एक ऐसे प्रोजेक्ट को आकार देना शुरू करने के लिए जो वास्तव में असली बन सके।',
+      'journey.eyebrow':'यात्रा',
+      'journey.h2':'जिज्ञासा से तैयारी तक का एक स्पष्ट रास्ता।',
+      'explore.eyebrow':'अपनी रुचियों को एक्सप्लोर करें',
+      'explore.h2':'आपका ध्यान किस चीज़ से खिंचता है?',
+      'explore.p':'वह क्षेत्र चुनें जिसके बारे में आप और जानना चाहते हैं। इससे यह तय करने में मदद मिलेगी कि आप आगे किस तरह की समस्याओं या प्रोजेक्ट्स को एक्सप्लोर करना चाहेंगे।',
+      'explore.currentFocusLabel':'मौजूदा फ़ोकस:',
+      'question.eyebrow':'जानें आपको किस बात की परवाह है',
+      'question.h2':'एक-एक कदम करके आगे बढ़ें।',
+      'question.p':'अभी आपको एक परफ़ेक्ट आइडिया की ज़रूरत नहीं है। सिर्फ़ उसका पीछा करें जो आपका ध्यान खींचता है।',
+      'question.yourDirection':'आपकी दिशा',
+      'question.answerPlaceholder':'यहां अपने कुछ विचार लिखें...',
+      'question.adminFillBtn':'⚙ डमी जवाब भरें (एडमिन)',
+      'summary.eyebrow':'आपकी खोज',
+      'summary.h2':'यह है जो आपने नोटिस किया।',
+      'summary.p':'आप किसी परफ़ेक्ट जवाब की तलाश में नहीं हैं — सिर्फ़ अगले कदमों को आकार देने के लिए एक स्पष्ट शुरुआती बिंदु चाहिए।',
+      'summary.header':'आपके पास एक शुरुआती बिंदु है',
+      'summary.intro':'आपके जवाबों के आधार पर जो आपने पाया उसकी एक झलक — अगर बदलना चाहें तो कुछ भी एडिट करें।',
+      'summary.careAbout':'आपको परवाह है',
+      'summary.noticed':'आपने नोटिस किया',
+      'summary.wantToHelp':'आप मदद करना चाहते हैं',
+      'summary.couldTry':'आप आज़मा सकते हैं',
+      'summary.editAnswers':'जवाब एडिट करें',
+      'summary.workOnIdea':'इस आइडिया पर काम करें →',
+      'idea.eyebrow':'प्रोजेक्ट कॉन्सेप्ट',
+      'idea.h2':'आपका आइडिया आकार लेने लगा है।',
+      'idea.p':'यह आपकी चुनी हुई रुचि और जिन समस्याओं की आपको परवाह है, उनके आधार पर, आपकी खोज का एक प्राकृतिक विस्तार है।',
+      'idea.problem':'समस्या',
+      'idea.whoItHelps':'इससे किसे मदद मिलती है',
+      'idea.interestBehindIt':'इसके पीछे की रुचि',
+      'idea.whatTheyCareAbout':'उन्हें किस बात की परवाह है',
+      'idea.whyThisCouldWork':'यह क्यों काम कर सकता है',
+      'idea.nextSteps':'ठोस अगले कदम',
+      'idea.startBuilding':'बनाना शुरू करें →',
+      'toolkit.eyebrow':'टूलकिट',
+      'toolkit.h2':'उपयोगी टूल, कोई कोर्स नहीं।',
+      'toolkit.p':'इन्हें वैकल्पिक सहायता के रूप में इस्तेमाल करें जब आपको अपने आइडिया को बेहतर बनाने, किसी चुनौती को समझने, या अगले कदमों की योजना बनाने में मदद चाहिए।',
+      'toolkit.currentFocusLabel':'मौजूदा टूलकिट फ़ोकस:',
+      micUnavailable:'यह ब्राउज़र आपके माइक्रोफ़ोन तक नहीं पहुंच सकता।',
+      noLiveTranscript:'इस ब्राउज़र में लाइव ट्रांसक्रिप्ट उपलब्ध नहीं है — नीचे मैन्युअल रूप से टाइप करें।',
+      recording:'रिकॉर्ड हो रहा है…', recordingSaved:'रिकॉर्डिंग सेव हो गई।', micBlocked:'माइक्रोफ़ोन तक नहीं पहुंच सके।',
+      templateConfirm:'इससे आपका लिखा हुआ टेम्पलेट से बदल जाएगा। जारी रखें?',
+      pdfUnavailable:'PDF एक्सपोर्ट अभी उपलब्ध नहीं है।',
+      stageNextLabel:{ problem:'जारी रखने के लिए रिसर्च सबमिट करें', plan:'जारी रखने के लिए योजना सबमिट करें', pitch:'पूरा करने के लिए पिच सबमिट करें' },
+      pitchSubmitted:'पिच सबमिट हो गई ✓',
+      continueTo:function(stage){ return stage + ' पर जारी रखें →'; },
+      planLabel:'योजना', pitchLabel:'पिच',
+      lockedTooltip:'पहले डिस्कवर और तैयारी पूरी करें।',
+      planTemplate:
+        'समस्या\n\n\n' + 'यह किसके लिए है\n\n\n' + 'हम क्या प्रस्तावित कर रहे हैं\n\n\n' +
+        'यह क्यों काम कर सकता है\n\n\n' + 'अगले कदम\n\n',
+      'build.researchLabel':'रिसर्च',
+      'build.mentorTag':'AI मेंटर',
+      'build.askAnytimeH3':'कभी भी एक सवाल पूछें।',
+      'build.askAnytimeCopy':'आपका मेंटर सीधे जवाब नहीं देगा — यह आपको सोचने में मदद करेगा। आप जिस भी कदम पर हैं, उसके बारे में पूछें।',
+      'build.askMentorPlaceholder':'जैसे: मुझे किस तरह के लोगों का इंटरव्यू लेना चाहिए?',
+      'build.askBtn':'पूछें →',
+      'build.stage1H3':'पुष्टि करें कि समस्या असली है।',
+      'build.stage1Copy':'अंदाज़ा मत लगाएं। सबूत खोजें कि यह समस्या असली है और हल करने लायक है — पहले से मौजूद जानकारी पढ़ें, या इससे जुड़े लोगों से सीधे बात करें। दोनों में से कोई भी ठीक है, लेकिन सबूत असली होना चाहिए। नीचे जो मिले उसे लॉग करें।',
+      'build.addEntry':'एंट्री जोड़ें',
+      'build.logTextPlaceholder':'आपको क्या मिला या सुनने में आया?',
+      'build.pdfLabel':'अपनी रिसर्च को PDF के रूप में अटैच करें (वैकल्पिक — AI मेंटर इसे पढ़ सकता है)',
+      'build.submitResearch':'मेंटर रिव्यू के लिए रिसर्च सबमिट करें →',
+      'build.stage2H3':'अपनी प्रोजेक्ट या बिज़नेस योजना लिखें।',
+      'build.stage2Copy':'अपने आइडिया को एक ठोस योजना में बदलें। बताएं कि समस्या क्या है, यह किसे प्रभावित करती है, आप क्या प्रस्तावित कर रहे हैं, और यह वास्तव में क्यों काम कर सकता है — अपने शब्दों में।',
+      'build.insertTemplate':'टेम्पलेट डालें',
+      'build.planPlaceholder':'अपनी योजना यहां लिखें...',
+      'build.submitPlan':'मेंटर रिव्यू के लिए योजना सबमिट करें →',
+      'build.saveAsPdf':'PDF के रूप में सेव करें',
+      'build.peerFeedbackLabel':'साथी का फ़ीडबैक',
+      'build.peerFeedbackCopy':'किसी एक व्यक्ति से अपनी योजना को वास्तव में पढ़वाएं और उनकी प्रतिक्रिया लें। नीचे वह लिखें जो उन्होंने कहा।',
+      'build.peerFeedbackPlaceholder':'आपके साथी ने क्या कहा?',
+      'build.stage3H3':'अपनी पिच का अभ्यास करें।',
+      'build.stage3Copy':'एक एलिवेटर पिच में बताया जाता है कि समस्या क्या है, यह किसे है, आप क्या बना रहे हैं, और यह क्यों मायने रखता है — एक मिनट से कम में, ज़ोर से बोलकर। पहले सोचें कि क्या कहना है, फिर खुद को वास्तव में बोलते हुए रिकॉर्ड करें।',
+      'build.recordBtnLabel':'● रिकॉर्ड करें',
+      'build.stopBtnLabel':'■ रोकें',
+      'build.transcriptLabel':'ट्रांसक्रिप्ट (रिकॉर्डिंग के दौरान लाइव कैप्चर होता है — ज़रूरत हो तो बदलें)',
+      'build.transcriptPlaceholder':'रिकॉर्ड करते समय आपके शब्द यहां दिखेंगे, या इसे खुद टाइप करें...',
+      'build.submitPitch':'मेंटर रिव्यू के लिए पिच सबमिट करें →',
+      'build.stageBackLabel':'← वापस',
+    },
+    ur: {
+      chooseInterest:'شروع کرنے کے لیے ایک دلچسپی چنیں',
+      yourAreaOfInterest:'آپ کی دلچسپی کا شعبہ',
+      fallbackAudience:'آپ کی کمیونٹی کے لوگ',
+      fallbackProblem:'ایک چیلنج جو آپ نے دیکھا ہے',
+      fallbackConnection:'ایک وجہ جو آپ کے لیے اہمیت رکھتی ہے',
+      fallbackCommunity:'کمیونٹی',
+      backToInterests:'← دلچسپیوں پر واپس جائیں',
+      back:'واپس',
+      finish:'مکمل کریں →',
+      continueArrow:'جاری رکھیں →',
+      needAFewWords:'ایک مختصر نوٹ مدد کرتا ہے — چند الفاظ سے شروع کریں اور آگے بڑھائیں۔',
+      explore:'دیکھیں',
+      collapse:'سکڑائیں',
+      stepOf:function(n,total){ return 'مرحلہ ' + n + ' / ' + total; },
+      youPicked:function(interest){ return 'آپ نے <strong>' + interest + '</strong> چنا۔ '; },
+      youAreNoticing:function(problem){ return ' آپ ' + problem + ' کو نوٹس کر رہے ہیں۔'; },
+      youWantToHelp:function(audience){ return 'آپ <strong>' + audience + '</strong> کی مدد کرنا چاہتے ہیں۔'; },
+      ideaRecapLabel:'آپ کے جواب اور آئیڈیا تصور',
+      recapInterest:'دلچسپی', recapLearn:'آپ کا تجسس کس بات نے کھینچا', recapChange:'یہ آپ کے لیے کیوں اہم ہے',
+      recapProblem:'آپ نے جو مسئلہ دیکھا', recapHelp:'آپ کس کی مدد کرنا چاہتے ہیں', recapCreate:'آپ کیا آزما سکتے ہیں',
+      recapTitle:'پروجیکٹ کا نام', recapSolution:'تجویز کردہ حل',
+      onlineResearch:'آن لائن تحقیق', directInterview:'براہ راست انٹرویو', remove:'ہٹائیں',
+      addLogFirst:'پہلے کم از کم ایک اندراج شامل کریں یا ایک PDF منسلک کریں۔',
+      writeInPlanFirst:'پہلے اپنے منصوبے میں کچھ لکھیں۔',
+      recordOrTypeFirst:'پہلے اپنی پیشکش ریکارڈ کریں یا ٹائپ کریں۔',
+      typeQuestionFirst:'پہلے ایک سوال ٹائپ کریں۔',
+      thinking:'سوچ رہے ہیں…', reading:'پڑھ رہے ہیں…',
+      couldNotReadPdf:'وہ PDF نہیں پڑھی جا سکی۔',
+      mentorUnavailable:'مینٹر ابھی دستیاب نہیں ہے۔',
+      'nav.about':'ہمارے بارے میں', 'nav.build':'بلڈ',
+      'phase.discover':'ڈسکور اور تیاری',
+      'build.phase':'فیز 2',
+      'build.intro':'اپنے آئیڈیے کو کچھ حقیقی میں بدلیں، ایک ایک قدم کرکے۔ آپ ہمیشہ واپس جا کر پچھلا قدم بدل سکتے ہیں — بس موجودہ قدم کو مینٹر ریویو کے لیے جمع کیے بغیر آگے نہیں بڑھ سکتے۔',
+      'foot.tagline':'ایک مفت، AI سے چلنے والا پلیٹ فارم، سب کے لیے کھلا، جو آپ کی حقیقی دلچسپی کو ایک حقیقی پروجیکٹ میں بدلنے میں مدد دیتا ہے۔',
+      'foot.founders':'بانی', 'foot.contact':'رابطہ', 'foot.program':'پروگرام',
+      'foot.bottom':'ایک خودمختار نوجوان وینچر پہل · دہلی NCR',
+      'discover.h1':'جو آپ نوٹس کرتے ہیں، اس سے آغاز کریں۔',
+      'discover.lede':'Beyond Circumstances طلبہ کو تجسس کی ایک چنگاری سے ایک چھوٹے، آزمائے جا سکنے والے آئیڈیے تک پہنچنے میں مدد کرتا ہے۔ جو آپ کی دلچسپی ہے اسے نوٹس کریں، قریب کا کوئی مسئلہ پہچانیں، اور کچھ آزمانے کے قابل شکل دینا شروع کریں۔',
+      'discover.startExploring':'دریافت کرنا شروع کریں',
+      'discover.phase1':'فیز 1',
+      'discover.phasePanelH3':'تجسس → دلچسپیاں → آئیڈیا',
+      'discover.phasePanelP':'یہ فیز کوئی کورس نہیں ہے۔ یہ ایک رہنمائی شدہ نقطہ آغاز ہے — یہ نوٹس کرنے کے لیے کہ آپ کو کس بات کی پرواہ ہے، ایک مسئلے کو سمجھنے کے لیے، اور ایک ایسے پروجیکٹ کو شکل دینا شروع کرنے کے لیے جو حقیقت میں حقیقی بن سکے۔',
+      'journey.eyebrow':'سفر',
+      'journey.h2':'تجسس سے تیاری تک کا ایک واضح راستہ۔',
+      'explore.eyebrow':'اپنی دلچسپیوں کو دریافت کریں',
+      'explore.h2':'آپ کی توجہ کس چیز سے کھینچتی ہے؟',
+      'explore.p':'وہ شعبہ چنیں جس کے بارے میں آپ مزید جاننا چاہتے ہیں۔ اس سے یہ طے کرنے میں مدد ملے گی کہ آپ آگے کس طرح کے مسائل یا پروجیکٹس دریافت کرنا چاہیں گے۔',
+      'explore.currentFocusLabel':'موجودہ فوکس:',
+      'question.eyebrow':'جانیں آپ کو کس بات کی پرواہ ہے',
+      'question.h2':'ایک ایک قدم کرکے آگے بڑھیں۔',
+      'question.p':'ابھی آپ کو ایک کامل آئیڈیے کی ضرورت نہیں ہے۔ صرف اس کی پیروی کریں جو آپ کی توجہ کھینچتا ہے۔',
+      'question.yourDirection':'آپ کی سمت',
+      'question.answerPlaceholder':'یہاں اپنے چند خیالات لکھیں...',
+      'question.adminFillBtn':'⚙ ڈمی جواب بھریں (ایڈمن)',
+      'summary.eyebrow':'آپ کی دریافت',
+      'summary.h2':'یہ ہے جو آپ نے نوٹس کیا۔',
+      'summary.p':'آپ کسی کامل جواب کی تلاش میں نہیں ہیں — صرف اگلے قدموں کو شکل دینے کے لیے ایک واضح نقطہ آغاز چاہیے۔',
+      'summary.header':'آپ کے پاس ایک نقطہ آغاز ہے',
+      'summary.intro':'آپ کے جوابات کی بنیاد پر جو آپ نے پایا اس کی ایک جھلک — اگر بدلنا چاہیں تو کچھ بھی ترمیم کریں۔',
+      'summary.careAbout':'آپ کو پرواہ ہے',
+      'summary.noticed':'آپ نے نوٹس کیا',
+      'summary.wantToHelp':'آپ مدد کرنا چاہتے ہیں',
+      'summary.couldTry':'آپ آزما سکتے ہیں',
+      'summary.editAnswers':'جوابات میں ترمیم کریں',
+      'summary.workOnIdea':'اس آئیڈیے پر کام کریں →',
+      'idea.eyebrow':'پروجیکٹ تصور',
+      'idea.h2':'آپ کا آئیڈیا شکل لینے لگا ہے۔',
+      'idea.p':'یہ آپ کی چنی ہوئی دلچسپی اور ان مسائل کی بنیاد پر جن کی آپ کو پرواہ ہے، آپ کی دریافت کا ایک فطری تسلسل ہے۔',
+      'idea.problem':'مسئلہ',
+      'idea.whoItHelps':'اس سے کسے مدد ملتی ہے',
+      'idea.interestBehindIt':'اس کے پیچھے کی دلچسپی',
+      'idea.whatTheyCareAbout':'انہیں کس بات کی پرواہ ہے',
+      'idea.whyThisCouldWork':'یہ کیوں کام کر سکتا ہے',
+      'idea.nextSteps':'ٹھوس اگلے قدم',
+      'idea.startBuilding':'بنانا شروع کریں →',
+      'toolkit.eyebrow':'ٹول کٹ',
+      'toolkit.h2':'مفید ٹولز، کوئی کورس نہیں۔',
+      'toolkit.p':'انہیں اختیاری مدد کے طور پر استعمال کریں جب آپ کو اپنے آئیڈیے کو بہتر بنانے، کسی چیلنج کو سمجھنے، یا اگلے قدموں کی منصوبہ بندی میں مدد چاہیے۔',
+      'toolkit.currentFocusLabel':'موجودہ ٹول کٹ فوکس:',
+      micUnavailable:'یہ براؤزر آپ کے مائیکروفون تک نہیں پہنچ سکتا۔',
+      noLiveTranscript:'اس براؤزر میں لائیو ٹرانسکرپٹ دستیاب نہیں ہے — نیچے خود ٹائپ کریں۔',
+      recording:'ریکارڈ ہو رہا ہے…', recordingSaved:'ریکارڈنگ محفوظ ہو گئی۔', micBlocked:'مائیکروفون تک نہیں پہنچ سکے۔',
+      templateConfirm:'اس سے آپ کی لکھی ہوئی چیز ٹیمپلیٹ سے بدل جائے گی۔ جاری رکھیں؟',
+      pdfUnavailable:'PDF ایکسپورٹ ابھی دستیاب نہیں ہے۔',
+      stageNextLabel:{ problem:'جاری رکھنے کے لیے تحقیق جمع کریں', plan:'جاری رکھنے کے لیے منصوبہ جمع کریں', pitch:'مکمل کرنے کے لیے پیشکش جمع کریں' },
+      pitchSubmitted:'پیشکش جمع ہو گئی ✓',
+      continueTo:function(stage){ return stage + ' پر جاری رکھیں →'; },
+      planLabel:'منصوبہ', pitchLabel:'پیشکش',
+      lockedTooltip:'پہلے ڈسکور اور تیاری مکمل کریں۔',
+      planTemplate:
+        'مسئلہ\n\n\n' + 'یہ کس کے لیے ہے\n\n\n' + 'ہم کیا تجویز کر رہے ہیں\n\n\n' +
+        'یہ کیوں کام کر سکتا ہے\n\n\n' + 'اگلے قدم\n\n',
+      'build.researchLabel':'تحقیق',
+      'build.mentorTag':'AI مینٹر',
+      'build.askAnytimeH3':'کسی بھی وقت ایک سوال پوچھیں۔',
+      'build.askAnytimeCopy':'آپ کا مینٹر سیدھا جواب نہیں دے گا — یہ آپ کو سوچنے میں مدد کرے گا۔ آپ جس بھی مرحلے پر ہیں، اس کے بارے میں پوچھیں۔',
+      'build.askMentorPlaceholder':'مثلاً: مجھے کس طرح کے لوگوں کا انٹرویو لینا چاہیے؟',
+      'build.askBtn':'پوچھیں →',
+      'build.stage1H3':'تصدیق کریں کہ مسئلہ حقیقی ہے۔',
+      'build.stage1Copy':'اندازہ نہ لگائیں۔ ثبوت تلاش کریں کہ یہ مسئلہ حقیقی ہے اور حل کرنے کے قابل ہے — پہلے سے موجود معلومات پڑھیں، یا اس سے جڑے لوگوں سے براہ راست بات کریں۔ دونوں میں سے کوئی بھی ٹھیک ہے، لیکن ثبوت حقیقی ہونا چاہیے۔ نیچے جو ملے اسے لاگ کریں۔',
+      'build.addEntry':'اندراج شامل کریں',
+      'build.logTextPlaceholder':'آپ کو کیا ملا یا سننے میں آیا؟',
+      'build.pdfLabel':'اپنی تحقیق کو PDF کے طور پر منسلک کریں (اختیاری — AI مینٹر اسے پڑھ سکتا ہے)',
+      'build.submitResearch':'مینٹر ریویو کے لیے تحقیق جمع کریں →',
+      'build.stage2H3':'اپنا پروجیکٹ یا بزنس منصوبہ لکھیں۔',
+      'build.stage2Copy':'اپنے آئیڈیے کو ایک ٹھوس منصوبے میں بدلیں۔ بتائیں کہ مسئلہ کیا ہے، یہ کسے متاثر کرتا ہے، آپ کیا تجویز کر رہے ہیں، اور یہ حقیقت میں کیوں کام کر سکتا ہے — اپنے الفاظ میں۔',
+      'build.insertTemplate':'ٹیمپلیٹ شامل کریں',
+      'build.planPlaceholder':'اپنا منصوبہ یہاں لکھیں...',
+      'build.submitPlan':'مینٹر ریویو کے لیے منصوبہ جمع کریں →',
+      'build.saveAsPdf':'PDF کے طور پر محفوظ کریں',
+      'build.peerFeedbackLabel':'ساتھی کی رائے',
+      'build.peerFeedbackCopy':'کسی ایک شخص سے اپنا منصوبہ حقیقت میں پڑھوائیں اور ان کا ردِعمل لیں۔ نیچے وہ لکھیں جو انہوں نے کہا۔',
+      'build.peerFeedbackPlaceholder':'آپ کے ساتھی نے کیا کہا؟',
+      'build.stage3H3':'اپنی پیشکش کی مشق کریں۔',
+      'build.stage3Copy':'ایک ایلیویٹر پیشکش میں بتایا جاتا ہے کہ مسئلہ کیا ہے، یہ کسے ہے، آپ کیا بنا رہے ہیں، اور یہ کیوں اہم ہے — ایک منٹ سے کم میں، بلند آواز میں۔ پہلے سوچیں کہ کیا کہنا ہے، پھر خود کو حقیقت میں بولتے ہوئے ریکارڈ کریں۔',
+      'build.recordBtnLabel':'● ریکارڈ کریں',
+      'build.stopBtnLabel':'■ روکیں',
+      'build.transcriptLabel':'ٹرانسکرپٹ (ریکارڈنگ کے دوران لائیو کیپچر ہوتا ہے — ضرورت ہو تو تبدیل کریں)',
+      'build.transcriptPlaceholder':'ریکارڈ کرتے وقت آپ کے الفاظ یہاں دکھیں گے، یا اسے خود ٹائپ کریں...',
+      'build.submitPitch':'مینٹر ریویو کے لیے پیشکش جمع کریں →',
+      'build.stageBackLabel':'← واپس',
+    }
   };
+  function ui(key){
+    var dict = UI[currentLang] || UI.en;
+    return (key in dict) ? dict[key] : UI.en[key];
+  }
 
-  var interestStarter = {
-    Technology:'a small digital tool or listing to connect people',
-    Business:'a meetup or simple marketplace to share opportunities',
-    Sports:'a signup and local event to connect players and coaches',
-    Education:'a short study group or resource packet for learners',
-    'Art & Design':'a mini show or online gallery to share work and feedback',
-    Science:'a simple demo or project showcase to engage others',
-    Environment:'a local action list or volunteer sign-up',
-    Community:'a neighborhood noticeboard or help exchange',
-    Media:'a short series or newsletter to highlight chances and stories',
-    Other:'a small pilot that tests the core idea quickly',
-  };
+  var DUMMY_ANSWERS, journeySteps, reflectionPrompts, toolkitResources, interestDirections, titleVerbMap, interestStarter;
+
+  function rebuildLangData(){
+    var L = currentLang;
+    var pick = function(en, hi, ur){ return L === 'hi' ? hi : (L === 'ur' ? ur : en); };
+
+    DUMMY_ANSWERS = {
+      learn: pick(
+        "I keep wanting to learn more about why art class is one of the first things cut when school budgets get tight, and what that actually costs kids.",
+        "मैं यह जानना चाहता हूं कि जब स्कूल का बजट कम होता है तो आर्ट क्लास सबसे पहले क्यों हटाई जाती है, और इससे बच्चों को असल में क्या नुकसान होता है।",
+        "میں یہ جاننا چاہتا ہوں کہ جب اسکول کا بجٹ کم ہوتا ہے تو آرٹ کلاس سب سے پہلے کیوں ہٹائی جاتی ہے، اور اس سے بچوں کو حقیقت میں کیا نقصان ہوتا ہے۔"
+      ),
+      change: pick(
+        "I've always loved drawing, but my cousin's public school dropped art entirely last year, and it never came back. That stuck with me.",
+        "मुझे हमेशा से ड्रॉइंग पसंद रही है, लेकिन मेरे कज़िन के सरकारी स्कूल ने पिछले साल आर्ट पूरी तरह हटा दिया, और वह फिर कभी वापस नहीं आया। यह बात मेरे दिल में रह गई।",
+        "مجھے ہمیشہ سے ڈرائنگ پسند رہی ہے، لیکن میرے کزن کے سرکاری اسکول نے پچھلے سال آرٹ مکمل طور پر ہٹا دیا، اور وہ پھر کبھی واپس نہیں آیا۔ یہ بات میرے دل میں رہ گئی۔"
+      ),
+      problem: pick(
+        "A lot of public schools quietly cut art class when money is tight, so plenty of kids never get a real chance to try it at all.",
+        "बहुत से सरकारी स्कूल पैसों की कमी होने पर चुपचाप आर्ट क्लास हटा देते हैं, जिससे कई बच्चों को इसे आज़माने का मौका ही नहीं मिलता।",
+        "بہت سے سرکاری اسکول پیسوں کی کمی ہونے پر خاموشی سے آرٹ کلاس ہٹا دیتے ہیں، جس سے کئی بچوں کو اسے آزمانے کا موقع ہی نہیں ملتا۔"
+      ),
+      help: pick(
+        "Kids in underfunded public schools who never get exposed to art class in the first place.",
+        "कम बजट वाले सरकारी स्कूलों के वे बच्चे जिन्हें आर्ट क्लास का मौका कभी मिला ही नहीं।",
+        "کم فنڈ والے سرکاری اسکولوں کے وہ بچے جنہیں آرٹ کلاس کا موقع کبھی ملا ہی نہیں۔"
+      ),
+      create: pick(
+        "A free after-school art drop-in, run by student volunteers with donated supplies.",
+        "एक मुफ़्त आफ़्टर-स्कूल आर्ट ड्रॉप-इन, जिसे छात्र वॉलंटियर दान किए गए सामान से चलाएं।",
+        "ایک مفت آفٹر اسکول آرٹ ڈراپ ان، جسے طالب علم رضاکار عطیہ کیے گئے سامان سے چلائیں۔"
+      ),
+    };
+
+    journeySteps = [
+      { label: pick('Pick an interest','एक रुचि चुनें','ایک دلچسپی چنیں') },
+      { label: pick('Get curious','जिज्ञासा जगाएं','تجسس پیدا کریں') },
+      { label: pick('Find your why','अपनी वजह खोजें','اپنی وجہ تلاش کریں') },
+      { label: pick('Spot a problem','एक समस्या पहचानें','ایک مسئلہ پہچانیں') },
+      { label: pick('Know who it helps','जानें इससे किसे फ़ायदा होगा','جانیں اس سے کسے فائدہ ہوگا') },
+      { label: pick('Shape an idea','एक आइडिया को आकार दें','ایک آئیڈیے کو شکل دیں') },
+    ];
+
+    reflectionPrompts = [
+      { id:'learn', question: pick("What part of this keeps pulling at your curiosity?","इसका कौन सा हिस्सा आपकी जिज्ञासा को खींचता रहता है?","اس کا کون سا حصہ آپ کے تجسس کو کھینچتا رہتا ہے؟"), helper:'' },
+      { id:'change', question: pick("Why does this matter to you?","यह आपके लिए क्यों मायने रखता है?","یہ آپ کے لیے کیوں اہمیت رکھتا ہے؟"), helper:'' },
+      { id:'problem', question: pick("What's a problem you've noticed?","आपने कौन सी समस्या देखी है?","آپ نے کون سا مسئلہ دیکھا ہے؟"), helper:'' },
+      { id:'help', question: pick("Who do you want to help?","आप किसकी मदद करना चाहते हैं?","آپ کس کی مدد کرنا چاہتے ہیں؟"), helper:'' },
+      { id:'create', question: pick("What could you try to build?","आप क्या बनाने की कोशिश कर सकते हैं?","آپ کیا بنانے کی کوشش کر سکتے ہیں؟"), helper:'' },
+    ];
+
+    toolkitResources = [
+      { id:'idea', title: pick('Developing an Idea','आइडिया को विकसित करना','آئیڈیا تیار کرنا'), icon:'IDEA',
+        description: pick('Turn a rough notice into a concept you can describe in one sentence.','एक धुंधले विचार को ऐसे कॉन्सेप्ट में बदलें जिसे आप एक वाक्य में बता सकें।','ایک مبہم خیال کو ایسے تصور میں بدلیں جسے آپ ایک جملے میں بیان کر سکیں۔'),
+        details:{ summary: pick('Most ideas start vague. This narrows yours into something specific enough to test.','ज़्यादातर आइडिया शुरुआत में अस्पष्ट होते हैं। यह आपके आइडिया को इतना स्पष्ट बनाता है कि उसे टेस्ट किया जा सके।','زیادہ تر آئیڈیاز شروع میں غیر واضح ہوتے ہیں۔ یہ آپ کے آئیڈیے کو اتنا واضح بناتا ہے کہ اسے آزمایا جا سکے۔'),
+          points: pick(
+            ['Name the exact problem in one sentence.','Name the exact person it happens to.','Write down the smallest version of a fix.'],
+            ['समस्या को ठीक-ठीक एक वाक्य में बताएं।','वह व्यक्ति बताएं जिसके साथ यह ठीक-ठीक होता है।','समाधान का सबसे छोटा रूप लिख लें।'],
+            ['مسئلے کو ٹھیک ٹھیک ایک جملے میں بیان کریں۔','وہ شخص بتائیں جس کے ساتھ یہ ٹھیک ٹھیک ہوتا ہے۔','حل کی سب سے چھوٹی صورت لکھ لیں۔']
+          ) } },
+      { id:'talk', title: pick('Talking to People','लोगों से बात करना','لوگوں سے بات کرنا'), icon:'TALK',
+        description: pick('Check your idea against reality before you build anything.','कुछ भी बनाने से पहले अपने आइडिया को हकीकत से परखें।','کچھ بھی بنانے سے پہلے اپنے آئیڈیے کو حقیقت سے پرکھیں۔'),
+        details:{ summary: pick('A five-minute conversation can save weeks of building the wrong thing.','पांच मिनट की बातचीत गलत चीज़ बनाने में लगने वाले हफ़्तों को बचा सकती है।','پانچ منٹ کی گفتگو غلط چیز بنانے میں لگنے والے ہفتوں کو بچا سکتی ہے۔'),
+          points: pick(
+            ['Ask about the problem, not your solution.','Listen for what they already try to do about it.','Write down their exact words, not your summary.'],
+            ['समस्या के बारे में पूछें, अपने समाधान के बारे में नहीं।','सुनें कि वे इसके लिए पहले से क्या करने की कोशिश करते हैं।','उनके ठीक वही शब्द लिखें, अपना सारांश नहीं।'],
+            ['مسئلے کے بارے میں پوچھیں، اپنے حل کے بارے میں نہیں۔','سنیں کہ وہ اس کے لیے پہلے سے کیا کرنے کی کوشش کرتے ہیں۔','ان کے ٹھیک وہی الفاظ لکھیں، اپنا خلاصہ نہیں۔']
+          ) } },
+      { id:'plan', title: pick('Planning a Pilot','पायलट की योजना बनाना','پائلٹ کی منصوبہ بندی'), icon:'PLAN',
+        description: pick('Design the smallest version of your idea worth testing.','अपने आइडिया का वह सबसे छोटा रूप डिज़ाइन करें जो टेस्ट करने लायक हो।','اپنے آئیڈیے کی وہ سب سے چھوٹی صورت ڈیزائن کریں جو آزمانے کے قابل ہو۔'),
+        details:{ summary: pick('A pilot is one event, one listing, or one small outreach — not the whole project.','एक पायलट एक इवेंट, एक लिस्टिंग, या एक छोटी आउटरीच होता है — पूरा प्रोजेक्ट नहीं।','ایک پائلٹ ایک ایونٹ، ایک لسٹنگ، یا ایک چھوٹی رسائی ہوتا ہے — پورا پروجیکٹ نہیں۔'),
+          points: pick(
+            ['Pick one audience of five to ten people.','Set a date within two weeks.','Decide what "it worked" would look like in advance.'],
+            ['पांच से दस लोगों का एक समूह चुनें।','दो हफ़्तों के भीतर एक तारीख तय करें।','पहले से तय करें कि "यह काम कर गया" का मतलब क्या होगा।'],
+            ['پانچ سے دس لوگوں کا ایک گروپ چنیں۔','دو ہفتوں کے اندر ایک تاریخ طے کریں۔','پہلے سے طے کریں کہ "یہ کام کر گیا" کا مطلب کیا ہوگا۔']
+          ) } },
+      { id:'feed', title: pick('Handling Feedback','फ़ीडबैक को संभालना','رائے کو سنبھالنا'), icon:'FEED',
+        description: pick('Turn mentor and peer feedback into actual changes, not just notes you agree with.','मेंटर और साथियों के फ़ीडबैक को वास्तविक बदलाव में बदलें, सिर्फ़ सहमत होने वाले नोट्स में नहीं।','مینٹر اور ساتھیوں کی رائے کو حقیقی تبدیلی میں بدلیں، صرف متفق ہونے والے نوٹس میں نہیں۔'),
+        details:{ summary: pick('Feedback only helps if you act on it. This is about deciding what to change and what to leave.','फ़ीडबैक तभी मदद करता है जब आप उस पर अमल करें। यह तय करने की बात है कि क्या बदलना है और क्या छोड़ना है।','رائے صرف تب مدد کرتی ہے جب آپ اس پر عمل کریں۔ یہ طے کرنے کی بات ہے کہ کیا بدلنا ہے اور کیا چھوڑنا ہے۔'),
+          points: pick(
+            ['Separate "this is wrong" from "this could be clearer."','Pick one piece of feedback to act on first.','Re-ask the same question after you revise — see if the answer changes.'],
+            ['"यह गलत है" और "यह ज़्यादा स्पष्ट हो सकता है" में फ़र्क करें।','पहले अमल करने के लिए एक फ़ीडबैक चुनें।','बदलाव के बाद वही सवाल फिर से पूछें — देखें कि जवाब बदलता है या नहीं।'],
+            ['"یہ غلط ہے" اور "یہ زیادہ واضح ہو سکتا ہے" میں فرق کریں۔','پہلے عمل کرنے کے لیے ایک رائے چنیں۔','تبدیلی کے بعد وہی سوال دوبارہ پوچھیں — دیکھیں کہ جواب بدلتا ہے یا نہیں۔']
+          ) } },
+    ];
+
+    interestDirections = {
+      Technology: pick('You want to explore how technology can solve problems.','आप यह जानना चाहते हैं कि तकनीक समस्याओं को कैसे हल कर सकती है।','آپ یہ جاننا چاہتے ہیں کہ ٹیکنالوجی مسائل کو کیسے حل کر سکتی ہے۔'),
+      Business: pick('You want to explore how ideas can become useful ventures.','आप यह जानना चाहते हैं कि आइडिया कैसे उपयोगी वेंचर बन सकते हैं।','آپ یہ جاننا چاہتے ہیں کہ آئیڈیاز کیسے مفید منصوبوں میں بدل سکتے ہیں۔'),
+      Sports: pick('You want to explore how sports can create opportunities and impact.','आप यह जानना चाहते हैं कि खेल कैसे मौके और असर पैदा कर सकते हैं।','آپ یہ جاننا چاہتے ہیں کہ کھیل کیسے مواقع اور اثر پیدا کر سکتے ہیں۔'),
+      Education: pick('You want to explore how learning can be made more accessible.','आप यह जानना चाहते हैं कि सीखना कैसे ज़्यादा सुलभ बनाया जा सकता है।','آپ یہ جاننا چاہتے ہیں کہ تعلیم کو زیادہ قابلِ رسائی کیسے بنایا جا سکتا ہے۔'),
+      'Art & Design': pick('You want to explore how creativity can shape experiences and ideas.','आप यह जानना चाहते हैं कि रचनात्मकता अनुभवों और विचारों को कैसे आकार दे सकती है।','آپ یہ جاننا چاہتے ہیں کہ تخلیقی صلاحیت تجربات اور خیالات کو کیسے شکل دے سکتی ہے۔'),
+      Science: pick('You want to explore questions about how the world works.','आप यह जानना चाहते हैं कि दुनिया कैसे काम करती है, इससे जुड़े सवालों को समझना चाहते हैं।','آپ یہ جاننا چاہتے ہیں کہ دنیا کیسے کام کرتی ہے، اس سے جڑے سوالات کو سمجھنا چاہتے ہیں۔'),
+      Environment: pick('You want to explore ways to make our environment better.','आप यह जानना चाहते हैं कि हमारे पर्यावरण को बेहतर कैसे बनाया जा सकता है।','آپ یہ جاننا چاہتے ہیں کہ ہمارے ماحول کو بہتر کیسے بنایا جا سکتا ہے۔'),
+      Community: pick('You want to explore ways to strengthen the communities around you.','आप यह जानना चाहते हैं कि अपने आसपास के समुदायों को कैसे मज़बूत किया जा सकता है।','آپ یہ جاننا چاہتے ہیں کہ اپنے ارد گرد کی کمیونٹیز کو کیسے مضبوط بنایا جا سکتا ہے۔'),
+      Media: pick('You want to explore how media can inform, connect, or influence people.','आप यह जानना चाहते हैं कि मीडिया लोगों को कैसे सूचित, जोड़ या प्रभावित कर सकता है।','آپ یہ جاننا چاہتے ہیں کہ میڈیا لوگوں کو کیسے آگاہ، منسلک، یا متاثر کر سکتا ہے۔'),
+      Other: pick('You want to explore where your curiosity takes you.','आप यह जानना चाहते हैं कि आपकी जिज्ञासा आपको कहां ले जाती है।','آپ یہ جاننا چاہتے ہیں کہ آپ کا تجسس آپ کو کہاں لے جاتا ہے۔'),
+    };
+
+    titleVerbMap = {
+      Technology: pick('Build','बनाएं','بنائیں'), Business: pick('Start','शुरू करें','شروع کریں'),
+      Sports: pick('Connect','जोड़ें','جوڑیں'), Education: pick('Teach','सिखाएं','سکھائیں'),
+      'Art & Design': pick('Showcase','प्रदर्शित करें','پیش کریں'), Science: pick('Explore','खोजें','دریافت کریں'),
+      Environment: pick('Restore','संवारें','بہتر بنائیں'), Community: pick('Unite','एकजुट करें','متحد کریں'),
+      Media: pick('Share','साझा करें','شریک کریں'), Other: pick('Create','रचें','تخلیق کریں'),
+    };
+
+    interestStarter = {
+      Technology: pick('a small digital tool or listing to connect people','लोगों को जोड़ने के लिए एक छोटा डिजिटल टूल या लिस्टिंग','لوگوں کو جوڑنے کے لیے ایک چھوٹا ڈیجیٹل ٹول یا لسٹنگ'),
+      Business: pick('a meetup or simple marketplace to share opportunities','मौके साझा करने के लिए एक मीटअप या सामान्य मार्केटप्लेस','مواقع شریک کرنے کے لیے ایک میٹ اپ یا سادہ مارکیٹ پلیس'),
+      Sports: pick('a signup and local event to connect players and coaches','खिलाड़ियों और कोचों को जोड़ने के लिए साइनअप और एक लोकल इवेंट','کھلاڑیوں اور کوچز کو جوڑنے کے لیے سائن اپ اور ایک مقامی ایونٹ'),
+      Education: pick('a short study group or resource packet for learners','सीखने वालों के लिए एक छोटा स्टडी ग्रुप या रिसोर्स पैकेट','سیکھنے والوں کے لیے ایک مختصر اسٹڈی گروپ یا ریسورس پیکٹ'),
+      'Art & Design': pick('a mini show or online gallery to share work and feedback','काम और फ़ीडबैक साझा करने के लिए एक मिनी शो या ऑनलाइन गैलरी','کام اور رائے شریک کرنے کے لیے ایک منی شو یا آن لائن گیلری'),
+      Science: pick('a simple demo or project showcase to engage others','दूसरों को जोड़ने के लिए एक आसान डेमो या प्रोजेक्ट शोकेस','دوسروں کو شامل کرنے کے لیے ایک آسان ڈیمو یا پروجیکٹ شوکیس'),
+      Environment: pick('a local action list or volunteer sign-up','एक लोकल एक्शन लिस्ट या वॉलंटियर साइन-अप','ایک مقامی ایکشن لسٹ یا رضاکار سائن اپ'),
+      Community: pick('a neighborhood noticeboard or help exchange','एक पड़ोस का नोटिसबोर्ड या मदद का आदान-प्रदान','ایک محلے کا نوٹس بورڈ یا مدد کا تبادلہ'),
+      Media: pick('a short series or newsletter to highlight chances and stories','मौकों और कहानियों को उजागर करने के लिए एक छोटी सीरीज़ या न्यूज़लेटर','مواقع اور کہانیوں کو نمایاں کرنے کے لیے ایک مختصر سیریز یا نیوز لیٹر'),
+      Other: pick('a small pilot that tests the core idea quickly','एक छोटा पायलट जो मुख्य आइडिया को जल्दी टेस्ट करे','ایک چھوٹا پائلٹ جو بنیادی آئیڈیے کو جلدی آزمائے'),
+    };
+  }
+  rebuildLangData();
 
   // ---- build stage persistence ----
   // Same Supabase config as signup.html — fill in once the project exists.
@@ -898,6 +1343,7 @@
               showSummary: state.showSummary,
               showIdeaBuilder: state.showIdeaBuilder,
               enteredFlow: state.enteredFlow,
+              discoverCompleted: state.discoverCompleted,
             },
           }),
           updated_at: new Date().toISOString(),
@@ -934,6 +1380,7 @@
         showSummary: state.showSummary,
         showIdeaBuilder: state.showIdeaBuilder,
         enteredFlow: state.enteredFlow,
+        discoverCompleted: state.discoverCompleted,
       }));
     }catch(e){}
     syncBuildToSupabase();
@@ -943,7 +1390,7 @@
   var savedDiscover = loadDiscover() || {};
   var state = {
     selectedInterest: savedDiscover.selectedInterest || '',
-    selectedResource: 'Developing an Idea',
+    selectedResource: 'idea',
     reflectionAnswers: savedDiscover.reflectionAnswers || { learn:'', change:'', problem:'', help:'', create:'' },
     currentStep: savedDiscover.currentStep || 0,
     showSummary: savedDiscover.showSummary || false,
@@ -951,6 +1398,7 @@
     validationMessage: '',
     phase: 'discover',
     enteredFlow: savedDiscover.enteredFlow || false,
+    discoverCompleted: savedDiscover.discoverCompleted || false,
     build: loadBuild() || {
       activeStage: 'problem',
       problem: { log: [], pdfName: '', feedback: '', completed: false },
@@ -959,20 +1407,52 @@
     },
   };
 
+  // Anyone with Build progress from before this lock existed stays unlocked.
+  if(state.build.problem.log.length || state.build.problem.pdfName || state.build.problem.completed ||
+     state.build.plan.text || state.build.plan.completed || state.build.pitch.transcript || state.build.pitch.completed){
+    state.discoverCompleted = true;
+  }
+
+  function discoverUnlocked(){ return state.discoverCompleted || isAdminAccount; }
+
   function hasInterest(){ return Boolean(state.selectedInterest); }
   function completedCount(){
     return reflectionPrompts.filter(function(p){ return state.reflectionAnswers[p.id].trim(); }).length;
   }
   function allStepsComplete(){ return completedCount() === reflectionPrompts.length; }
-  function targetAudience(){ return state.reflectionAnswers.help.trim() || 'the people around you'; }
-  function currentProblemText(){ return state.reflectionAnswers.problem.trim() || 'a challenge you notice'; }
-  function interestLabel(){ return state.selectedInterest || 'your area of interest'; }
+  function targetAudience(){ return state.reflectionAnswers.help.trim() || ui('fallbackAudience'); }
+  function currentProblemText(){ return state.reflectionAnswers.problem.trim() || ui('fallbackProblem'); }
+  function interestLabel(){
+    return state.selectedInterest ? interestCategoryLabel(state.selectedInterest) : ui('yourAreaOfInterest');
+  }
 
   function personalizedHelper(stepId){
+    var interest = currentLang === 'en' ? interestLabel().toLowerCase() : interestLabel();
+    var audience = targetAudience();
+    if(currentLang === 'hi'){
+      switch(stepId){
+        case 'learn': return interest + ' के किस हिस्से के बारे में आप और जानना चाहते हैं?';
+        case 'change': return 'यह दिलचस्पी आपके लिए क्यों मायने रखती है? एक छोटी याद, उदाहरण, या वजह काफी है।';
+        case 'problem': return 'जब ' + audience + ' ' + interest + ' से जुड़ा कुछ करने की कोशिश करते हैं, तो आम तौर पर क्या रुकावट आती है?';
+        case 'help': return 'अगर यह बदल जाए तो किसे फ़ायदा होगा? जितना हो सके उतना स्पष्ट बताएं (छात्र, पड़ोसी, साथी, आदि)।';
+        case 'create': return 'एक छोटी चीज़ की कल्पना करें जो आप मदद के लिए आज़मा सकते हैं: एक इवेंट, एक टूल, एक वेबपेज, या एक सामान्य सी गतिविधि।';
+        default: return '';
+      }
+    }
+    if(currentLang === 'ur'){
+      switch(stepId){
+        case 'learn': return interest + ' کے کس حصے کے بارے میں آپ مزید جاننا چاہتے ہیں؟';
+        case 'change': return 'یہ دلچسپی آپ کے لیے کیوں اہمیت رکھتی ہے؟ ایک مختصر یاد، مثال، یا وجہ کافی ہے۔';
+        case 'problem': return 'جب ' + audience + ' ' + interest + ' سے جڑا کچھ کرنے کی کوشش کرتے ہیں، تو عام طور پر کیا رکاوٹ آتی ہے؟';
+        case 'help': return 'اگر یہ بدل جائے تو کسے فائدہ ہوگا؟ جتنا ممکن ہو واضح بتائیں (طلبہ، پڑوسی، ساتھی، وغیرہ)۔';
+        case 'create': return 'ایک چھوٹی چیز کا تصور کریں جو آپ مدد کے لیے آزما سکتے ہیں: ایک ایونٹ، ایک ٹول، ایک ویب پیج، یا ایک عام سی سرگرمی۔';
+        default: return '';
+      }
+    }
     switch(stepId){
-      case 'learn': return "What's one specific part of " + interestLabel().toLowerCase() + " you keep wanting to learn more about?";
+      case 'learn': return "What's one specific part of " + interest + " you keep wanting to learn more about?";
       case 'change': return "Why does this interest matter to you? A short memory, example, or reason is enough.";
-      case 'problem': return "When " + targetAudience() + " tries to do something related to " + interestLabel().toLowerCase() + ", what usually gets in the way?";
+      case 'problem': return "When " + audience + " tries to do something related to " + interest + ", what usually gets in the way?";
       case 'help': return "Who would benefit if this changed? Be as specific as you can (students, neighbors, teammates, etc.).";
       case 'create': return "Imagine one small thing you could try to help: an event, a tool, a webpage, or a simple activity.";
       default: return '';
@@ -986,21 +1466,41 @@
   }
 
   function computeIdeaDraft(){
-    var audience = state.reflectionAnswers.help.trim() || 'people in your community';
-    var problem = state.reflectionAnswers.problem.trim() || 'a challenge you notice';
-    var connection = state.reflectionAnswers.change.trim() || 'a reason this matters to you';
+    var audience = state.reflectionAnswers.help.trim() || ui('fallbackAudience');
+    var problem = state.reflectionAnswers.problem.trim() || ui('fallbackProblem');
+    var connection = state.reflectionAnswers.change.trim() || ui('fallbackConnection');
     var suggested = state.reflectionAnswers.create.trim();
-    var shortAudience = audience.split(/[ ,.-]/)[0] || 'Community';
-    var verb = titleVerbMap[state.selectedInterest] || 'Create';
-    var projectTitle = verb + ' for ' + shortAudience;
+    var shortAudience = audience.split(/[ ,.-]/)[0] || ui('fallbackCommunity');
+    var verb = titleVerbMap[state.selectedInterest] || titleVerbMap.Other;
+    var projectTitle = (currentLang === 'en') ? (verb + ' for ' + shortAudience) :
+      (currentLang === 'hi' ? (shortAudience + ' के लिए ' + verb) : (shortAudience + ' کے لیے ' + verb));
     var baseSuggestion = suggested || (interestStarter[state.selectedInterest] || interestStarter.Other);
-    var proposedSolution = baseSuggestion + '. It focuses on clear, testable actions: connect people, list opportunities, and run a small pilot to see if it helps.';
-    var whyFeasible = 'Start with one small step that uses local resources and feedback from ' + audience + '. A quick pilot (one event, listing, or outreach) will show whether the idea helps and what to improve.';
-    var nextSteps = [
-      'Talk with a few ' + audience + " to confirm the main challenge and what they'd find most useful.",
-      'Pick one small thing to try (a page, event, or simple tool) and sketch how it would work.',
-      'Run a short pilot, collect feedback, and update the plan based on what you learn.',
-    ];
+    var proposedSolution, whyFeasible, nextSteps;
+    if(currentLang === 'hi'){
+      proposedSolution = baseSuggestion + '। यह स्पष्ट, टेस्ट किए जा सकने वाले कदमों पर केंद्रित है: लोगों को जोड़ना, मौकों की सूची बनाना, और यह देखने के लिए एक छोटा पायलट चलाना कि इससे मदद मिलती है या नहीं।';
+      whyFeasible = audience + ' से मिले स्थानीय संसाधनों और फ़ीडबैक का उपयोग करते हुए एक छोटे कदम से शुरुआत करें। एक छोटा पायलट (एक इवेंट, लिस्टिंग, या आउटरीच) दिखा देगा कि आइडिया मदद करता है या नहीं, और क्या सुधारना है।';
+      nextSteps = [
+        audience + ' में से कुछ लोगों से बात करें ताकि मुख्य चुनौती और उन्हें सबसे ज़्यादा उपयोगी क्या लगेगा, यह पुष्टि हो सके।',
+        'कोशिश करने के लिए एक छोटी चीज़ चुनें (एक पेज, इवेंट, या सामान्य टूल) और सोचें कि यह कैसे काम करेगी।',
+        'एक छोटा पायलट चलाएं, फ़ीडबैक लें, और जो सीखें उसके आधार पर योजना को अपडेट करें।',
+      ];
+    } else if(currentLang === 'ur'){
+      proposedSolution = baseSuggestion + '۔ یہ واضح، آزمائے جا سکنے والے اقدامات پر مرکوز ہے: لوگوں کو جوڑنا، مواقع کی فہرست بنانا، اور یہ دیکھنے کے لیے ایک چھوٹا پائلٹ چلانا کہ اس سے مدد ملتی ہے یا نہیں۔';
+      whyFeasible = audience + ' سے ملنے والے مقامی وسائل اور رائے کو استعمال کرتے ہوئے ایک چھوٹے قدم سے آغاز کریں۔ ایک چھوٹا پائلٹ (ایک ایونٹ، لسٹنگ، یا رسائی) دکھا دے گا کہ آئیڈیا مدد کرتا ہے یا نہیں، اور کیا بہتر کرنا ہے۔';
+      nextSteps = [
+        audience + ' میں سے کچھ لوگوں سے بات کریں تاکہ اصل مسئلہ اور ان کے لیے سب سے زیادہ مفید کیا ہوگا، اس کی تصدیق ہو سکے۔',
+        'آزمانے کے لیے ایک چھوٹی چیز چنیں (ایک صفحہ، ایونٹ، یا سادہ ٹول) اور سوچیں کہ یہ کیسے کام کرے گی۔',
+        'ایک چھوٹا پائلٹ چلائیں، رائے لیں، اور جو سیکھیں اس کی بنیاد پر منصوبہ اپ ڈیٹ کریں۔',
+      ];
+    } else {
+      proposedSolution = baseSuggestion + '. It focuses on clear, testable actions: connect people, list opportunities, and run a small pilot to see if it helps.';
+      whyFeasible = 'Start with one small step that uses local resources and feedback from ' + audience + '. A quick pilot (one event, listing, or outreach) will show whether the idea helps and what to improve.';
+      nextSteps = [
+        'Talk with a few ' + audience + " to confirm the main challenge and what they'd find most useful.",
+        'Pick one small thing to try (a page, event, or simple tool) and sketch how it would work.',
+        'Run a short pilot, collect feedback, and update the plan based on what you learn.',
+      ];
+    }
     return {
       projectTitle: projectTitle,
       problemDescription: problem,
@@ -1033,7 +1533,8 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'interest-card';
-    btn.textContent = cat;
+    btn.dataset.cat = cat;
+    btn.textContent = interestCategoryLabel(cat);
     btn.addEventListener('click', function(){
       state.selectedInterest = cat;
       state.showSummary = false;
@@ -1044,9 +1545,10 @@
   });
   function renderInterests(){
     Array.prototype.forEach.call(interestGridEl.children, function(btn){
-      btn.classList.toggle('is-selected', btn.textContent === state.selectedInterest);
+      btn.textContent = interestCategoryLabel(btn.dataset.cat);
+      btn.classList.toggle('is-selected', btn.dataset.cat === state.selectedInterest);
     });
-    currentFocusEl.textContent = state.selectedInterest || 'Choose an interest to begin';
+    currentFocusEl.textContent = state.selectedInterest ? interestCategoryLabel(state.selectedInterest) : ui('chooseInterest');
   }
 
   // ---- render: question flow ----
@@ -1080,22 +1582,22 @@
 
     var q = reflectionPrompts[state.currentStep];
     var direction = interestDirections[state.selectedInterest];
-    var html = 'You picked <strong>' + state.selectedInterest + '</strong>. ';
-    html += direction ? direction : ('You want to help <strong>' + targetAudience() + '</strong>.');
+    var html = ui('youPicked')(interestCategoryLabel(state.selectedInterest));
+    html += direction ? direction : ui('youWantToHelp')(targetAudience());
     if(state.reflectionAnswers.problem.trim()){
-      html += ' You are noticing ' + currentProblemText() + '.';
+      html += ui('youAreNoticing')(currentProblemText());
     }
     contextText.innerHTML = html;
 
-    stepIndicator.textContent = 'Step ' + (state.currentStep + 1) + ' of ' + reflectionPrompts.length;
+    stepIndicator.textContent = ui('stepOf')(state.currentStep + 1, reflectionPrompts.length);
     questionText.textContent = q.question;
     questionHelper.textContent = personalizedHelper(q.id) || q.helper;
     answerInput.value = state.reflectionAnswers[q.id];
     validationMessageEl.hidden = !state.validationMessage;
     validationMessageEl.textContent = state.validationMessage;
     backBtn.hidden = false;
-    backBtn.textContent = state.currentStep === 0 ? '← Back to interests' : 'Back';
-    continueBtn.textContent = state.currentStep === reflectionPrompts.length - 1 ? 'Finish →' : 'Continue →';
+    backBtn.textContent = state.currentStep === 0 ? ui('backToInterests') : ui('back');
+    continueBtn.textContent = state.currentStep === reflectionPrompts.length - 1 ? ui('finish') : ui('continueArrow');
   }
 
   answerInput.addEventListener('input', function(){
@@ -1120,7 +1622,7 @@
     var q = reflectionPrompts[state.currentStep];
     var answer = (state.reflectionAnswers[q.id] || '').trim();
     if(!answer){
-      state.validationMessage = 'A quick note helps — start with a few words and build from there.';
+      state.validationMessage = ui('needAFewWords');
       renderAll();
       return;
     }
@@ -1140,7 +1642,7 @@
     var show = state.showSummary;
     summarySection.hidden = !show;
     if(!show) return;
-    document.getElementById('sumInterest').textContent = state.selectedInterest || '—';
+    document.getElementById('sumInterest').textContent = state.selectedInterest ? interestCategoryLabel(state.selectedInterest) : '—';
     document.getElementById('sumProblem').textContent = state.reflectionAnswers.problem || '—';
     document.getElementById('sumHelp').textContent = state.reflectionAnswers.help || '—';
     document.getElementById('sumCreate').textContent = state.reflectionAnswers.create || '—';
@@ -1173,7 +1675,7 @@
     document.getElementById('ideaProblem').textContent = draft.problemDescription;
     document.getElementById('ideaHelps').textContent = draft.beneficiaries;
     document.getElementById('ideaSolution').textContent = draft.proposedSolution;
-    document.getElementById('ideaInterest').textContent = state.selectedInterest;
+    document.getElementById('ideaInterest').textContent = interestCategoryLabel(state.selectedInterest);
     document.getElementById('ideaMotivation').textContent = draft.coreMotivation;
     document.getElementById('ideaFeasible').textContent = draft.whyFeasible;
     var ul = document.getElementById('ideaNextSteps');
@@ -1186,6 +1688,9 @@
   }
 
   document.getElementById('startBuildingBtn').addEventListener('click', function(){
+    state.discoverCompleted = true;
+    persistDiscover();
+    updatePhaseLockUI();
     setPhase('build');
   });
 
@@ -1197,32 +1702,53 @@
     card.className = 'toolkit-card';
     card.innerHTML =
       '<div class="toolkit-icon">' + res.icon + '</div>' +
-      '<h3>' + res.title + '</h3>' +
-      '<p>' + res.description + '</p>' +
-      '<button type="button" class="btn btn-ghost btn-small toolkit-explore">Explore</button>' +
+      '<h3></h3>' +
+      '<p></p>' +
+      '<button type="button" class="btn btn-ghost btn-small toolkit-explore"></button>' +
       '<div class="toolkit-details" hidden>' +
-        '<p class="toolkit-details-summary">' + res.details.summary + '</p>' +
-        '<ul class="toolkit-details-list">' + res.details.points.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+        '<p class="toolkit-details-summary"></p>' +
+        '<ul class="toolkit-details-list"></ul>' +
       '</div>';
+    card.querySelector('h3').textContent = res.title;
+    card.querySelector('p').textContent = res.description;
+    card.querySelector('.toolkit-details-summary').textContent = res.details.summary;
+    var list = card.querySelector('.toolkit-details-list');
+    res.details.points.forEach(function(p){
+      var li = document.createElement('li');
+      li.textContent = p;
+      list.appendChild(li);
+    });
     var exploreBtn = card.querySelector('.toolkit-explore');
     var details = card.querySelector('.toolkit-details');
     exploreBtn.addEventListener('click', function(){
-      var isActive = state.selectedResource === res.title;
-      state.selectedResource = isActive ? '' : res.title;
+      var isActive = state.selectedResource === res.id;
+      state.selectedResource = isActive ? '' : res.id;
       renderToolkit();
     });
     card._details = details;
     card._exploreBtn = exploreBtn;
-    card._title = res.title;
+    card._id = res.id;
+    card._res = res;
     toolkitGridEl.appendChild(card);
   });
   function renderToolkit(){
     Array.prototype.forEach.call(toolkitGridEl.children, function(card){
-      var active = state.selectedResource === card._title;
+      var active = state.selectedResource === card._id;
+      card.querySelector('h3').textContent = card._res.title;
+      card.querySelector('p').textContent = card._res.description;
+      card.querySelector('.toolkit-details-summary').textContent = card._res.details.summary;
+      var list = card.querySelector('.toolkit-details-list');
+      list.innerHTML = '';
+      card._res.details.points.forEach(function(p){
+        var li = document.createElement('li');
+        li.textContent = p;
+        list.appendChild(li);
+      });
       card._details.hidden = !active;
-      card._exploreBtn.textContent = active ? 'Collapse' : 'Explore';
+      card._exploreBtn.textContent = active ? ui('collapse') : ui('explore');
     });
-    toolkitFocusEl.textContent = state.selectedResource || '—';
+    var activeCard = Array.prototype.filter.call(toolkitGridEl.children, function(c){ return c._id === state.selectedResource; })[0];
+    toolkitFocusEl.textContent = activeCard ? activeCard._res.title : '—';
   }
 
   // ---- phase switching ----
@@ -1230,7 +1756,17 @@
   var buildPhaseEl = document.getElementById('buildPhase');
   var discoverPhaseContentEl = document.getElementById('discoverPhaseContent');
 
+  function updatePhaseLockUI(){
+    var buildBtn = phaseSwitchEl.querySelector('[data-phase="build"]');
+    var unlocked = discoverUnlocked();
+    buildBtn.classList.toggle('is-locked', !unlocked);
+    var icon = document.getElementById('buildLockIcon');
+    if(icon) icon.hidden = unlocked;
+    buildBtn.title = unlocked ? '' : ui('lockedTooltip');
+  }
+
   function setPhase(p){
+    if(p === 'build' && !discoverUnlocked()) return;
     state.phase = p;
     Array.prototype.forEach.call(phaseSwitchEl.children, function(btn){
       var active = btn.getAttribute('data-phase') === p;
@@ -1253,11 +1789,6 @@
     problem: document.getElementById('stageProblem'),
     plan: document.getElementById('stagePlan'),
     pitch: document.getElementById('stagePitch'),
-  };
-  var stageNextLabel = {
-    problem: 'Submit research to continue',
-    plan: 'Submit plan to continue',
-    pitch: 'Submit pitch to finish',
   };
   var buildProgressEl = document.getElementById('buildProgress');
   var stageBackBtn = document.getElementById('stageBackBtn');
@@ -1306,11 +1837,11 @@
     var completed = Boolean(state.build[current].completed);
     if(completed){
       stageNextBtn.disabled = false;
-      stageNextBtn.textContent = isLast ? 'Pitch submitted ✓' : 'Continue to ' + (current === 'problem' ? 'Plan' : 'Pitch') + ' →';
+      stageNextBtn.textContent = isLast ? ui('pitchSubmitted') : ui('continueTo')(current === 'problem' ? ui('planLabel') : ui('pitchLabel'));
       stageNextBtn.hidden = isLast;
     } else {
       stageNextBtn.disabled = true;
-      stageNextBtn.textContent = stageNextLabel[current];
+      stageNextBtn.textContent = ui('stageNextLabel')[current];
       stageNextBtn.hidden = false;
     }
   }
@@ -1331,21 +1862,23 @@
   document.getElementById('ideaRecapToggle').addEventListener('click', function(){
     var body = document.getElementById('ideaRecapBody');
     body.hidden = !body.hidden;
-    this.textContent = 'Your answers & idea concept ' + (body.hidden ? '▾' : '▴');
+    this.textContent = ui('ideaRecapLabel') + ' ' + (body.hidden ? '▾' : '▴');
   });
 
   function renderIdeaRecap(){
     var body = document.getElementById('ideaRecapBody');
     var draft = computeIdeaDraft();
+    document.getElementById('ideaRecapToggle').textContent =
+      ui('ideaRecapLabel') + ' ' + (document.getElementById('ideaRecapBody').hidden ? '▾' : '▴');
     var items = [
-      ['Interest', state.selectedInterest || '—'],
-      ['What pulled your curiosity', state.reflectionAnswers.learn || '—'],
-      ['Why it matters to you', state.reflectionAnswers.change || '—'],
-      ['Problem you noticed', state.reflectionAnswers.problem || '—'],
-      ['Who you want to help', state.reflectionAnswers.help || '—'],
-      ['What you could try', state.reflectionAnswers.create || '—'],
-      ['Project title', draft.projectTitle],
-      ['Proposed solution', draft.proposedSolution],
+      [ui('recapInterest'), state.selectedInterest ? interestCategoryLabel(state.selectedInterest) : '—'],
+      [ui('recapLearn'), state.reflectionAnswers.learn || '—'],
+      [ui('recapChange'), state.reflectionAnswers.change || '—'],
+      [ui('recapProblem'), state.reflectionAnswers.problem || '—'],
+      [ui('recapHelp'), state.reflectionAnswers.help || '—'],
+      [ui('recapCreate'), state.reflectionAnswers.create || '—'],
+      [ui('recapTitle'), draft.projectTitle],
+      [ui('recapSolution'), draft.proposedSolution],
     ];
     body.innerHTML = items.map(function(pair){
       return '<div class="recap-item"><span></span><strong></strong></div>';
@@ -1385,8 +1918,9 @@
   }
 
   function mentorRequest(payload, statusEl, responseEl, btn, onDone){
+    payload.language = currentLang;
     btn.disabled = true;
-    statusEl.textContent = 'Thinking…';
+    statusEl.textContent = ui('thinking');
     responseEl.hidden = true;
     return fetch('/api/mentor', {
       method: 'POST',
@@ -1394,7 +1928,7 @@
       body: JSON.stringify(payload)
     }).then(function(r){
       return r.json().then(function(data){
-        if(!r.ok) throw new Error(data.error || 'The mentor is unavailable right now.');
+        if(!r.ok) throw new Error(data.error || ui('mentorUnavailable'));
         return data;
       });
     }).then(function(data){
@@ -1416,11 +1950,13 @@
     state.build.problem.log.forEach(function(entry){
       var row = document.createElement('div');
       row.className = 'log-entry';
-      var typeLabel = entry.type === 'interview' ? 'Direct interview' : 'Online research';
+      var typeLabel = entry.type === 'interview' ? ui('directInterview') : ui('onlineResearch');
       row.innerHTML =
-        '<div class="log-entry-body"><span class="log-entry-type">' + typeLabel + '</span>' +
+        '<div class="log-entry-body"><span class="log-entry-type"></span>' +
         '<div class="log-entry-text"></div></div>' +
-        '<button type="button" class="log-entry-remove">Remove</button>';
+        '<button type="button" class="log-entry-remove"></button>';
+      row.querySelector('.log-entry-type').textContent = typeLabel;
+      row.querySelector('.log-entry-remove').textContent = ui('remove');
       row.querySelector('.log-entry-text').textContent = entry.text;
       row.querySelector('.log-entry-remove').addEventListener('click', function(){
         state.build.problem.log = state.build.problem.log.filter(function(e){ return e.id !== entry.id; });
@@ -1475,13 +2011,13 @@
     }).join('\n');
 
     if(!logText && !file){
-      status.textContent = 'Add at least one log entry or attach a PDF first.';
+      status.textContent = ui('addLogFirst');
       return;
     }
 
     var ready = file ? fileToBase64(file) : Promise.resolve(null);
     btn.disabled = true;
-    status.textContent = 'Reading…';
+    status.textContent = ui('reading');
     responseEl.hidden = true;
 
     ready.then(function(pdfBase64){
@@ -1499,24 +2035,18 @@
         renderStageNav();
       });
     }).catch(function(){
-      status.textContent = 'Could not read that PDF.';
+      status.textContent = ui('couldNotReadPdf');
       btn.disabled = false;
     });
   });
 
   // ---- Stage 2: Plan ----
-  var PLAN_TEMPLATE =
-    'PROBLEM\n\n\n' +
-    "WHO IT'S FOR\n\n\n" +
-    "WHAT WE'RE PROPOSING\n\n\n" +
-    'WHY THIS COULD WORK\n\n\n' +
-    'NEXT STEPS\n\n';
-
   document.getElementById('insertTemplateBtn').addEventListener('click', function(){
     var textarea = document.getElementById('planText');
-    if(textarea.value.trim() && !window.confirm("This will replace what you've written with the template. Continue?")) return;
-    textarea.value = PLAN_TEMPLATE;
-    state.build.plan.text = PLAN_TEMPLATE;
+    if(textarea.value.trim() && !window.confirm(ui('templateConfirm'))) return;
+    var template = ui('planTemplate');
+    textarea.value = template;
+    state.build.plan.text = template;
     persistBuild();
   });
 
@@ -1536,7 +2066,7 @@
     var responseEl = document.getElementById('planResponse');
     var planText = document.getElementById('planText').value.trim();
     if(!planText){
-      status.textContent = 'Write something in your plan first.';
+      status.textContent = ui('writeInPlanFirst');
       return;
     }
     mentorRequest({
@@ -1555,7 +2085,7 @@
   document.getElementById('savePlanPdfBtn').addEventListener('click', function(){
     var planText = document.getElementById('planText').value.trim();
     if(!planText) return;
-    if(!window.jspdf){ alert('PDF export is unavailable right now.'); return; }
+    if(!window.jspdf){ alert(ui('pdfUnavailable')); return; }
     var doc = new window.jspdf.jsPDF({ unit:'pt', format:'letter' });
     doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
     doc.text('Beyond Circumstances — Project Plan', 40, 50);
@@ -1577,7 +2107,7 @@
   document.getElementById('recordBtn').addEventListener('click', function(){
     var recordStatus = document.getElementById('recordStatus');
     if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-      recordStatus.textContent = 'This browser cannot access your microphone.';
+      recordStatus.textContent = ui('micUnavailable');
       return;
     }
     navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
@@ -1616,14 +2146,14 @@
         recognition.onerror = function(){};
         recognition.start();
       } else {
-        recordStatus.textContent = 'Live transcript is not supported in this browser — type it manually below.';
+        recordStatus.textContent = ui('noLiveTranscript');
       }
 
       document.getElementById('recordBtn').hidden = true;
       document.getElementById('stopRecordBtn').hidden = false;
-      if(!recordStatus.textContent) recordStatus.textContent = 'Recording…';
+      if(!recordStatus.textContent) recordStatus.textContent = ui('recording');
     }).catch(function(){
-      recordStatus.textContent = 'Could not access your microphone.';
+      recordStatus.textContent = ui('micBlocked');
     });
   });
 
@@ -1632,7 +2162,7 @@
     if(recognition) recognition.stop();
     document.getElementById('recordBtn').hidden = false;
     document.getElementById('stopRecordBtn').hidden = true;
-    document.getElementById('recordStatus').textContent = 'Recording saved.';
+    document.getElementById('recordStatus').textContent = ui('recordingSaved');
     state.build.pitch.transcript = document.getElementById('pitchTranscript').value;
     persistBuild();
   });
@@ -1648,7 +2178,7 @@
     var responseEl = document.getElementById('pitchResponse');
     var transcript = document.getElementById('pitchTranscript').value.trim();
     if(!transcript){
-      status.textContent = 'Record or type your pitch first.';
+      status.textContent = ui('recordOrTypeFirst');
       return;
     }
     mentorRequest({
@@ -1672,7 +2202,7 @@
     var input = document.getElementById('askMentorInput');
     var question = input.value.trim();
     if(!question){
-      status.textContent = 'Type a question first.';
+      status.textContent = ui('typeQuestionFirst');
       return;
     }
     var stage = state.build.activeStage;
@@ -1737,62 +2267,44 @@
     persistDiscover();
   }
 
-  renderAll();
-  renderToolkit();
-  setPhase('discover');
-
-})();
-</script>
-
-<script>
-  var I18N = {
-    hi: {
-      'nav.about':'हमारे बारे में', 'nav.build':'बिल्ड',
-      'phase.discover':'डिस्कवर और तैयारी',
-      'build.phase':'फ़ेज़ 2',
-      'build.intro':"अपने आइडिया को कुछ असली में बदलें, एक-एक कदम करके। आप हमेशा पीछे जाकर पिछला कदम बदल सकते हैं — बस मौजूदा कदम को मेंटर रिव्यू के लिए सबमिट किए बिना आगे नहीं बढ़ सकते।",
-      'foot.tagline':'एक मुफ़्त, AI-संचालित प्लेटफ़ॉर्म, सभी के लिए खुला, जो आपकी सच्ची रुचि को एक असली प्रोजेक्ट में बदलने में मदद करता है।',
-      'foot.founders':'संस्थापक', 'foot.contact':'संपर्क', 'foot.program':'प्रोग्राम',
-      'foot.bottom':'एक स्वतंत्र युवा वेंचर पहल · दिल्ली NCR'
-    },
-    ur: {
-      'nav.about':'ہمارے بارے میں', 'nav.build':'بلڈ',
-      'phase.discover':'ڈسکور اور تیاری',
-      'build.phase':'فیز 2',
-      'build.intro':'اپنے آئیڈیے کو کچھ حقیقی میں بدلیں، ایک ایک قدم کرکے۔ آپ ہمیشہ واپس جا کر پچھلا قدم بدل سکتے ہیں — بس موجودہ قدم کو مینٹر ریویو کے لیے جمع کیے بغیر آگے نہیں بڑھ سکتے۔',
-      'foot.tagline':'ایک مفت، AI سے چلنے والا پلیٹ فارم، سب کے لیے کھلا، جو آپ کی حقیقی دلچسپی کو ایک حقیقی پروجیکٹ میں بدلنے میں مدد دیتا ہے۔',
-      'foot.founders':'بانی', 'foot.contact':'رابطہ', 'foot.program':'پروگرام',
-      'foot.bottom':'ایک خودمختار نوجوان وینچر پہل · دہلی NCR'
-    }
-  };
-
-  (function(){
-    var LANG_KEY = 'bc_lang';
-    var langBtn = document.getElementById('langBtn');
-    var langMenu = document.getElementById('langMenu');
-    var langCode = document.getElementById('langCode');
-    var langSwitch = document.getElementById('langSwitch');
-    if(!langBtn) return;
-
-    var nodes = [];
+  // ---- static chrome text (nav, footer, phase labels) ----
+  function applyStaticI18n(){
     document.querySelectorAll('[data-i18n]').forEach(function(el){
-      nodes.push({ el: el, key: el.getAttribute('data-i18n'), en: el.textContent });
+      var val = ui(el.getAttribute('data-i18n'));
+      if(typeof val === 'string'){
+        el.textContent = val;
+        el.setAttribute('dir', currentLang === 'ur' ? 'rtl' : 'ltr');
+      }
     });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var val = ui(el.getAttribute('data-i18n-ph'));
+      if(typeof val === 'string') el.setAttribute('placeholder', val);
+    });
+  }
 
-    function applyLang(lang){
-      var dict = I18N[lang] || null;
-      nodes.forEach(function(n){
-        n.el.textContent = dict && dict[n.key] ? dict[n.key] : n.en;
-        n.el.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
-      });
-      langCode.textContent = lang.toUpperCase();
-      langMenu.querySelectorAll('li').forEach(function(li){
-        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
-      });
-      document.documentElement.setAttribute('lang', lang);
-      try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
-    }
+  // ---- language switcher ----
+  var langBtn = document.getElementById('langBtn');
+  var langMenu = document.getElementById('langMenu');
+  var langCodeEl = document.getElementById('langCode');
+  var langSwitchEl = document.getElementById('langSwitch');
 
+  function applyLang(lang){
+    currentLang = (lang === 'hi' || lang === 'ur') ? lang : 'en';
+    try{ localStorage.setItem(LANG_KEY, currentLang); }catch(e){}
+    rebuildLangData();
+    applyStaticI18n();
+    langCodeEl.textContent = currentLang.toUpperCase();
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.setAttribute('aria-selected', li.getAttribute('data-lang') === currentLang ? 'true' : 'false');
+    });
+    document.documentElement.setAttribute('lang', currentLang);
+    renderAll();
+    renderToolkit();
+    updatePhaseLockUI();
+    if(state.phase === 'build') renderBuild();
+  }
+
+  if(langBtn){
     langBtn.addEventListener('click', function(){
       var opening = langMenu.hidden;
       langMenu.hidden = !opening;
@@ -1806,7 +2318,7 @@
       });
     });
     document.addEventListener('click', function(e){
-      if(!langSwitch.contains(e.target)){
+      if(!langSwitchEl.contains(e.target)){
         langMenu.hidden = true;
         langBtn.setAttribute('aria-expanded', 'false');
       }
@@ -1814,11 +2326,19 @@
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape'){ langMenu.hidden = true; langBtn.setAttribute('aria-expanded', 'false'); }
     });
+    langCodeEl.textContent = currentLang.toUpperCase();
+    langMenu.querySelectorAll('li').forEach(function(li){
+      li.setAttribute('aria-selected', li.getAttribute('data-lang') === currentLang ? 'true' : 'false');
+    });
+  }
 
-    var saved = 'en';
-    try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
-    if(saved !== 'en') applyLang(saved);
-  })();
+  applyStaticI18n();
+  renderAll();
+  renderToolkit();
+  setPhase('discover');
+  updatePhaseLockUI();
+
+})();
 </script>
 
 </body>
