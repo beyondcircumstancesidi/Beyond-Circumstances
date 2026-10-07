@@ -1803,6 +1803,7 @@
 
   function goToStage(stage){
     if(!isStageUnlocked(stage)) return;
+    var changed = state.build.activeStage !== stage;
     state.build.activeStage = stage;
     persistBuild();
     Object.keys(stageEls).forEach(function(key){
@@ -1810,7 +1811,9 @@
     });
     renderBuildProgress();
     renderStageNav();
-    window.scrollTo({ top: document.getElementById('buildPhase').offsetTop - 20, behavior: 'smooth' });
+    if(changed){
+      window.scrollTo({ top: document.getElementById('buildPhase').offsetTop - 20, behavior: 'smooth' });
+    }
   }
 
   function renderBuildProgress(){
@@ -2231,6 +2234,7 @@
     return 'welcome';
   }
 
+  var lastDiscoverView = null;
   function renderDiscoverVisibility(){
     var view = currentDiscoverView();
     document.getElementById('discoverWelcome').hidden = view !== 'welcome';
@@ -2239,7 +2243,8 @@
     questionSection.hidden = view !== 'reflect';
     summarySection.hidden = view !== 'summary';
     ideaSection.hidden = view !== 'idea';
-    if(state.phase === 'discover') window.scrollTo(0, 0);
+    if(state.phase === 'discover' && view !== lastDiscoverView) window.scrollTo(0, 0);
+    lastDiscoverView = view;
   }
 
   document.getElementById('startExploringBtn').addEventListener('click', function(){
