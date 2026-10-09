@@ -172,6 +172,19 @@
     transition:border-color 0.15s ease;
   }
   .form-row input:focus{outline:none; border-color:var(--gold-500);}
+  .form-row select{
+    background:var(--bg-900); border:1px solid var(--line-hair-strong); color:var(--cream-100);
+    font-family:var(--font-body); font-size:0.95rem; padding:0.8rem 2rem 0.8rem 0.95rem; border-radius:2px;
+    transition:border-color 0.15s ease; appearance:none; -webkit-appearance:none; -moz-appearance:none;
+    cursor:pointer; width:100%;
+  }
+  .form-row select:focus{outline:none; border-color:var(--gold-500);}
+  .dob-row{display:flex; gap:0.6rem;}
+  .select-wrap{position:relative; flex:1; min-width:0;}
+  .select-wrap .select-arrow{
+    position:absolute; right:0.85rem; top:50%; transform:translateY(-50%);
+    color:var(--sage-400); font-size:0.65rem; pointer-events:none;
+  }
   .form-two{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
   .form-note{font-size:0.8rem; color:var(--sage-400); margin-top:0.6rem; font-style:italic;}
   .form-hint.error{color:#E4A45C; font-size:0.82rem; margin-top:-0.6rem; margin-bottom:1rem; font-family:var(--font-mono);}
@@ -291,8 +304,21 @@
         </div>
         <div class="form-two">
           <div class="form-row">
-            <label for="fdob">Date of birth</label>
-            <input id="fdob" type="date">
+            <label>Date of birth</label>
+            <div class="dob-row">
+              <div class="select-wrap">
+                <select id="fdobDay"><option value="">Day</option></select>
+                <span class="select-arrow" aria-hidden="true">▾</span>
+              </div>
+              <div class="select-wrap">
+                <select id="fdobMonth"><option value="">Month</option></select>
+                <span class="select-arrow" aria-hidden="true">▾</span>
+              </div>
+              <div class="select-wrap">
+                <select id="fdobYear"><option value="">Year</option></select>
+                <span class="select-arrow" aria-hidden="true">▾</span>
+              </div>
+            </div>
           </div>
           <div class="form-row">
             <label for="fphone">Phone number <span class="optional">(optional)</span></label>
@@ -385,6 +411,33 @@
   var nextPage = params.get('next') || 'discover.html';
   document.getElementById('goDiscoverBtn').setAttribute('href', nextPage);
 
+  (function populateDobSelects(){
+    var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+    var dayEl = document.getElementById('fdobDay');
+    for(var d = 1; d <= 31; d++){
+      var opt = document.createElement('option');
+      opt.value = pad(d);
+      opt.textContent = d;
+      dayEl.appendChild(opt);
+    }
+    var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var monthEl = document.getElementById('fdobMonth');
+    monthNames.forEach(function(name, i){
+      var opt = document.createElement('option');
+      opt.value = pad(i + 1);
+      opt.textContent = name;
+      monthEl.appendChild(opt);
+    });
+    var yearEl = document.getElementById('fdobYear');
+    var currentYear = new Date().getFullYear();
+    for(var y = currentYear; y >= currentYear - 100; y--){
+      var yOpt = document.createElement('option');
+      yOpt.value = '' + y;
+      yOpt.textContent = y;
+      yearEl.appendChild(yOpt);
+    }
+  })();
+
   var signupForm = document.getElementById('signupForm');
   var loginForm = document.getElementById('loginForm');
   var adminForm = document.getElementById('adminForm');
@@ -438,7 +491,10 @@
     var name = document.getElementById('fname').value.trim();
     var email = document.getElementById('femail').value.trim();
     var password = document.getElementById('fpassword').value;
-    var dob = document.getElementById('fdob').value;
+    var dobDay = document.getElementById('fdobDay').value;
+    var dobMonth = document.getElementById('fdobMonth').value;
+    var dobYear = document.getElementById('fdobYear').value;
+    var dob = (dobDay && dobMonth && dobYear) ? (dobYear + '-' + dobMonth + '-' + dobDay) : '';
     var phone = document.getElementById('fphone').value.trim();
     var school = document.getElementById('fschool').value.trim();
     var area = document.getElementById('farea').value.trim();
