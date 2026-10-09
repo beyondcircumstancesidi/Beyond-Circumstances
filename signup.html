@@ -414,21 +414,16 @@
   (function populateDobSelects(){
     var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
     var dayEl = document.getElementById('fdobDay');
-    for(var d = 1; d <= 31; d++){
-      var opt = document.createElement('option');
-      opt.value = pad(d);
-      opt.textContent = d;
-      dayEl.appendChild(opt);
-    }
-    var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var monthEl = document.getElementById('fdobMonth');
+    var yearEl = document.getElementById('fdobYear');
+
+    var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     monthNames.forEach(function(name, i){
       var opt = document.createElement('option');
       opt.value = pad(i + 1);
       opt.textContent = name;
       monthEl.appendChild(opt);
     });
-    var yearEl = document.getElementById('fdobYear');
     var currentYear = new Date().getFullYear();
     for(var y = currentYear; y >= currentYear - 100; y--){
       var yOpt = document.createElement('option');
@@ -436,6 +431,34 @@
       yOpt.textContent = y;
       yearEl.appendChild(yOpt);
     }
+
+    function daysInMonth(month, year){
+      if(!month) return 31;
+      var y = year ? Number(year) : 2000; // any non-leap-safe placeholder year when year isn't picked yet
+      return new Date(y, Number(month), 0).getDate();
+    }
+
+    function refreshDayOptions(){
+      var prevValue = dayEl.value;
+      var max = daysInMonth(monthEl.value, yearEl.value);
+      dayEl.innerHTML = '';
+      var placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'D';
+      dayEl.appendChild(placeholder);
+      for(var d = 1; d <= max; d++){
+        var opt = document.createElement('option');
+        opt.value = pad(d);
+        opt.textContent = d;
+        dayEl.appendChild(opt);
+      }
+      // Keep the previously picked day only if it's still a valid day for this month/year.
+      dayEl.value = (prevValue && Number(prevValue) <= max) ? prevValue : '';
+    }
+
+    refreshDayOptions();
+    monthEl.addEventListener('change', refreshDayOptions);
+    yearEl.addEventListener('change', refreshDayOptions);
   })();
 
   var signupForm = document.getElementById('signupForm');
