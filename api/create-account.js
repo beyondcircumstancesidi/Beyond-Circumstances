@@ -28,8 +28,15 @@ export default async function handler(req, res) {
   const school = (body.school || '').trim();
   const area = (body.area || '').trim();
 
-  if (!name || !email || !password || !dob || !school || !area) {
-    return res.status(400).json({ error: 'Please fill in every required field.' });
+  const missing = [];
+  if (!name) missing.push('Full name');
+  if (!email) missing.push('Email');
+  if (!password) missing.push('Password');
+  if (!dob) missing.push('Date of birth');
+  if (!school) missing.push('School');
+  if (!area) missing.push('Area');
+  if (missing.length) {
+    return res.status(400).json({ error: 'Please fill in: ' + missing.join(', ') + '. (Phone number is the only optional field.)' });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Enter a valid email address.' });

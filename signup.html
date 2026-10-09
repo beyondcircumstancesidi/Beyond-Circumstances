@@ -443,8 +443,15 @@
     var school = document.getElementById('fschool').value.trim();
     var area = document.getElementById('farea').value.trim();
 
-    if(!name || !email || !password || !dob || !school || !area){
-      detailsError.textContent = 'Please fill in every required field.';
+    var missing = [];
+    if(!name) missing.push('Full name');
+    if(!email) missing.push('Email');
+    if(!password) missing.push('Password');
+    if(!dob) missing.push('Date of birth');
+    if(!school) missing.push('School');
+    if(!area) missing.push('Area');
+    if(missing.length){
+      detailsError.textContent = 'Please fill in: ' + missing.join(', ') + '. (Phone number is the only optional field.)';
       detailsError.hidden = false;
       return;
     }
