@@ -181,6 +181,7 @@
   .form-row select:focus{outline:none; border-color:var(--gold-500);}
   .dob-row{display:flex; gap:0.6rem;}
   .select-wrap{position:relative; flex:1; min-width:0;}
+  .select-wrap-month{flex:1.8;}
   .select-wrap .select-arrow{
     position:absolute; right:0.85rem; top:50%; transform:translateY(-50%);
     color:var(--sage-400); font-size:0.65rem; pointer-events:none;
@@ -302,28 +303,26 @@
           <label for="fpassword">Password</label>
           <input id="fpassword" type="password" placeholder="At least 6 characters" autocomplete="new-password">
         </div>
-        <div class="form-two">
-          <div class="form-row">
-            <label>Date of birth</label>
-            <div class="dob-row">
-              <div class="select-wrap">
-                <select id="fdobDay"><option value="">D</option></select>
-                <span class="select-arrow" aria-hidden="true">▾</span>
-              </div>
-              <div class="select-wrap">
-                <select id="fdobMonth"><option value="">M</option></select>
-                <span class="select-arrow" aria-hidden="true">▾</span>
-              </div>
-              <div class="select-wrap">
-                <select id="fdobYear"><option value="">Y</option></select>
-                <span class="select-arrow" aria-hidden="true">▾</span>
-              </div>
+        <div class="form-row">
+          <label>Date of birth</label>
+          <div class="dob-row">
+            <div class="select-wrap">
+              <select id="fdobDay"><option value="">D</option></select>
+              <span class="select-arrow" aria-hidden="true">▾</span>
+            </div>
+            <div class="select-wrap select-wrap-month">
+              <select id="fdobMonth"><option value="">M</option></select>
+              <span class="select-arrow" aria-hidden="true">▾</span>
+            </div>
+            <div class="select-wrap">
+              <select id="fdobYear"><option value="">Y</option></select>
+              <span class="select-arrow" aria-hidden="true">▾</span>
             </div>
           </div>
-          <div class="form-row">
-            <label for="fphone">Phone number <span class="optional">(optional)</span></label>
-            <input id="fphone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
-          </div>
+        </div>
+        <div class="form-row">
+          <label for="fphone">Phone number <span class="optional">(optional)</span></label>
+          <input id="fphone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
         </div>
         <div class="form-row">
           <label for="fschool">School</label>
